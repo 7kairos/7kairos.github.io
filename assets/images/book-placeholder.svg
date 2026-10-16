@@ -1,0 +1,9 @@
+<svg width="600" height="732" viewBox="0 0 600 732" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="18" width="525" height="696" fill="#2F2929"/>
+  <path d="M545 323H567C578.046 323 587 331.954 587 343V389C587 400.046 578.046 409 567 409H545V391H562C566.418 391 570 387.418 570 383V349C570 344.582 566.418 341 562 341H545V323Z" fill="#2F2929"/>
+  <line x1="113" y1="245" x2="446" y2="245" stroke="#716966" stroke-width="2" opacity="0.45"/>
+  <text x="280" y="330" fill="#F0ECEB" font-size="28" text-anchor="middle" font-family="monospace">YOUR BOOK IMAGE</text>
+  <text x="280" y="366" fill="#9F9693" font-size="18" text-anchor="middle" font-family="monospace">replace this SVG</text>
+  <path d="M93 598L104.226 627.274L135.595 628.91L111.198 648.726L119.336 679.09L92.9998 662L66.6642 679.09L74.8019 648.726L50.405 628.91L81.7736 627.274L93 598Z" fill="#F8B943"/>
+  <path d="M142 631L149.41 650.325L170.113 651.405L154.012 664.482L159.383 684.52L142 673.25L124.617 684.52L129.988 664.482L113.887 651.405L134.59 650.325L142 631Z" fill="#ECA6D7"/>
+</svg>

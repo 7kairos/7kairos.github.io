@@ -1,0 +1,668 @@
+:root {
+  --cream: #faf9f4;
+  --paper: #fffdf8;
+  --ink: #352d35;
+  --soft-ink: #6f5e67;
+  --muted: #93808b;
+  --border: #e9dce0;
+  --valhalla: #e76a65;
+  --hokundra: #729acf;
+  --baylands: #e9c853;
+  --karp: #79aa77;
+  --mono: 'DM Mono', monospace;
+  --pixel: 'Pixelify Sans', monospace;
+  --display: 'Roboto Condensed', Impact, sans-serif;
+  --rose: #f28cba; 
+  --rose-deep: #a45278;
+  --rose-soft: #fae7ee;
+  --rose-line: #e5c5d1;
+  --pixel-numbers: 'Silkscreen', 'DM Mono', monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--mono); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+button { font: inherit; }
+img, svg { display: block; }
+[hidden] { display: none !important; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--hokundra); outline-offset: 4px; }
+::selection { background: #f7e1ec; }
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 80; background: var(--ink); color: var(--paper); padding: 12px; }
+.skip-link:focus { top: 12px; }
+
+/* Four colored lines, a nod to the four regions. */
+.region-line { height: 5px; display: grid; grid-template-columns: repeat(4, 1fr); }
+.region-line span { display: block; }
+.region-line .valhalla { background: var(--valhalla); }
+.region-line .hokundra { background: var(--hokundra); }
+.region-line .baylands { background: var(--baylands); }
+.region-line .karp { background: var(--karp); }
+/* Single-row header: the train stops sit alongside the Milkymon wordmark. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 35;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  padding: 0 max(4vw,24px);
+  background: rgb(250 249 244 / 97%);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex;
+  width: 100%;
+  max-width: 1530px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px,4vw,64px);
+}
+.logo {
+  font-family: var(--pixel);
+  font-weight: 600;
+  font-size: clamp(22px,2vw,27px);
+  letter-spacing: -.055em;
+  white-space: nowrap;
+}
+.logo span { color: var(--valhalla); }
+
+.pixel-word {
+  font-family: var(--pixel);
+  font-weight: 500;
+  letter-spacing: -.08em;
+  color: #f28cba;
+}
+
+/* Four interactive stations in a single train route. */
+.station-nav { width: min(55vw,630px); flex: 0 1 630px; min-width: 0; }
+.station-map { position: relative; width: 100%; }
+.track-base, .track-progress {
+  position: absolute;
+  top: 11px;
+  left: 12.5%;
+  height: 2px;
+  pointer-events: none;
+}
+.track-base { right: 12.5%; background: #e1ccd5; }
+.track-progress { width: var(--progress-width,0%); max-width: 75%; background: var(--ink); transition: width 240ms ease; }
+.station-list { position: relative; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 0; padding: 0; list-style: none; }
+.station-link { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 43px; gap: 7px; color: #a08c96; font-size: 10px; transition: color 180ms ease; }
+.station-dot { height: 18px; width: 18px; flex: none; margin-top: 3px; border: 2px solid #c59baa; border-radius: 50%; background: var(--cream); transition: transform 170ms ease,background 170ms ease,box-shadow 170ms ease; }
+.station-link:hover { color: var(--ink); }
+.station-link:hover .station-dot { transform: scale(1.14); }
+.station-link.is-passed .station-dot { background: var(--ink); border-color: var(--ink); }
+.station-link.is-current { color: var(--ink); font-weight: 500; }
+.station-link.is-current .station-dot { background: var(--ink); border-color: var(--ink); box-shadow: 0 0 0 5px #f5e0e9; }
+
+.section-anchor { scroll-margin-top: 96px; }
+.section-shell { max-width: 1530px; margin: 0 auto; padding-left: max(4vw,24px); padding-right: max(4vw,24px); }
+.section-label,.eyebrow { color: var(--soft-ink); font-size: 10px; line-height: 1.6; letter-spacing: .12em; font-weight: 500; }
+.section-title { font-family: var(--display); font-weight: 700; font-size: clamp(66px,7vw,112px); line-height: .89; letter-spacing: -.045em; margin: 17px 0 0; }
+.pixel-word { font-family: var(--pixel); font-weight: 500; letter-spacing: -.08em; }
+
+/* Spacious editorial hero: typography takes the place of the old map artwork. */
+.hero {
+  max-width: 1530px;
+  min-height: min(830px,calc(100svh - 95px));
+  margin: 0 auto;
+  padding: clamp(110px,10vw,175px) max(4vw,24px) clamp(120px,11vw,185px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero-copy { width: 100%; max-width: 960px; min-width: 0; margin: 0 auto; }
+.eyebrow { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0 0 30px; }
+.live-dot { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--rose); box-shadow: 0 0 0 3px #f8e1ea; }
+.hero h1 { font: 700 clamp(72px,8.2vw,132px)/.89 var(--display); letter-spacing: -.053em; margin: 0 0 34px; }
+.hero h1 .pixel-word { font-size: .94em; color: #f28cba; letter-spacing: -.07em; }
+.question-mark { color: var(--rose); }
+.hero-description { max-width: 560px; margin: 0 auto 37px; color: var(--soft-ink); font-size: 14px; line-height: 1.85; }
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; align-items: center; }
+.primary-button { min-width: 214px; display: inline-flex; align-items: center; justify-content: space-between; gap: 25px; padding: 18px 20px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); font-size: 11px; font-weight: 500; letter-spacing: .035em; box-shadow: 4px 4px 0 var(--cream),6px 6px 0 var(--ink); transition: transform 170ms ease,box-shadow 170ms ease,background 170ms ease; }
+.primary-button:hover { transform: translate(3px,3px); background: #684451; box-shadow: 1px 1px 0 var(--cream),3px 3px 0 var(--ink); }
+.button-arrow { font-size: 19px; }
+.quiz-meta { font-size: 10px; color: var(--muted); white-space: nowrap; }
+.quiz-meta span { margin: 0 5px; }
+.hero-disclaimer { margin: 45px auto 0; display: flex; align-items: flex-start; gap: 12px; max-width: 485px; font-size: 15px; line-height: 1.9; color: #8f7b85; text-align: left; }
+.hero-disclaimer p { margin: 0; }
+.hero-disclaimer strong { color: var(--ink); }
+.info-mark { display: grid; place-items: center; flex: 0 0 20px; width: 20px; height: 20px; border: 1px solid #dbb6c4; color: var(--ink); font: 16px var(--pixel); }
+
+/* Mid-page train stops */
+.station-heading { padding: 24px 0; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 20px; }
+.section-index,.section-hint { font-size: 10px; letter-spacing: .07em; white-space: nowrap; }.section-index { color: var(--ink); font-weight: 500; }.section-hint { color: var(--muted); }
+.section-dashes { flex: 1; border-top: 1px dashed #e9d8df; }
+.about { padding-top: 30px; padding-bottom: 156px; }
+.about-layout { display: grid; grid-template-columns: 1fr .81fr; gap: clamp(65px,9vw,150px); padding-top: 65px; }
+.about .section-label,.regions .section-label,.arcade .section-label { margin: 0; }
+.outline-word { color: #c8819e; }
+.about-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; max-width: 580px; color: var(--soft-ink); font-size: 13px; line-height: 1.9; }
+.about-copy p { margin: 0; }.about-copy .lead { font-size: 16px; line-height: 1.8; color: var(--ink); }.about-copy strong { font-weight: 500; }
+.about-copy a { color: #a45278; text-decoration: underline; text-underline-offset: 4px; }.about-copy a:hover { color: var(--ink); }
+.regions { padding-bottom: 157px; }
+.regions-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding: 53px 0 54px; }
+.regions-heading .pixel-word { font-size: .91em; color: #f28cba; }
+.regions-heading > p { max-width: 260px; margin: 0; font-size: 12px; line-height: 1.8; color: var(--soft-ink); }
+.region-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+.region-card { --region-color:var(--ink); --region-wash:#faf9f4; display: flex; flex-direction: column; min-height: 463px; padding: 22px 21px 21px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); background: transparent; transition: background 190ms ease; }
+.region-card:hover { background: var(--region-wash); }
+.region-valhalla { --region-color:#e36f64; --region-wash:#fbf0ea; }
+.region-hokundra { --region-color:#719ccc; --region-wash:#edf3fa; }
+.region-baylands { --region-color:#d7b542; --region-wash:#f9f4e1; }
+.region-karp { --region-color:#7ba579; --region-wash:#eef5eb; }
+.region-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 9px; letter-spacing: .055em; color: var(--muted); }
+.card-asterisk { font-size: 18px; color: var(--region-color); }
+.biome-symbol { display: grid; place-items: center; align-self: flex-start; margin-top: 32px; width: 84px; height: 84px; color: var(--region-color); }
+.biome-symbol svg { width: 72px; height: 72px; image-rendering: pixelated; }
+.region-card h3 { margin: 20px 0 11px; font: 700 clamp(29px,2.4vw,42px)/.95 var(--display); letter-spacing: -.04em; }
+.region-tagline { margin: 0 0 12px; color: var(--ink); font-size: 11px; line-height: 1.6; font-weight: 500; }
+.region-description { font-size: 11px; line-height: 1.85; color: var(--soft-ink); margin: 0 0 21px; }
+.region-detail { display: block; margin-top: auto; padding-top: 14px; border-top: 4px solid var(--region-color); color: var(--soft-ink); font-size: 9px; letter-spacing: .02em; line-height: 1.5; }
+.region-detail span { color: #b1a2ab; }
+.regions-footnote { display: flex; align-items: center; justify-content: flex-end; gap: 9px; text-align: right; margin: 23px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }.regions-footnote span { color: var(--rose); font-size: 16px; }
+
+/* Arcade, inspired by retro handheld Pokémon screens. */
+.arcade { padding-bottom: 145px; }
+.arcade-layout { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1fr); align-items: start; gap: clamp(45px,7.5vw,145px); padding-top: 68px; }
+/* Keep the introduction anchored while game hints/results resize the console. */
+.arcade-copy { padding-top: clamp(70px,10vw,145px); }
+.arcade-copy .section-title { font-size: clamp(60px,6.4vw,109px); }
+.arcade-copy .pixel-word { font-size: .85em; color: #f28cba; white-space: nowrap; }
+.arcade-copy > p:not(.section-label) { max-width: 435px; color: var(--soft-ink); font-size: 13px; line-height: 1.9; margin: 27px 0 0; }
+.arcade-instructions { max-width: 440px; margin: 36px 0 24px; padding: 19px; border: 1px dashed #e4c0cd; background: #fff0f4; display: grid; grid-template-columns: 9px 1fr; gap: 0 12px; align-items: center; }
+.tiny-square { display: inline-block; width: 9px; height: 9px; background: var(--rose); }
+.arcade-instructions > span:nth-child(2) { font-size: 10px; font-weight: 500; }
+.arcade-instructions p { grid-column: 2; font-size: 11px; line-height: 1.8; color: var(--soft-ink); margin: 9px 0 0; }
+.text-link { color: #a45278; font-size: 10px; text-underline-offset: 4px; border-bottom: 1px solid #e4bfd0; padding-bottom: 4px; line-height: 2.3; }.text-link:hover { color: var(--ink); }
+.game-console { border: 2px solid #d6a5b5; box-shadow: 9px 9px 0 #f2dee6; background: #fff1f6; padding: 20px; min-width: 0; }
+.console-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 15px; border-bottom: 1px solid #e9cbd5; color: #9b657f; font-size: 9px; letter-spacing: .04em; }
+.console-top span:first-child { display: flex; align-items: center; gap: 10px; }
+.game-stats { display: flex; gap: 20px; align-items: center; justify-content: space-between; padding: 18px 3px; }
+.game-stats > div { display: flex; flex-direction: column; gap: 4px; }
+.game-stats > div span { color: #a18896; font-size: 9px; }.game-stats strong { font: 600 25px/1.1 var(--pixel); white-space: nowrap; }
+.restart-button { border: 1px solid #d8adbf; background: #fffafd; padding: 10px 12px; cursor: pointer; color: var(--ink); font-size: 10px; }
+.restart-button:hover { background: #f8e4ed; }
+.mystery-display { height: 266px; display: grid; place-items: center; position: relative; overflow: hidden; border: 2px solid #edc6d5; background: #fffafd; background-image: linear-gradient(to right,#f9eaf0 1px,transparent 1px),linear-gradient(to bottom,#f9eaf0 1px,transparent 1px); background-size: 25px 25px; }
+.sprite-wrap { position: relative; z-index: 1; width: 220px; height: 220px; display: grid; place-items: center; }
+#pokemon-sprite { width: 190px; height: 190px; object-fit: contain; image-rendering: pixelated; filter: brightness(0) drop-shadow(3px 4px 0 rgb(67 83 69 / 8%)); transition: filter 250ms ease,transform 250ms ease; }
+.mystery-display.is-revealed #pokemon-sprite { filter: none; transform: scale(1.09); }
+.sprite-question { position: absolute; right: 24%; top: 17%; z-index: 2; font: 600 37px var(--pixel); color: #c78fa7; text-shadow: 2px 2px var(--paper); }
+.mystery-display.is-revealed .sprite-question { color: #dfb454; }
+.mystery-star { position: absolute; font: 24px var(--pixel); color: #c88fa8; }.mystery-star-a { top: 31px; left: 20%; }.mystery-star-b { bottom: 31px; right: 18%; }
+.mystery-display.sprite-unavailable .sprite-question { font-size: 84px; left: 44%; top: 32%; }
+.game-answer-header { display: flex; align-items: center; justify-content: space-between; gap: 9px; margin: 20px 2px 11px; color: var(--soft-ink); font-size: 10px; }
+.answer-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+.answer-choice { padding: 13px 10px; min-height: 47px; min-width: 0; border: 1px solid #dfb8ca; background: #fffafd; text-align: center; color: var(--ink); font-size: 11px; cursor: pointer; transition: transform 150ms ease,background 150ms ease; }
+.answer-choice:not(:disabled):hover { background: #f7e1ea; transform: translateY(-2px); }.answer-choice:disabled { cursor: default; }
+.answer-choice.is-correct { background: #f6d0e0; border-color: #cb7397; font-weight: 500; }.answer-choice.is-wrong { background: #f5e0d9; border-color: #d4a099; }
+.game-message { margin: 13px 0 0; min-height: 37px; display: flex; align-items: center; color: var(--soft-ink); font-size: 10px; line-height: 1.6; }
+.game-message.is-success { color: #a34772; font-weight: 500; }.game-message.is-miss { color: #976c60; }
+.next-button { display: block; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 12px 14px; width: 100%; margin-top: 8px; text-align: center; font-size: 11px; cursor: pointer; }.next-button:hover { background: #684451; }
+.sprite-credit { padding-top: 16px; border-top: 1px solid #ead0d9; color: var(--muted); font-size: 9px; line-height: 1.8; margin: 20px 0 0; }
+.sprite-credit a { text-decoration: underline; text-underline-offset: 3px; }
+
+.final-cta { padding-bottom: 110px; }.cta-ticket { border: 2px solid #dfc0cc; background: #f6f4e9; box-shadow: 8px 8px 0 #f3e2e8; }
+.cta-details { padding: 15px 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 9px; letter-spacing: .055em; }
+.cta-details:first-child { border-bottom: 1px dashed #b9c7b7; }.cta-details:last-child { border-top: 1px dashed #b9c7b7; }
+.cta-main { display: flex; justify-content: space-between; align-items: end; gap: 30px; padding: 56px max(5vw,29px); }
+.cta-main h2 { font: 700 clamp(53px,6.3vw,94px)/.89 var(--display); letter-spacing: -.05em; margin: 13px 0 0; }
+.site-footer { max-width: 1530px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 25px; border-top: 1px solid var(--border); padding: 30px max(4vw,24px); }.site-footer .logo { font-size: 20px; }.site-footer > span,.back-top { color: var(--muted); font-size: 9px; letter-spacing: .03em; }.back-top:hover { color: var(--ink); }
+
+@media (max-width: 1250px) {
+  .hero h1 { font-size: clamp(70px,8.6vw,112px); }
+  .region-card { padding: 18px 16px; min-height: 490px; }.region-card h3 { font-size: clamp(28px,2.35vw,38px); }
+  .arcade-layout { gap: 50px; }
+}
+@media (max-width: 940px) {
+  .hero { min-height: 670px; padding-top: 120px; padding-bottom: 130px; }
+  .hero h1 { font-size: clamp(66px,9.5vw,97px); }
+  .hero-copy { max-width: 800px; }
+  .about-layout { gap: 45px; }
+  .region-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }.region-card { min-height: 400px; padding: 25px; }.region-card h3 { font-size: 44px; }.region-description { font-size: 12px; }
+  .arcade-layout { grid-template-columns: 1fr; gap: 43px; }.arcade-copy { max-width: 720px; padding-top: 0; }.game-console { width: min(100%,590px); margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  .site-header { min-height: 78px; padding: 0 17px; }
+  .header-inner { gap: 12px; }
+  .logo { font-size: clamp(17px,4.2vw,20px); }
+  .station-nav { flex: 1 1 auto; width: auto; }
+  .station-dot { width: 13px; height: 13px; margin-top: 4px; border-width: 1.5px; }
+  .station-link { font-size: 8px; gap: 6px; min-height: 35px; }
+  .track-base,.track-progress { top: 10px; }
+  .station-link.is-current .station-dot { box-shadow: 0 0 0 3px #f5e0e9; }
+  .section-anchor { scroll-margin-top: 85px; }.section-shell { padding-left: 21px; padding-right: 21px; }
+  .hero { min-height: calc(100svh - 83px); padding: 100px 21px 110px; }
+  .eyebrow { margin-bottom: 25px; font-size: 9px; }
+  .hero h1 { font-size: clamp(42px,10.8vw,65px); margin-bottom: 27px; }
+  .hero-description { max-width: 390px; font-size: 12px; margin-bottom: 29px; }
+  .hero-actions { align-items: center; flex-direction: column; gap: 19px; }
+  .hero-disclaimer { margin-top: 36px; }
+  .station-heading { gap: 10px; }.section-index,.section-hint { font-size: 9px; }.section-hint { text-align: right; }
+  .section-title { font-size: clamp(62px,12.5vw,86px); }
+  .about { padding-bottom: 100px; }.about-layout { grid-template-columns: 1fr; padding-top: 48px; gap: 29px; }.about-copy { font-size: 12px; }.about-copy .lead { font-size: 14px; }
+  .regions { padding-bottom: 104px; }.regions-heading { align-items: flex-start; flex-direction: column; gap: 21px; padding: 48px 0 37px; }.regions-heading > p { font-size: 11px; }
+  .region-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }.region-card { min-height: 390px; padding: 15px 13px; }.region-card-top { font-size: 8px; }.biome-symbol { margin-top: 21px; width: 65px; height: 65px; }.biome-symbol svg { width: 62px; height: 62px; }.region-card h3 { font-size: clamp(25px,5.7vw,36px); margin-top: 13px; }.region-tagline { font-size: 10px; }.region-description { font-size: 10px; line-height: 1.7; }.region-detail { font-size: 8px; }.regions-footnote { text-align: left; justify-content: flex-start; font-size: 9px; }
+  .arcade { padding-bottom: 110px; }.arcade-layout { padding-top: 46px; gap: 38px; }.arcade-copy .section-title { font-size: clamp(51px,10.8vw,75px); }.arcade-copy > p:not(.section-label) { font-size: 12px; }
+  .game-console { padding: 12px; }.console-top { font-size: 8px; }.game-stats { gap: 9px; }.game-stats strong { font-size: 22px; }.restart-button { font-size: 9px; padding: 8px; }
+  .mystery-display { height: 234px; }.sprite-wrap { height: 200px; width: 200px; }#pokemon-sprite { width: 180px; height: 180px; }.sprite-question { right: 17%; }.answer-choice { font-size: 10px; }
+  .cta-main { padding: 42px 22px; flex-direction: column; align-items: flex-start; }.cta-main h2 { font-size: clamp(48px,10vw,72px); }.cta-details { font-size: 8px; padding: 11px 15px; }
+  .final-cta { padding-bottom: 88px; }.site-footer { flex-wrap: wrap; padding: 25px 21px; }.site-footer > span { order: 3; flex-basis: 100%; }
+}
+@media (max-width: 370px) {
+  .site-header { padding-inline: 11px; }.header-inner { gap: 7px; }.logo { font-size: 16px; }
+  .station-link { font-size: 7px; }
+  .hero h1 { font-size: 10.55vw; }.region-card { padding: 12px 10px; }.region-card h3 { font-size: 22px; }.region-description { font-size: 9px; }.region-detail { font-size: 7px; }
+  .arcade-copy .section-title { font-size: 10vw; }.site-footer .logo { font-size: 18px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  *,*::before,*::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* =============================================================
+   REGION MASCOTS / BOARDING PASS REDESIGN
+   ============================================================= */
+.biome-symbol.mascot-frame {
+  width: 112px;
+  height: 110px;
+  margin-top: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--region-color);
+}
+.mascot-sprite {
+  display: block;
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(3px 5px 0 rgb(92 49 77 / 7%));
+  transition: transform 180ms steps(3,end);
+}
+.region-card:hover .mascot-sprite { transform: translateY(-5px) scale(1.065); }
+.region-card-top .card-asterisk { opacity: .85; }
+
+/* The Milky Express: warm cream paper, rose tickets, plum ink,
+   small cutouts, tear-off perforation and a striped barcode. */
+.final-cta { padding-top: 44px; padding-bottom: 125px; }
+.ticket-intro { margin: 0 0 38px; text-align: center; }
+.ticket-intro h2 { margin: 17px 0 12px; font: 700 clamp(46px,6.2vw,92px)/.93 var(--display); letter-spacing: -.05em; }
+.ticket-intro h2 .pixel-word { font: 600 .8em/.95 var(--pixel); color: #f28cba; letter-spacing: -.065em; }
+.ticket-intro > p:last-child { font-size: 12px; line-height: 1.6; color: var(--soft-ink); }
+.milky-ticket {
+  --ticket-paper: #fff9ee;
+  --ticket-rose: #f6c1c7;
+  --ticket-rose-dark: #ba6076;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 285px;
+  width: min(100%, 1220px);
+  min-height: 437px;
+  margin: 0 auto;
+  isolation: isolate;
+  background: var(--ticket-paper);
+  border: 1.5px solid #c2a7a0;
+  box-shadow: 10px 12px 0 #e7e5db;
+}
+.milky-ticket::before,.milky-ticket::after {
+  content: ''; position: absolute; z-index: 5;
+  right: 268px; width: 33px; height: 33px;
+  border: 1px solid #c2a7a0;
+  background: var(--cream); border-radius: 50%;
+  pointer-events: none;
+}
+.milky-ticket::before { top: -18px; clip-path: inset(50% 0 0 0); }
+.milky-ticket::after { bottom: -18px; clip-path: inset(0 0 50% 0); }
+.ticket-body { min-width: 0; display: flex; flex-direction: column; padding: 0 34px; }
+.ticket-brand { display: flex; align-items: center; min-height: 78px; gap: 15px; border-bottom: 1px dashed #d4bcb3; }
+.ticket-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: none; background: var(--ticket-rose); color: #fff7ec; font: 600 29px var(--pixel); }
+.ticket-brand-name { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.ticket-brand-name > span,.ticket-label,.ticket-field > span,.stub-caption,.stub-mini span,.stub-direction > span,.ticket-service { font-size: 9px; letter-spacing: .13em; }
+.ticket-brand-name > span { color: #996875; }
+.ticket-brand-name strong { font: 600 clamp(21px,2.7vw,34px)/1 var(--pixel); letter-spacing: -.02em; }
+.ticket-service { margin-left: auto; white-space: nowrap; color: #9f7380; }
+.ticket-service span { color: #f2b9bf; margin-left: 6px; }
+.ticket-hero { padding: 42px 0 28px; position: relative; }
+.ticket-label { margin: 0 0 12px; color: #956778; }
+.ticket-hero h2 { margin: 0; font: 700 clamp(51px,5.3vw,79px)/.91 var(--display); letter-spacing: -.047em; }
+.ticket-hero h2 span { color: #f2b9bf; }
+.ticket-subline { margin: 20px 0 0; color: #806e67; font-size: 11px; line-height: 1.6; }
+.ticket-fields { display: grid; grid-template-columns: 1.02fr 1.15fr 1.45fr 1fr; border: 1px solid #dcc5b7; margin: auto 0 26px; }
+.ticket-field { min-width: 0; padding: 14px 11px 16px; display: flex; flex-direction: column; gap: 8px; }
+.ticket-field + .ticket-field { border-left: 1px solid #dcc5b7; }
+.ticket-field span { color: #9d948f; font-size: 9px; letter-spacing: .06em; }
+.ticket-field strong { font: 600 clamp(12px,1.25vw,17px)/1.3 var(--pixel); white-space: nowrap; }
+.ticket-body-footer { border-top: 1px dashed #d4bcb3; display: flex; justify-content: space-between; gap: 16px; padding: 14px 0 17px; color: #967f77; font-size: 8px; letter-spacing: .07em; }
+.ticket-stub { min-width: 0; background: #f2b9bf; border-left: 2px dashed #fff1df; padding: 25px 25px 24px 29px; display: flex; flex-direction: column; position: relative; }
+.stub-caption { color: #835663; border-bottom: 1px solid #cc8998; padding-bottom: 15px; white-space: nowrap; }
+.stub-direction { margin: 18px 0 19px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 0 6px; align-items: end; }
+.stub-direction span { color: #8d596a; }
+.stub-direction > span:first-child { grid-column: 1; grid-row: 1; }
+.stub-direction > span:nth-child(4) { grid-column: 3; grid-row: 1; }
+.stub-direction strong { grid-row: 2; font: 700 30px/.9 var(--display); letter-spacing: -.03em; }
+.stub-direction strong:nth-child(2) { grid-column: 1; }.stub-direction strong:last-child { grid-column: 3; }
+.stub-direction .stub-arrow { grid-column: 2; grid-row: 2; font: 500 22px var(--pixel); }
+.stub-mini { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #cb91a0; }
+.stub-mini > div { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.stub-mini > div + div { border-left: 1px solid #cb91a0; }
+.stub-mini span { color: #8f6471; }.stub-mini strong { font: 700 22px var(--display); }
+.ticket-barcode { width: 100%; height: 37px; margin-top: 20px; background: repeating-linear-gradient(90deg,#60464b 0,#60464b 2px,transparent 2px,transparent 5px,#60464b 5px,#60464b 9px,transparent 9px,transparent 13px,#60464b 13px,#60464b 14px,transparent 14px,transparent 18px); opacity: .9; }
+.stub-serial { text-align: center; margin: 6px 0 18px; font-size: 8px; color: #845764; letter-spacing: .2em; }
+.ticket-action { margin-top: auto; background: var(--ink); color: #fff9ee; min-height: 55px; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 15px 16px; box-shadow: 4px 4px 0 #f8e8e2; font: 500 11px var(--mono); transition: transform .18s ease, box-shadow .18s ease; }
+.ticket-action:hover { transform: translate(3px,3px); box-shadow: 1px 1px 0 #f8e8e2; }
+.ticket-action span:last-child { font-size: 18px; }
+.ticket-afterword { margin: 26px 0 0; text-align: center; font-size: 10px; color: var(--muted); }
+.site-footer strong { font-weight: 500; color: #bd7390; }
+
+@media (max-width: 1100px) {
+  .milky-ticket { grid-template-columns: minmax(0, 1fr) 246px; }
+  .milky-ticket::before,.milky-ticket::after { right: 229px; }
+  .ticket-body { padding: 0 25px; }
+  .ticket-hero h2 { font-size: clamp(48px,5.4vw,65px); }
+  .ticket-brand-name strong { font-size: 26px; }
+  .ticket-field { padding: 12px 9px; }
+  .ticket-field strong { font-size: 13px; }
+  .ticket-stub { padding: 24px 22px; }
+}
+@media (max-width: 790px) {
+  .biome-symbol.mascot-frame { margin-top: 14px; width: 95px; height: 95px; }
+  .mascot-sprite { width: 93px; height: 93px; }
+  .milky-ticket { grid-template-columns: 1fr; max-width: 650px; }
+  .milky-ticket::before,.milky-ticket::after { display: none; }
+  .ticket-stub { border-left: none; border-top: 2px dashed #fff4df; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px 15px; align-items: center; }
+  .stub-caption { grid-column: 1 / -1; padding-bottom: 10px; }
+  .stub-direction { margin: 2px 0; }
+  .stub-mini { align-self: stretch; }
+  .ticket-barcode { display: none; }
+  .stub-serial { display: none; }
+  .ticket-action { grid-column: 1 / -1; margin-top: 6px; }
+}
+@media (max-width: 600px) {
+  .final-cta { padding-top: 30px; padding-bottom: 105px; }
+  .ticket-intro { margin-bottom: 30px; }
+  .ticket-intro h2 { font-size: clamp(38px,9.4vw,58px); }
+  .ticket-intro h2 .pixel-word { font-size: .74em; }
+  .ticket-intro > p:last-child { font-size: 10px; }
+  .biome-symbol.mascot-frame { width: 85px; height: 85px; margin-top: 13px; }
+  .mascot-sprite { width: 80px; height: 80px; }
+  .ticket-body { padding: 0 16px; }
+  .ticket-brand { min-height: 75px; gap: 9px; }
+  .ticket-brand-icon { width: 34px; height: 34px; font-size: 24px; }
+  .ticket-brand-name strong { font-size: clamp(18px,5vw,25px); }
+  .ticket-brand-name > span { font-size: 7px; }
+  .ticket-service { display: none; }
+  .ticket-hero { padding: 33px 0 25px; }
+  .ticket-hero h2 { font-size: clamp(48px,11vw,68px); }
+  .ticket-fields { grid-template-columns: 1fr 1fr; }
+  .ticket-field { min-height: 76px; }
+  .ticket-field:nth-child(3) { border-left: none; border-top: 1px solid #dcc5b7; }
+  .ticket-field:nth-child(4) { border-top: 1px solid #dcc5b7; }
+  .ticket-field strong { font-size: 14px; }
+  .ticket-body-footer { font-size: 7px; line-height: 1.6; }
+  .ticket-stub { grid-template-columns: 1fr 1fr; padding: 20px; }
+  .stub-mini { align-self: center; }
+  .stub-direction strong { font-size: 27px; }
+  .ticket-action { min-height: 55px; }
+  .milky-ticket::before,.milky-ticket::after { display: none; }
+}
+@media (max-width: 370px) {
+  .ticket-stub { gap: 10px; padding: 14px; }
+  .ticket-body-footer span:last-child { display: none; }
+  .ticket-intro h2 { font-size: 9.2vw; }
+  .ticket-hero h2 { font-size: 11vw; }
+  .ticket-field strong { font-size: 12px; }
+}
+
+
+/* =============================================================
+   MILKYMON PINK THEME / LOGO / READABLE NUMBERS / HALF-NOTCHES
+   Shared UI accents are rose; the four regions keep their colors.
+   ============================================================= */
+.logo { display: inline-flex; align-items: center; gap: 12px; }
+.logo-wordmark { white-space: nowrap; }
+.logo-wordmark > span { color: var(--rose-deep); }
+.brand-mark {
+  display: grid; place-items: center; flex: 0 0 auto;
+  width: 38px; height: 38px; position: relative;
+  background: var(--rose-soft); border: 1px solid var(--rose-line);
+  overflow: hidden;
+}
+.brand-mark-fallback { font: 600 27px/1 var(--pixel); color: var(--rose-deep); }
+.brand-mark-image {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; image-rendering: pixelated;
+  opacity: 0; transition: opacity 140ms ease;
+}
+.brand-mark.has-logo .brand-mark-image { opacity: 1; }
+.brand-mark.has-logo .brand-mark-fallback { visibility: hidden; }
+.ticket-brand-icon { border: 0; background: transparent; font-size: inherit; }
+.ticket-brand-icon .brand-mark { width: 44px; height: 44px; background: #f3c3d1; border-color: #d79cae; }
+.ticket-brand-icon .brand-mark-fallback { color: #a45278; }
+
+/* Condense the hero/header gap just a bit; keep the title centered. */
+.hero {
+  min-height: min(740px,calc(100svh - 95px));
+  padding-top: clamp(78px,7vw,112px);
+  padding-bottom: clamp(98px,8vw,135px);
+}
+.hero .eyebrow { color: var(--rose-deep); }
+.hero-disclaimer { font-size: 13px; color: var(--soft-ink); }
+
+/* Silkscreen improves legibility of 2 and 5 versus Pixelify Sans. */
+.game-stats strong { font: 700 24px/1.1 var(--pixel-numbers); letter-spacing: -.025em; }
+.ticket-field strong { font: 500 clamp(12px,1.15vw,15px)/1.35 var(--mono); letter-spacing: -.03em; }
+.stub-mini em { font: 500 19px/1.2 var(--pixel-numbers); }
+.stub-serial { font: 700 10px/1.5 var(--pixel-numbers); letter-spacing: .035em; margin: 8px 0 14px; }
+.ticket-body-footer, .ticket-service { font-variant-numeric: tabular-nums; }
+
+/* Pink UI ink instead of unrelated sage-green UI treatments. */
+.arcade-instructions { background: var(--rose-soft); border-color: var(--rose-line); }
+.game-console { background: #fff0f5; border-color: #d8aabd; box-shadow: 9px 9px 0 #f2dfe7; }
+.mystery-display { background-color: #fffafd; }
+.game-message.is-success { color: #aa4978; }
+.ticket-action:hover, .next-button:hover, .primary-button:hover { background: #684451; }
+.site-footer strong { color: var(--rose-deep); }
+.ticket-intro h2 .pixel-word { color: #f28cba; }
+
+/* Mobile divots align themselves to the horizontal ticket perforation. */
+@media (max-width: 790px) {
+  .ticket-stub::before,.ticket-stub::after {
+    content: ''; position: absolute; z-index: 5; top: -18px;
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid #c2a7a0; background: var(--cream); pointer-events: none;
+  }
+  .ticket-stub::before { left: -18px; clip-path: inset(0 0 0 50%); }
+  .ticket-stub::after { right: -18px; clip-path: inset(0 50% 0 0); }
+}
+@media (max-width: 600px) {
+  .logo { gap: 6px; }
+  .logo .brand-mark { width: 25px; height: 25px; }
+  .logo .brand-mark-fallback { font-size: 18px; }
+  .header-inner { gap: 10px; }
+  .hero { min-height: min(700px,calc(100svh - 83px)); padding-top: 80px; padding-bottom: 92px; }
+  .hero-disclaimer { font-size: 11px; }
+  .game-stats strong { font-size: 20px; }
+  .ticket-brand-icon .brand-mark { width: 36px; height: 36px; }
+  .ticket-stub::before,.ticket-stub::after { display: block; }
+  .stub-serial { font-size: 9px; }
+}
+@media (max-width: 370px) {
+  .logo { gap: 4px; }
+  .logo .brand-mark { width: 22px; height: 22px; }
+  .logo .brand-mark-fallback { font-size: 16px; }
+}
+
+/* Logo lettering: the brand stays dark, while the colon and logo icon are pink. */
+.logo .logo-wordmark { color: var(--ink); }
+.logo .logo-wordmark > span,
+.logo .brand-mark-fallback { color: var(--rose-deep); }
+
+/* Keep the founding-date label beneath its barcode on tablet and mobile too. */
+@media (max-width: 790px) {
+  .ticket-barcode {
+    display: block;
+    grid-column: 1 / -1;
+    height: 27px;
+    margin-top: 4px;
+  }
+  .stub-serial {
+    display: block;
+    grid-column: 1 / -1;
+    margin: 0 0 8px;
+    text-align: center;
+  }
+}
+.game-message:empty {
+  display: none;
+}
+/* =============================================================
+   LANDING PAGE: BLURRED MILKYMON PHOTO
+   Uses the existing file: assets/milky bg 1.png
+   Blur applies to the photograph only, never to the hero text.
+   ============================================================= */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: none;
+  width: 100%;
+  background: var(--cream);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  z-index: 0;
+  background-image: url("assets/milky bg 1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(8px);
+  transform: scale(1.035);
+  pointer-events: none;
+}
+
+/* Cream wash keeps text and buttons readable against the photo. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgb(250 249 244 / 64%) 0%,
+    rgb(250 249 244 / 55%) 45%,
+    rgb(250 249 244 / 61%) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+/* =============================================================
+   MILKYMON DOT CURSOR (shared by homepage + staff directory)
+   Plum center / rose outline; soft glow, hover grow + click ripple.
+   Kept disabled on touch devices and until JavaScript initializes it.
+   ============================================================= */
+@media (hover: hover) and (pointer: fine) {
+  html.milkymon-cursor-active,
+  html.milkymon-cursor-active body,
+  html.milkymon-cursor-active body * {
+    cursor: none !important;
+  }
+
+  html.milkymon-cursor-active :is(input, textarea, select, [contenteditable="true"], [role="textbox"]) {
+    cursor: text !important;
+  }
+
+  .milkymon-cursor {
+    --cursor-x: -100px;
+    --cursor-y: -100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2147483647;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--rose, #f28cba);
+    border-radius: 50%;
+    background: var(--ink, #352d35);
+    box-shadow: 0 0 0 3px rgb(242 140 186 / 16%), 0 0 9px rgb(242 140 186 / 22%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(var(--cursor-x), var(--cursor-y), 0) translate(-50%, -50%) scale(1);
+    transition: width 150ms ease, height 150ms ease, box-shadow 150ms ease, opacity 120ms ease, background 150ms ease;
+    will-change: transform;
+  }
+  .milkymon-cursor.is-visible { opacity: 1; }
+  .milkymon-cursor.is-hovering {
+    width: 17px;
+    height: 17px;
+    box-shadow: 0 0 0 4px rgb(242 140 186 / 19%), 0 0 13px rgb(242 140 186 / 27%);
+  }
+  .milkymon-cursor.is-pressed {
+    transform: translate3d(var(--cursor-x), var(--cursor-y), 0) translate(-50%, -50%) scale(.75);
+  }
+  .milkymon-cursor::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 1.5px solid var(--rose-deep, #a45278);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .milkymon-cursor.is-clicking::after {
+    animation: milkymon-cursor-ripple 350ms ease-out both;
+  }
+  @keyframes milkymon-cursor-ripple {
+    from { opacity: .75; transform: scale(.8); }
+    to { opacity: 0; transform: scale(3.15); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .milkymon-cursor,
+  .milkymon-cursor::after { animation: none !important; transition: none !important; }
+}
+
+/* =============================================================
+   PIXEL HEADING SIZE MATCH
+   Pixelify Sans has a shorter visible cap height than Roboto Condensed.
+   Bring pink pixel headings up to the visual height of adjacent letters.
+   Only decorative heading words are affected, not the logo or body type.
+   ============================================================= */
+.hero h1 .pixel-word,
+.about .section-title .pixel-word,
+.regions-heading .pixel-word,
+.arcade-copy .section-title .pixel-word,
+.ticket-intro h2 .pixel-word {
+  display: inline-block;
+  font-size: 1.17em;
+  line-height: .85;
+  letter-spacing: -.085em;
+  vertical-align: -.015em;
+}
+
+/* Keep long pixel words comfortable in narrower page layouts. */
+@media (max-width: 600px) {
+  .about .section-title .pixel-word,
+  .regions-heading .pixel-word,
+  .arcade-copy .section-title .pixel-word {
+    font-size: 1.09em;
+  }
+}
+
+/* Give the longer arcade heading room at desktop sizes. */
+@media (min-width: 941px) {
+  .arcade-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(40px, 5vw, 85px);
+  }
+}

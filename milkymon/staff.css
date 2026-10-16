@@ -1,0 +1,177 @@
+/* MILKYMON / STAFF DIRECTORY
+   This file adds new styles only. It reuses your existing styles.css palette,
+   site header, logos, four-color strip, and footer. */
+.staff-page { background: var(--cream); }
+.staff-page a:focus-visible, .staff-page button:focus-visible, .crew-carousel:focus-visible { outline: 2px solid var(--rose-deep); outline-offset: 4px; }
+.staff-page .site-header { z-index: 35; }
+.crew-route { width: min(55vw,630px); flex: 0 1 630px; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; }
+.crew-route-track { position: absolute; top: 11px; left: 16.6667%; right: 16.6667%; height: 2px; background: #e1ccd5; }
+.crew-route-stop { position: relative; z-index: 1; min-height: 43px; display: flex; flex-direction: column; gap: 7px; align-items: center; color: #a08c96; font-size: 10px; }
+.crew-route-stop:hover { color: var(--ink); }
+.crew-route-dot { width: 18px; height: 18px; margin-top: 3px; background: var(--cream); border: 2px solid #c59baa; border-radius: 100%; transition: transform 160ms ease; }
+.crew-route-stop:hover .crew-route-dot { transform: scale(1.18); }
+.crew-route-stop.is-here { color: var(--ink); font-weight: 500; }
+.crew-route-stop.is-here .crew-route-dot { background: var(--ink); border-color: var(--ink); box-shadow: 0 0 0 5px #f5e0e9; }
+.staff-page .crew-team-section { scroll-margin-top: 112px; }
+.crew-pink-dot { width: 7px; height: 7px; display: inline-block; background: var(--rose); border-radius: 50%; box-shadow: 0 0 0 4px #f9e7ed; margin: 0 11px 1px 2px; }
+.crew-pixel { color: #f28cba; font-family: var(--pixel); font-weight: 500; letter-spacing: -.075em; }
+.crew-overline { margin: 0; font: 500 10px/1.8 var(--mono); color: var(--rose-deep); letter-spacing: .11em; }
+.crew-intro { padding-top: clamp(75px, 8vw, 122px); padding-bottom: clamp(84px, 8vw, 130px); }
+.crew-intro-main { display: flex; align-items: flex-end; justify-content: space-between; gap: 36px; }
+.crew-intro h1 { font: 700 clamp(74px, 10vw, 156px)/.86 var(--display); letter-spacing: -.05em; margin: 18px 0 0; }
+.crew-intro h1 .crew-pixel { display: inline-block; font-size: 1.02em; }
+.crew-intro-aside { width: min(300px, 28vw); flex: 0 0 auto; padding: 0 0 8px; }
+.crew-intro-aside p { margin: 0 0 25px; font-size: 13px; line-height: 1.85; color: var(--soft-ink); }
+.crew-count-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.crew-count-link { display: inline-flex; align-items: center; min-height: 37px; background: var(--rose-soft); border: 1px solid var(--rose-line); padding: 10px 13px; color: var(--rose-deep); font-size: 10px; transition: background .15s ease, transform .15s ease; }
+.crew-count-link:hover { background: #ffd9e8; transform: translateY(-2px); }
+.crew-count-link:active { transform: translateY(0); }
+.crew-team-section { padding-bottom: 132px; }
+.crew-team-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 36px; padding: 12px 0 36px; }
+.crew-team-heading h2 { font: 700 clamp(53px, 6.3vw, 100px)/.92 var(--display); letter-spacing: -.045em; margin: 8px 0 0; }
+.crew-team-heading h2 .crew-pixel { font-size: .94em; }
+.crew-heading-side { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; gap: 19px; padding-bottom: 3px; }
+.crew-heading-side > p { max-width: 290px; margin: 0; font-size: 12px; line-height: 1.8; color: var(--soft-ink); text-align: right; }
+.crew-carousel { outline-offset: 4px; }
+.crew-feature-card { min-height: 590px; display: grid; grid-template-columns: minmax(0,.93fr) minmax(0,1.07fr); border: 1px solid #e3c5d1; background: #fffdfb; box-shadow: 10px 10px 0 #f2e0e7; }
+.crew-art-stage { --art-wash: #fae7ed; position: relative; overflow: hidden; min-height: 590px; display: flex; align-items: center; justify-content: center; border-right: 1px solid #e3c5d1; background: var(--art-wash); background-image: linear-gradient(90deg,rgba(196,122,155,.085) 1px,transparent 1px),linear-gradient(0deg,rgba(196,122,155,.085) 1px,transparent 1px); background-size: 28px 28px; }
+.crew-staff .crew-art-stage { --art-wash: #f7ede9; }
+.crew-stage-heading { position: absolute; z-index: 3; left: 25px; right: 25px; display: flex; justify-content: space-between; gap: 10px; font-size: 9px; color: #a07087; letter-spacing: .07em; }
+.crew-stage-heading { top: 26px; }
+.crew-art-fallback { position: absolute; inset: 80px 20px 75px; display: flex; align-items: center; justify-content: center; gap: 26px; flex-direction: column; }
+.crew-art-fallback > span { max-width: 90%; text-align: center; color: #a27788; font-size: 10px; letter-spacing: .08em; overflow-wrap: anywhere; }
+.crew-pixel-avatar { width: 190px; height: 250px; position: relative; filter: drop-shadow(12px 12px 0 rgb(185 125 151 / 12%)); }
+.crew-avatar-head { position: absolute; left: 47px; top: 19px; width: 98px; height: 93px; background: #d498b2; clip-path: polygon(22% 0,78% 0,78% 8%,92% 8%,92% 24%,100% 24%,100% 78%,88% 78%,88% 100%,12% 100%,12% 78%,0 78%,0 24%,9% 24%,9% 8%,22% 8%); }
+.crew-avatar-body { position: absolute; top: 115px; left: 13px; width: 165px; height: 138px; background: #e4b7ca; clip-path: polygon(22% 0,78% 0,78% 8%,91% 8%,91% 21%,100% 21%,100% 100%,0 100%,0 21%,9% 21%,9% 8%,22% 8%); }
+.crew-character-art { position: absolute; z-index: 2; width: 93%; height: 92%; bottom: 0; left: 3.5%; object-fit: contain; object-position: center bottom; filter: drop-shadow(10px 14px 0 rgb(81 39 58 / 9%)); }
+.crew-profile-panel { padding: clamp(28px, 3vw, 47px); min-width: 0; display: flex; flex-direction: column; }
+.crew-profile-top { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 13px; }
+.crew-rank { color: var(--rose-deep); font-size: 10px; letter-spacing: .06em; }
+.crew-region { --badge-color: #c47a9b; display: inline-flex; align-items: center; gap: 9px; border: 1px solid #ead2dc; background: #fff6f9; padding: 9px 12px; font-size: 10px; color: var(--soft-ink); white-space: nowrap; }
+.crew-region i { width: 9px; height: 9px; display: inline-block; background: var(--badge-color); border-radius: 50%; }
+.crew-name-row { display: flex; justify-content: space-between; gap: 15px; align-items: baseline; border-bottom: 1px solid #eadde1; padding-bottom: 20px; margin: 12px 0 20px; }
+.crew-name-row h3 { font: 700 clamp(61px, 6.2vw, 97px)/.91 var(--display); text-transform: uppercase; letter-spacing: -.05em; margin: 0; overflow-wrap: anywhere; }
+.crew-info-section { min-width: 0; }
+.crew-field-label { display: block; color: var(--rose-deep); font: 500 9px/1.8 var(--mono); letter-spacing: .1em; }
+.crew-info-section p { margin: 7px 0 0; color: var(--soft-ink); font-size: 12px; line-height: 1.78; overflow-wrap: anywhere; }
+.crew-role-section { margin-bottom: 20px; }
+.crew-about-section { margin-bottom: 20px; }
+.crew-likes-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: auto; }
+.crew-likes-row > div { min-height: 89px; padding: 12px 13px 14px; border: 1px dashed var(--rose-line); background: #fffbfc; }
+.crew-mini-heart { color: #de86a9; font-size: 13px; }
+.crew-mini-x { color: #aa8796; font-size: 15px; }
+.crew-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.crew-chip { font: 10px/1.5 var(--mono); color: var(--soft-ink); background: #fbe9f0; padding: 4px 7px; }
+.crew-fav-card { display: flex; gap: 14px; position: relative; align-items: center; border: 1px solid var(--rose-line); background: #fff3f7; margin-top: 17px; min-height: 92px; padding: 12px 16px; }
+.crew-pokemon-tile { flex: 0 0 72px; width: 72px; height: 67px; border: 1px solid #ecd1db; background: #fffafb; display: grid; place-items: center; position: relative; }
+.crew-pokemon-img { width: 62px; height: 62px; object-fit: contain; image-rendering: pixelated; }
+.crew-fav-card strong { display: block; margin: 3px 0; color: var(--ink); font: 600 22px/1 var(--pixel); }
+.crew-fav-card small { display: block; color: var(--muted); font-size: 9px; line-height: 1.6; }
+.crew-pokeball { width: 32px; height: 32px; background: linear-gradient(#e49ab8 0 45%, #352d35 45% 55%, #fff 55% 100%); border: 3px solid #352d35; border-radius: 50%; position: relative; image-rendering: pixelated; }
+.crew-pokeball span { width: 12px; height: 12px; background: white; border: 3px solid #352d35; border-radius: 50%; position: absolute; left: 7px; top: 7px; }
+.crew-arrows { display: flex; gap: 8px; }
+.crew-arrow { width: 53px; height: 43px; display: grid; place-items: center; background: #fffdfb; border: 1px solid #dcb9c9; color: var(--ink); font: 24px var(--pixel); cursor: pointer; transition: background 150ms ease,transform 150ms ease; }
+.crew-arrow:hover { background: #f8dce8; transform: translateY(-2px); }
+.crew-arrow:active { transform: translateY(1px); }
+.crew-staff-section { padding-top: 18px; }
+.crew-outro { padding-bottom: 98px; }
+.crew-outro-card { display: flex; align-items: end; justify-content: space-between; gap: 25px; background: #fbecf1; border: 1px solid #e7bdce; box-shadow: 7px 7px 0 #f3e2e8; padding: clamp(28px, 4vw, 60px); }
+.crew-outro-card > div > span { font-size: 10px; color: var(--rose-deep); letter-spacing: .08em; }
+.crew-outro-card h2 { font: 700 clamp(38px, 5vw, 76px)/.95 var(--display); letter-spacing: -.04em; margin: 13px 0; }
+.crew-outro-card h2 em { font: normal .95em var(--pixel); color: #f28cba; }
+.crew-outro-card p { margin: 0; color: var(--soft-ink); font-size: 12px; }
+.crew-cta { min-width: 210px; align-items: center; display: flex; justify-content: space-between; gap: 20px; padding: 18px 19px; background: var(--ink); color: #fff; font: 10px var(--mono); box-shadow: 4px 4px 0 #ffeef4,6px 6px 0 var(--ink); }
+.crew-cta:hover { background: #684451; }
+.crew-cta span { font-size: 18px; }
+.crew-enter .crew-character-art:not([hidden]) { animation: crew-character-in 270ms steps(4,end); }
+.crew-enter .crew-name-row { animation: crew-name-in 200ms steps(3,end); }
+@keyframes crew-character-in { from { opacity: .55; transform: translateY(11px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes crew-name-in { from { opacity: .45; } to { opacity: 1; } }
+.sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+@media (max-width: 1050px) {
+  .crew-profile-panel { padding: 29px; }
+  .crew-feature-card { grid-template-columns: minmax(0,.83fr) minmax(0,1.17fr); }
+  .crew-name-row h3 { font-size: clamp(53px,6.2vw,80px); }
+  .crew-stage-heading { left: 17px; right: 17px; }
+}
+@media (max-width: 790px) {
+  .crew-intro-main { gap: 20px; }
+  .crew-intro h1 { font-size: clamp(62px,11.7vw,100px); }
+  .crew-feature-card { grid-template-columns: 1fr; }
+  .crew-art-stage { min-height: 435px; border-right: 0; border-bottom: 1px solid #e3c5d1; }
+  .crew-character-art { width: 94%; height: 95%; left: 3%; }
+  .crew-profile-panel { min-height: 490px; }
+  .crew-team-section { padding-bottom: 93px; }
+  .crew-team-heading h2 { font-size: clamp(54px,7vw,80px); }
+}
+@media (max-width: 600px) {
+  .staff-page .site-header { padding: 0 17px; }
+  .staff-page .header-inner { gap: 12px; }
+  .staff-page .logo { gap: 6px; }
+  .crew-route { width: auto; flex: 1 1 auto; min-width: 0; }
+  .crew-route-stop { font-size: 8px; min-height: 34px; gap: 6px; }
+  .crew-route-dot { width: 13px; height: 13px; margin-top: 3px; border-width: 1.5px; }
+  .crew-route-track { top: 9px; }
+  .crew-route-stop.is-here .crew-route-dot { box-shadow: 0 0 0 3px #f5e0e9; }
+  .staff-page .crew-team-section { scroll-margin-top: 92px; }
+  .crew-intro { padding-top: 65px; padding-bottom: 85px; }
+  .crew-intro-main { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .crew-intro h1 { font-size: clamp(64px,13.5vw,91px); }
+  .crew-intro-aside { width: min(100%,400px); }
+  .crew-intro-aside p { font-size: 12px; margin: 7px 0 15px; }
+  .crew-team-heading { flex-direction: row; align-items: flex-end; padding: 10px 0 25px; gap: 12px; }
+  .crew-team-heading h2 { font-size: clamp(50px,10vw,67px); }
+  .crew-heading-side { flex: 0 0 auto; gap: 0; }
+  .crew-heading-side > p { display: none; }
+  .crew-art-stage { min-height: 365px; }
+  .crew-pixel-avatar { transform: scale(.8); }
+  .crew-stage-heading { top: 17px; }
+  .crew-profile-panel { padding: 24px 20px; min-height: 0; }
+  .crew-profile-top { gap: 8px; }
+  .crew-name-row h3 { font-size: clamp(60px,15vw,85px); }
+  .crew-info-section p { font-size: 11px; }
+  .crew-likes-row { gap: 9px; }
+  .crew-likes-row > div { padding: 12px 9px; min-height: 78px; }
+  .crew-chips { gap: 4px; }
+  .crew-chip { font-size: 9px; }
+  .crew-fav-card { padding: 10px; }
+  .crew-pokemon-tile { flex-basis: 63px; width: 63px; height: 63px; }
+  .crew-pokemon-img { width: 59px; height: 59px; }
+  .crew-arrow { width: 44px; height: 41px; }
+  .crew-outro { padding-bottom: 80px; }
+  .crew-outro-card { flex-direction: column; align-items: stretch; }
+  .crew-cta { width: 100%; }
+}
+@media (max-width: 370px) {
+  .staff-page .header-inner { gap: 6px; }
+  .crew-intro h1 { font-size: 13vw; }
+  .crew-name-row h3 { font-size: 53px; }
+  .crew-profile-panel { padding: 19px 14px; }
+  .crew-field-label { font-size: 8px; }
+  .crew-rank, .crew-region { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crew-route-dot, .crew-arrow { transition: none; }
+  .crew-enter .crew-character-art:not([hidden]), .crew-enter .crew-name-row { animation: none; }
+}
+
+
+/* Unified pink grid wash behind BOTH Admin and Staff portraits. */
+.crew-admins .crew-art-stage,
+.crew-staff .crew-art-stage { --art-wash: #fae7ed; }
+
+/* Pixelify Sans has a shorter x-height than Roboto Condensed.
+   Compensate optically in all staff-page headers. */
+.staff-page .crew-team-heading h2 .crew-pixel,
+.staff-page .crew-intro h1 .crew-pixel,
+.staff-page .crew-outro-card h2 em {
+  display:inline-block;
+  font-size:1.19em;
+  line-height:.82;
+  vertical-align:-.015em;
+  letter-spacing:-.085em;
+}
+@media(max-width:600px){
+  .staff-page .crew-team-heading h2 .crew-pixel {font-size:1.10em}
+}

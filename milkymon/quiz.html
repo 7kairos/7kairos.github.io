@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#faf9f4" />
+  <meta name="description" content="Your Milkymon Pokémon journey. Explore four regions, build your team and find your new home." />
+  <title>your journey! — milkymon: regions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Pixelify+Sans:wght@400;500;600;700&family=Roboto+Condensed:wght@600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="quiz.css" />
+  <script src="quiz.js" defer></script>
+  <script src="cursor.js" defer></script>
+</head>
+<body class="quiz-page">
+  <a class="skip-link" href="#journey-main">skip to story</a>
+  <div class="region-line" aria-hidden="true"><span class="valhalla"></span><span class="hokundra"></span><span class="baylands"></span><span class="karp"></span></div>
+  <header class="quiz-site-header">
+    <div class="quiz-header-inner">
+      <a class="logo quiz-logo" href="index.html#home" aria-label="Milkymon regions, home">
+        <span class="brand-mark" aria-hidden="true"><span class="brand-mark-fallback">✳</span><img class="brand-mark-image" src="assets/milkymon_logo_ONE.png" alt="" width="42" height="42" /></span>
+        <span class="logo-wordmark">milkymon<span>:</span> regions</span>
+      </a>
+      <a class="return-link" href="index.html#home">← back to the station</a>
+    </div>
+  </header>
+
+  <main id="journey-main" class="journey-main">
+    <div class="journey-layout">
+      <aside class="party-panel" aria-label="your current Pokémon team">
+        <div class="party-heading">
+          <h2><span class="team-title-line">MY POKÉMON</span><span class="team-title-line">TEAM.</span></h2>
+          <div class="party-count"><span>PARTY</span><strong id="team-count">0 / 6</strong></div>
+        </div>
+        <div id="team-slots" class="team-slots"></div>
+        <div id="trainer-identity" class="trainer-identity" aria-label="Your trainer identity">
+          <span id="trainer-avatar-small" class="trainer-avatar-small" aria-hidden="true">?</span>
+          <span><span class="micro-label">TRAINER</span><strong id="trainer-name-small">???</strong></span>
+        </div>
+      </aside>
+      <section class="quiz-board" aria-label="Milkymon region personality journey">
+      <div class="quiz-board-header">
+        <div class="board-title-row"><span class="micro-label" id="page-subtitle">YOUR ADVENTURE / IN PROGRESS</span><img class="board-love-ball" src="assets/sprite-love-ball.png" alt="" aria-hidden="true" width="34" height="34" /></div>
+        <div class="progress-row">
+          <div class="progress-rail" aria-label="Story stops">
+            <div class="progress-rail-inner">
+              <div id="quiz-progress" role="progressbar" aria-label="questions completed" aria-valuemin="0" aria-valuemax="21" aria-valuenow="0" class="progress-track"><span id="quiz-progress-fill"></span></div>
+              <div id="quiz-stop-jumps" class="quiz-stop-jumps" aria-label="Return to a visited story stop"></div>
+            </div>
+          </div>
+          <span id="quiz-progress-text" class="progress-count">00 / 21</span>
+        </div>
+        <p class="progress-hint">select a visited stop to travel back · future stops unlock as you play</p>
+      </div>
+
+      <section id="welcome-screen" class="welcome-screen" aria-labelledby="welcome-title">
+        <div class="welcome-copy">
+          <span class="micro-label">PASSENGER CHECK-IN / THE MILKY EXPRESS</span>
+          <h1 id="welcome-title">WELCOME, <span>TRAINER!</span></h1>
+          <p>before we start, what's your minecraft username? we'll add your minecraft head to your trainer card!</p>
+          <form id="trainer-form" class="trainer-form" novalidate>
+            <label for="minecraft-name">MINECRAFT USERNAME <span>(JAVA EDITION)</span></label>
+            <div class="trainer-form-line"><input id="minecraft-name" name="minecraft-name" type="text" maxlength="16" minlength="3" autocomplete="off" spellcheck="false" placeholder="your_username" required pattern="[A-Za-z0-9_]{3,16}" /><button class="next-nav" type="submit">START MY JOURNEY ↗</button></div>
+            <p id="name-feedback" class="name-feedback" role="status">your username isn't saved by Milkymon. minecraft heads are fetched from MCHeads.</p>
+          </form>
+          <button id="guest-start" class="text-nav" type="button">i don't have a username · continue as a guest →</button>
+        </div>
+
+      </section>
+      <div id="question-screen" class="question-screen" hidden>
+        <div class="story-top" id="story-top">
+          <div class="story-copy">
+            <div class="scene-intro"><span class="micro-label" id="scene-label">STOP 01 / YOUR BEDROOM</span><p id="scene-text"></p><blockquote id="scene-quote" hidden></blockquote></div>
+</div>
+          <!-- Optional per-scene artwork. Hidden unless the step has an image. -->
+          <figure class="scene-visual" id="scene-visual" hidden>
+            <img id="scene-image" alt="" loading="lazy" />
+            <figcaption id="scene-image-caption" hidden></figcaption>
+          </figure>
+        </div>
+        <div id="answer-list" class="answer-list" role="group" aria-label="choose your answer"></div>
+        <div id="special-zone" class="special-zone" hidden></div>
+        <div class="step-actions"><button id="step-prev" class="text-nav" type="button">← previous stop</button><span class="action-copy">your choices shape your story ♡</span><button id="step-next" class="next-nav" type="button" disabled>next stop ↗</button></div>
+      </div>
+
+      <section id="result-screen" class="result-screen" hidden aria-label="your trainer card and region result">
+        <div class="tc-introduction"><span class="micro-label">JOURNEY COMPLETE / OFFICIAL-LOOKING, JUST FOR FUN ♡</span><span class="tc-card-index">MILKYMON TRAINER CARD · 001</span></div>
+        <article id="trainer-card" class="trainer-card" aria-label="Your Milkymon Pokémon trainer card">
+          <header class="tc-topbar">
+            <span class="tc-topmark"><img src="assets/milkymon_logo_ONE.png" alt="" width="32" height="32" onerror="this.hidden=true" /> MILKYMON: REGIONS</span>
+            <span>TRAINER IDENTIFICATION <span aria-hidden="true">✦</span></span>
+          </header>
+          <div class="tc-main">
+            <div class="tc-portrait-section">
+              <span class="tc-label">YOUR TRAINER</span>
+              <div class="tc-portrait-frame">
+                <div id="trainer-card-pokeball" class="tc-large-pokeball" role="img" aria-label="Poké Ball for a guest trainer"><span></span></div>
+                <img id="trainer-card-portrait" class="tc-head-image" alt="" hidden />
+              </div>
+              <strong id="trainer-card-name" class="tc-main-name">YOU!</strong>
+              <small>YOUR ADVENTURE, YOUR STORY</small>
+            </div>
+            <div class="tc-detail-section">
+              <div class="tc-detail-heading"><span class="tc-label">YOUR NEW HOME</span><span class="tc-mascot" id="result-mascot" aria-label="Region mascot"></span></div>
+              <h1 id="region-title" tabindex="-1">YOUR REGION</h1>
+              <p id="region-subtitle" class="tc-region-subtitle"></p>
+              <p id="region-description" class="tc-region-description"></p>
+              <div class="tc-info-grid">
+                <div><span class="tc-label">TRAINER NAME</span><strong id="trainer-card-display-name">YOU!</strong></div>
+                <div><span class="tc-label">DATE RECEIVED</span><strong id="trainer-card-date"></strong></div>
+              </div>
+              <div class="tc-badge-area"><div><span class="tc-label">BADGES</span><small>one badge for your Milkymon journey ♡</small></div><div class="tc-badge"><img src="assets/milkymon_logo_ONE.png" alt="Milkymon badge" width="42" height="42" onerror="this.hidden=true;this.parentElement.textContent='✳'" /></div></div>
+            </div>
+            <div class="tc-team-section"><div class="tc-team-heading"><span class="tc-label">MY POKÉMON TEAM</span><strong id="trainer-card-party-count">06 / 06</strong></div><div id="trainer-card-party" class="tc-team-grid" aria-label="Your six Pokémon"></div></div>
+          </div>
+          <footer class="tc-bottom-bar"><span>FOUR REGIONS · ONE ADVENTURE</span><span>ISSUED BY THE MILKY EXPRESS</span></footer>
+        </article>
+        <details class="result-score-card tc-score-details"><summary>SEE YOUR REGION BREAKDOWN <span aria-hidden="true">⌄</span></summary><div id="score-chart" class="score-chart"></div></details>
+        <p class="result-footnote">your result is just for funsies, not an official region assignment. there's no wrong place to belong!</p>
+        <div class="step-actions result-actions"><button id="result-back" type="button" class="text-nav">← change my last answer</button><button id="restart-journey" type="button" class="next-nav">start a new journey ↗</button></div>
+      </section>
+      <div class="quiz-board-footer"><span>MILKYMON TRANSIT AUTHORITY</span><span>VALID FOR ALL TRAINERS · DEC 2025</span></div>
+    </section>
+
+    </div> <!-- /journey-layout -->
+  </main>
+
+  <dialog id="pokedex-dialog" class="pokedex-dialog" aria-labelledby="dex-title">
+    <div class="dex-shell"><header class="dex-header"><div><span class="micro-label">PROFESSOR KAT'S RESEARCH CENTER</span><h2 id="dex-title">CHOOSE YOUR <span>STARTER.</span></h2></div><button type="button" id="dex-close" class="dex-close" aria-label="close Pokédex">✕</button></header>
+      <div class="dex-toolbar"><label>TYPE<select id="dex-type"><option value="all">all types</option><option value="grass">grass</option><option value="fire">fire</option><option value="water">water</option><option value="electric">electric</option></select></label><label>REGION<select id="dex-region"><option value="all">all regions</option><option value="kanto">kanto</option><option value="kalos">kalos</option><option value="alola">alola</option></select></label><label class="dex-search-label">SEARCH<input type="search" id="dex-search" placeholder="search Pokémon..." autocomplete="off" /></label><button type="button" id="dex-sound" class="dex-sound" aria-pressed="true">SFX ON ♫</button></div>
+      <div id="dex-grid" class="dex-grid" role="group" aria-label="starter Pokémon"></div><p id="dex-empty" class="dex-empty" hidden>no Pokémon found. try another filter!</p>
+      <footer class="dex-footer"><div id="dex-preview" class="dex-preview" aria-live="polite">select a Pokémon to see its entry ♡</div><button class="next-nav" type="button" id="dex-confirm" disabled>CHOOSE THIS POKÉMON ↗</button></footer>
+    </div>
+  </dialog>
+  <footer class="quiz-footer"><span>one world · four regions · endless possibilities</span><span>website built by <strong>7.kairos</strong></span></footer>
+</body>
+</html>

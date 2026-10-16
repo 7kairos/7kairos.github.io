@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#faf9f4" />
+  <meta name="description" content="which milkymon region do you really belong to?" />
+  <title>milkymon:regions quiz!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Pixelify+Sans:wght@400;500;600;700&family=Silkscreen:wght@400;700&family=Roboto+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+  <script src="cursor.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#home">Skip to content</a>
+  <div class="region-line" aria-hidden="true">
+    <span class="valhalla"></span><span class="hokundra"></span><span class="baylands"></span><span class="karp"></span>
+  </div>
+
+  <!-- THE HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#home" aria-label="Milkymon: Regions, home"><span class="brand-mark" aria-hidden="true"><span class="brand-mark-fallback">✳</span><img class="brand-mark-image" src="assets/milkymon_logo_ONE.png" alt="" width="42" height="42" /></span><span class="logo-wordmark">milkymon<span>:</span> regions</span></a>
+      <nav class="station-nav" aria-label="Website train station navigation" style="--progress-width:0%">
+        <div class="station-map">
+          <span class="track-base" aria-hidden="true"></span>
+          <span class="track-progress" aria-hidden="true"></span>
+          <ol class="station-list">
+            <li><a class="station-link is-current" data-stop="home" href="#home" aria-current="location"><span class="station-dot" aria-hidden="true"></span><span>home</span></a></li>
+            <li><a class="station-link" data-stop="about" href="#about"><span class="station-dot" aria-hidden="true"></span><span>about</span></a></li>
+            <li><a class="station-link" data-stop="regions" href="#regions"><span class="station-dot" aria-hidden="true"></span><span>regions</span></a></li>
+            <li><a class="station-link" data-stop="arcade" href="#arcade"><span class="station-dot" aria-hidden="true"></span><span>arcade</span></a></li>
+          </ol>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section-anchor" id="home" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"> MILKYMON PERSONALITY QUIZ</p>
+        <h1 id="hero-title">WHICH REGION<br />DO YOU <span class="pixel-word">REALLY</span><br />BELONG TO<span class="question-mark">?</span></h1>
+        <div class="hero-actions">
+          <a href="quiz.html" class="primary-button"><span>TAKE THE QUIZ</span><span class="button-arrow" aria-hidden="true">↗</span></a>
+          <span class="quiz-meta">ABOUT 5–10 MIN</span>
+        </div>
+        <aside class="hero-disclaimer" aria-label="Wave 2 player disclaimer"><span class="info-mark" aria-hidden="true">!</span><p><strong>wave 2 players:</strong> this quiz is just for funsies! your result is not meant to influence your actual region choice.</p></aside>
+      </div>
+
+    </section>
+
+    <section class="about section-anchor section-shell" id="about" aria-labelledby="about-title">
+      <div class="station-heading"><span class="section-index">01 / ABOUT</span><span class="section-dashes" aria-hidden="true"></span><span class="section-hint">HELLO, TRAINER!</span></div>
+      <div class="about-layout">
+        <div>
+          <h2 class="section-title" id="about-title">WHAT IS<br /><span class="pixel-word">MILKYMON?</span></h2>
+        </div>
+        <div class="about-copy">
+          <p class="lead">welcome to <strong>milkymon: regions</strong>, a minecraft survival multiplayer server built around the mod <a href="https://cobblemon.com/en" target="_blank" rel="noopener noreferrer">cobblemon ↗</a>.</p>
+          <p>gameplay is modeled around the world of pokemon, where players are split into four different regions, each with their own unique culture, lore, and identity.</p>
+          <p>throughout the season, regions compete in server-wide events, earn points, work together on builds + quests, and shape the world around them.</p>
+          <p>curious about what we're up to? <a href="https://x.com/milkymonsmp" target="_blank" rel="noopener noreferrer">say hi on twitter! ↗</a></p>
+          <p>other links: <a href="https://milkymon.miraheze.org/wiki/Main_Page" target="_blank" rel="noopener noreferrer">read the wiki ↗</a> | <a href="staff.html" target="_blank" rel="noopener noreferrer">meet the staff team ↗</a> </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="regions section-anchor section-shell" id="regions" aria-labelledby="regions-title">
+      <div class="station-heading"><span class="section-index">02 / REGIONS</span><span class="section-dashes" aria-hidden="true"></span><span class="section-hint">OUR LOVELY COMMUNITIES</span></div>
+      <div class="regions-heading"><div><h2 class="section-title" id="regions-title">MEET THE<br /><span class="pixel-word">REGIONS.</span></h2></div></div>
+      <div class="region-grid">
+        <article class="region-card region-valhalla">
+          <div class="region-card-top"><span>LED BY SILVER & STARSSERGI</span><span class="card-asterisk" aria-hidden="true">𖦹</span></div>
+          <div class="biome-symbol mascot-frame"><img class="mascot-sprite" src="assets/mascot-trapinch.png" data-official-sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/328.png" alt="Trapinch, the region mascot" width="112" height="112" loading="lazy" /></div>
+            <h3>VALHALLA</h3>
+          <p class="region-description">previously known as the city of knowledge, damaris held too many secrets. secrets that were far more trouble than they were worth. now, it is the city of endless dunes. descendants of the lost city return after centuries to rebuild what was once there, but stronger. valhalla, the city of warriors now takes its place. sitting along the blue sea in the desert and blessed by the gods, connecting with the creatures of the land came quickly.</p>
+          <span class="region-detail"> <span aria-hidden="true"></span></span>
+        </article>
+        <article class="region-card region-hokundra">
+          <div class="region-card-top"><span>LED BY ZOMGOAT, PLUSHYYOSHI, GOOSIE</span><span class="card-asterisk" aria-hidden="true">❆</span></div>
+          <div class="biome-symbol mascot-frame"><img class="mascot-sprite" src="assets/mascot-amaura.png" data-official-sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/698.png" alt="Amaura, the region mascot" width="112" height="112" loading="lazy" /></div>
+          <h3>HOKUNDRA</h3>
+          <p class="region-description">hokundra is a harsh and unforgiving land. its tundra is cold, barren, and difficult to survive in. in the earliest days of this region, a fortress was set up to protect its people from the dangers of the wilderness and any nefarious forces that may threaten the people.</p> <p class="region-description">hokundra was established under the guidance of the lake guardians: uxie, mesprit, and azelf. each guardian sought to bring humans to a region that embodied one of their defining traits: curiosity and the pursuit of knowledge, empathy and emotional connection, endurance and the strength to persevere.</p>
+          <span class="region-detail"> <span aria-hidden="true"></span> </span>
+        </article>
+        <article class="region-card region-baylands">
+          <div class="region-card-top"><span>LED BY CADV & VINH KY</span><span class="card-asterisk" aria-hidden="true">⚓︎</span></div>
+          <div class="biome-symbol mascot-frame"><img class="mascot-sprite" src="assets/mascot-tirtouga.png" data-official-sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/564.png" alt="Tirtouga, the region mascot" width="112" height="112" loading="lazy" /></div>
+          <h3>BAYLANDS</h3>
+          <p class="region-description">the settlements of the baylands were originally established by groups of pokémon researchers determined to explore one question: <em>how well can humans and pokémon truly coexist?</em></p> <p class="region-description">the experiments in coexistence have been surprisingly successful as the settlements they established have continued to grow. over time, the pokémon that originally lived alongside the researchers have become a core part of the region’s culture, influencing everything from its communities to its methods of transportation. today, the baylands are home to thriving settlements of pokémon and humans that coexist in harmony.</p>
+          <span class="region-detail"> <span aria-hidden="true"></span> </span>
+        </article>
+        <article class="region-card region-karp">
+          <div class="region-card-top"><span>LED BY PROJECTTEMPO & KRANK</span><span class="card-asterisk" aria-hidden="true">🐟︎</span></div>
+          <div class="biome-symbol mascot-frame"><img class="mascot-sprite" src="assets/mascot-magikarp.png" data-official-sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png" alt="Magikarp, the region mascot" width="112" height="112" loading="lazy" /></div>
+          <h3>KARP KINGDOM</h3>
+          <p class="region-description">blessed by a meteorite that contained the stone capable of unlocking gyarados' true potential, king tempo founded the kingdom upon the strength and legacy of the great dragon. the people of karp kingdom believe they are the descendants of this power. they are not merely trainers. they are karps.</p>
+          <span class="region-detail"> <span aria-hidden="true"></span> </span>
+        </article>
+      </div>
+      <p class="regions-footnote"> origin descriptions taken from <a href="https://docs.google.com/document/d/1Odxkju3O17VpDnTw9dFvtIGqSECtezPeqklnB3k2_Ik/edit?usp=sharing" target="_blank" rel="noopener noreferrer">the milkymon regions doc! ↗</a></p>
+    </section>
+
+    <section class="arcade section-anchor section-shell" id="arcade" aria-labelledby="arcade-title">
+      <div class="station-heading"><span class="section-index">03 / ARCADE</span><span class="section-dashes" aria-hidden="true"></span><span class="section-hint">A LITTLE SIDE QUEST</span></div>
+      <div class="arcade-layout">
+        <div class="arcade-copy">
+          <h2 class="section-title" id="arcade-title">WHO'S THAT<br /><span class="pixel-word">POKÉMON?!</span></h2>
+          <p>you've arrived at the final station! can you recognize these familiar pokémon by their silhouettes?</p>
+          <div class="arcade-instructions"><span class="tiny-square" aria-hidden="true"></span><span>HOW TO PLAY?</span><p>figure out which pokémon is hiding in the shadows!</p></div>
+          <a class="text-link" href="quiz.html">OR HEAD STRAIGHT TO THE REGION QUIZ ↗</a>
+        </div>
+        <div class="game-console" aria-label="Who's That Pokémon guessing game">
+          <div class="console-top"><span><span class="live-dot" aria-hidden="true"></span> WHO'S THAT POKÉMON?</span><span>MINIGAME / 01</span></div>
+          <div class="game-stats"><div><span>ROUND</span><strong id="game-round">01 / 05</strong></div><div><span>CORRECT</span><strong id="game-score">00</strong></div><button class="restart-button" id="restart-game" type="button">↻ RESTART</button></div>
+          <div class="mystery-display"><span class="mystery-star mystery-star-a" aria-hidden="true">✦</span><span class="mystery-star mystery-star-b" aria-hidden="true">✧</span><div class="sprite-wrap"><img id="pokemon-sprite" alt="Mystery Pokémon silhouette" width="190" height="190" /></div><span id="sprite-question" class="sprite-question" aria-hidden="true">?</span></div>
+          <div class="game-answer-header"><span>CHOOSE YOUR ANSWER</span></div>
+          <div id="answer-options" class="answer-options" role="group" aria-label="Choose the name of the Pokémon"></div>
+          <p class="game-message" id="game-message" aria-live="polite"></p>
+          <button type="button" class="next-button" id="next-round" hidden>NEXT POKÉMON →</button>
+          <p class="sprite-credit">view the <a href="https://pokemondb.net/sprites" target="_blank" rel="noopener noreferrer">PokémonDB sprite archive ↗</a> and the <a href="https://github.com/PokeAPI/sprites" target="_blank" rel="noopener noreferrer">PokéAPI sprite collection ↗</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta section-shell" aria-labelledby="cta-title">
+      <div class="ticket-intro">
+        <h2>READY TO<br /><span class="pixel-word">START?</span></h2>
+        <p>your ticket is ready.</p>
+      </div>
+
+      <div class="milky-ticket" role="group" aria-label="The Milky Express one-way boarding pass">
+        <div class="ticket-body">
+          <div class="ticket-brand">
+            <span class="ticket-brand-icon"><span class="brand-mark" aria-hidden="true"><span class="brand-mark-fallback">✳</span><img class="brand-mark-image" src="assets/milkymon_logo_ONE.png" alt="" width="42" height="42" /></span></span>
+            <div class="ticket-brand-name"><span>MILKYMON TRANSIT AUTHORITY</span><strong>THE MILKY EXPRESS</strong></div>
+            <span class="ticket-service">ONE-WAY PASS <span aria-hidden="true">✦</span></span>
+          </div>
+          <div class="ticket-hero">
+            <p class="ticket-label">YOUR ONE WAY TICKET TO</p>
+            <h2 id="cta-title">YOUR <span>NEW HOME.</span></h2>
+            <p class="ticket-subline">four regions · one world · a whole new adventure</p>
+          </div>
+          <div class="ticket-fields">
+            <div class="ticket-field"><span>PASSENGER</span><strong>YOU!</strong></div>
+            <div class="ticket-field"><span>DEPARTURE DATE</span><strong id="ticket-date">TODAY!</strong></div>
+            <div class="ticket-field"><span>BOARDING TIME</span><strong id="ticket-time">WHEN YOU'RE READY</strong></div>
+            <div class="ticket-field"><span>TICKET TYPE</span><strong>ONE WAY ♡</strong></div>
+          </div>
+          <div class="ticket-body-footer"><span>VALID FOR ALL TRAINERS</span><span>✳ MM-0001 / RGN</span></div>
+        </div>
+        <div class="ticket-stub">
+          <span class="stub-caption">MILKYMON: REGIONS</span>
+          <div class="stub-mini"><div><span>ZONE</span><em>???</em></div><div><span>GATE</span><em>04</em></div></div>
+          <div class="ticket-barcode" aria-hidden="true"></div>
+          <span class="stub-serial">FOUNDED DEC 2025</span>
+          <a class="ticket-action" href="quiz.html"><span>FIND MY REGION</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="logo" href="#home">milkymon<span>:</span> regions</a><span>WEBSITE BUILT BY <strong>7.kairos</strong> </span><a class="back-top" href="#home">BACK TO TOP ↑</a></footer>
+</body>
+</html>
