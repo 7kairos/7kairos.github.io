@@ -24,25 +24,20 @@
   const passions = data.passions;
   const projects = [...works, ...passions];
   const leadership = Array.isArray(data.leadership) ? data.leadership : [];
-  // Navigation is local UI state, never part of a shared URL.
-  const pageUrl = location.href.split("#")[0];
-  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  function clearFragment() {
-    if (!location.hash) return;
-    try {
-      history.replaceState(null, "", pageUrl);
-    } catch {
-      // Some browsers restrict History API changes for local file previews.
-      // This replaces only the fragment on the same document.
-      location.replace(pageUrl);
-    }
-  }
-  clearFragment();
+  const sectionIds = ["home", "works", "passion", "about", "play"];
+  const sectionLabels = [
+    "Welcome",
+    "Selected works",
+    "Passion projects",
+    "About me",
+    "A little flower break",
+  ];
   const state = {
     section: 0,
     position: 0,
     recruiter: false,
     project: null,
+    returnHash: "#works",
     trigger: null,
   };
   const esc = (value = "") =>
@@ -76,14 +71,17 @@
       ? ' target="_blank" rel="noopener noreferrer"'
       : "";
   }
-  function projectLink(project) {
-    return safePath(project.url) || pageUrl;
+  function projectLink(project, recruiter = false) {
+    return (
+      safePath(project.url) ||
+      `#${recruiter ? "recruiter/" : ""}project/${encodeURIComponent(project.id)}`
+    );
   }
   function sticker(name, className = "", label = "") {
     const directory = safePath(
-      data.artwork?.stickerDirectory || "assets/icons/stickers",
+      data.artwork?.stickerDirectory || "assets/icons",
     ).replace(/\/$/, "");
-    const filename = /^[a-z0-9-]+$/.test(name || "") ? name : "coral-flower";
+    const filename = /^[a-z0-9-]+$/.test(name || "") ? name : "apricot-poppy";
     const source = directory + "/" + filename + ".png";
     return `<span class="sticker ${className}" ${label ? `role="img" aria-label="${esc(label)}"` : 'aria-hidden="true"'}><img src="${esc(source)}" alt="" draggable="false" data-sticker data-sticker-name="${esc(filename)}"></span>`;
   }
@@ -96,24 +94,22 @@
       ? project.tone
       : "peach";
     return `<div class="project-cover ${tone} ${extraClass}">
-      <div class="cover-placeholder" ${source ? "hidden" : ""}>${icon("image")}<span>[ your project image here ]</span><span class="placeholder-note">a space for something thoughtful</span></div>
+      <div class="cover-placeholder" ${source ? "hidden" : ""}>${icon("image")}<span>your cover image</span></div>
       ${source ? `<img class="cover-image" src="${esc(source)}" alt="${esc(project.imageAlt || `${project.title} cover`)}" loading="lazy" data-cover>` : ""}
     </div>`;
   }
   function projectCard(project, index, passion = false) {
     const href = projectLink(project);
     const external = externalAttributes(href);
-    const internal = !safePath(project.url)
-      ? ` data-project-link="${esc(project.id)}"`
-      : "";
+    const internal = !safePath(project.url) ? " data-project-link" : "";
     return `<article class="project-card ${passion ? "passion-card" : ""}">
       <a class="cover-link" href="${esc(href)}" aria-label="Read ${esc(project.title)}"${external}${internal}>
-        ${cover(project)}<span class="cover-index">${number(index + 1)}</span>
+        ${cover(project)}<span class="cover-index" aria-hidden="true">${number(index + 1)}</span>
         ${sticker(project.sticker || (passion ? data.artwork?.passions?.[index % 2] : data.artwork?.works?.[index % 3]), passion ? "card-sticker" : "work-sticker")}<span class="cover-open">${icon("external")}</span>
       </a>
-      <div class="project-meta"><span>${esc(project.role)} · ${esc(project.year)}</span><span>${passion ? "Passion project" : "Selected work"}</span></div>
+      ${project.role ? `<div class="project-meta"><span>${esc(project.role)}</span></div>` : ""}
       <h3><a href="${esc(href)}"${external}${internal}>${esc(project.title)}${icon("external")}</a></h3>
-      <p>${esc(project.summary)}</p>${tags(project)}
+      ${project.summary ? `<p>${esc(project.summary)}</p>` : ""}${tags(project)}
     </article>`;
   }
   function leadershipList() {
@@ -122,8 +118,8 @@
   function recruiterRows(items) {
     return `<div class="resume-projects">${items
       .map((project) => {
-        const href = projectLink(project);
-        return `<article><div><h3>${esc(project.title)} <span>· ${esc(project.role)} · ${esc(project.year)}</span></h3><p>${esc(project.summary)}</p></div><a href="${esc(href)}"${externalAttributes(href)}${!safePath(project.url) ? ` data-project-link="${esc(project.id)}"` : ""}>Write-up ${icon("external")}</a></article>`;
+        const href = projectLink(project, true);
+        return `<article><div><h3>${esc(project.title)} <span>· ${esc(project.role)} · ${esc(project.year)}</span></h3><p>${esc(project.summary)}</p></div><a href="${esc(href)}"${externalAttributes(href)}${!safePath(project.url) ? " data-project-link" : ""}>Write-up ${icon("external")}</a></article>`;
       })
       .join("")}</div>`;
   }
@@ -141,50 +137,52 @@
 
   root.innerHTML = `
     <div class="portfolio-shell" id="full-portfolio">
-      <a class="skip-link" href="${esc(pageUrl)}" data-action="skip-content">Skip to portfolio content</a>
+      <a class="skip-link" href="#portfolio-content">Skip to portfolio content</a>
       <header class="site-header">
-        <a class="wordmark" href="${esc(pageUrl)}" data-go="0">khloe’s portfolio <span>’${esc(String(profile.year).slice(-2))}</span></a>
+        <a class="wordmark" href="#home" data-go="0">khloe’s portfolio <span>’${esc(String(profile.year).slice(-2))}</span></a>
         <nav aria-label="Main navigation">
-          ${["works", "passion projects", "about me", "for fun"].map((label, i) => `<a href="${esc(pageUrl)}" data-go="${i + 1}">${label}</a>`).join("")}
+          ${["works", "passion projects", "about me", "for fun"].map((label, i) => `<a href="#${sectionIds[i + 1]}" data-go="${i + 1}">${label}</a>`).join("")}
         </nav>
         <button class="pill-button recruiter-toggle" data-action="recruiter">recruiter mode ${icon("external")}</button>
       </header>
       <main id="portfolio-content" class="horizontal-track" tabindex="-1" aria-label="Horizontal portfolio; use navigation, a sideways swipe, or the arrow buttons">
         <section class="panel hero-panel" aria-label="Welcome" data-section="home">
-          <div class="hero-copy"><h1>khloe’s<br><span>portfolio</span><span class="hero-year">${esc(profile.year)}</span></h1>
-            <p class="hero-discipline">product design & ui/ux</p><p class="hero-tagline">${esc(profile.tagline)}</p>
-            <button class="text-link hero-scroll" data-go="1">scroll sideways ${icon("right")}</button>
+          <div class="hero-copy">
+            <span class="hero-kicker">a peek inside my sketchbook</span>
+            <h1>good ideas<br><em>start with</em><br><span>a doodle.</span></h1>
+            <p class="hero-discipline">product design <span class="hand-divider">/</span> ui & ux</p>
+            <button class="text-link hero-scroll" data-go="1">take a look ${icon("right")}</button>
           </div>
-          <div class="hero-art"><div class="hero-collage" role="img" aria-label="A collage of coral, terracotta, and golden watercolor flowers with a botanical sprig and a heart">
+          <div class="hero-art"><div class="hero-collage" role="img" aria-label="Sketchbook collage of watercolor blooms, pressed flowers, hearts and stars">
             ${sticker(data.artwork?.heroMain, "hero-sticker-main")}
             ${sticker(data.artwork?.heroAccent, "hero-sticker-accent")}
             ${sticker(data.artwork?.heroTop, "hero-sticker-top")}
             ${sticker(data.artwork?.heroBotanical, "hero-sticker-botanical")}
             ${sticker(data.artwork?.heart, "hero-sticker-heart")}
-          </div><span class="sticker-caption">a little bit of me, in every petal.</span></div>
+          </div><span class="sticker-caption">cut, paste, create ♡</span></div>
         </section>
         <section class="panel works-panel" aria-labelledby="works-heading" data-section="works">
-          <div class="section-heading"><div><span class="section-number">01 / SELECTED WORKS</span><h2 id="works-heading">Made with <em>intention.</em></h2></div><p>A few problems, a lot of curiosity.<br>A selection of my product & UI/UX work.</p></div>
+          <div class="section-heading"><div><span class="section-number">01 / WORKS</span><h2 id="works-heading">things i've made</h2></div>${sticker(data.artwork?.sectionWorks, "heading-sticker heading-works")}</div>
           <div class="projects-grid">${works.map((project, i) => projectCard(project, i)).join("")}</div>
         </section>
         <section class="panel passions-panel" aria-labelledby="passion-heading" data-section="passion">
-          <div class="section-heading"><div><span class="section-number">02 / PASSION PROJECTS</span><h2 id="passion-heading">Just because <em>I love it.</em></h2></div><p>Ideas that wandered off the page.<br>Personal projects, experiments & little joys.</p></div>
+          <div class="section-heading"><div><span class="section-number">02 / PASSION PROJECTS</span><h2 id="passion-heading">made just for fun!</h2></div>${sticker(data.artwork?.sectionPassion, "heading-sticker heading-passion")}</div>
           <div class="passion-grid">${passions.map((project, i) => projectCard(project, i, true)).join("")}</div>
         </section>
         <section class="panel about-panel" aria-labelledby="about-heading" data-section="about">
-          <div class="section-heading"><div><span class="section-number">03 / ABOUT ME</span><h2 id="about-heading">The person <em>behind the pixels.</em></h2></div><span class="handwritten">nice to meet you!</span></div>
+          <div class="section-heading"><div><span class="section-number">03 / ABOUT</span><h2 id="about-heading">a little about me</h2></div>${sticker(data.artwork?.sectionAbout, "heading-sticker heading-about")}</div>
           <div class="about-grid"><div class="about-intro">
-            <div class="polaroid"><div class="photo-slot">${photo ? `<img src="${esc(photo)}" alt="${esc(profile.name)}" loading="lazy" data-photo>` : ""}</div><span class="photo-caption">hi, i’m khloe</span>${sticker(data.artwork?.portrait, "portrait-sticker")}</div>
-            <section class="about-bio"><h3>A little about me</h3><p>${esc(profile.shortIntroduction || "[ Add a short introduction here. ]")}</p></section>
-            <section class="favorites"><h3>A few favorite things</h3><ul>${favorites.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></section>
+            <div class="polaroid"><div class="photo-slot">${photo ? `<img src="${esc(photo)}" alt="${esc(profile.name)}" loading="lazy" data-photo>` : ""}</div><span class="photo-caption">khloe</span>${sticker(data.artwork?.portrait, "portrait-sticker")}</div>
+            <section class="about-bio"><h3>hello!</h3><p>${esc(profile.shortIntroduction || "[ Write a little about yourself here. ]")}</p></section>
+            ${favorites.length ? `<section class="favorites"><h3>little favorites</h3><ul>${favorites.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></section>` : ""}
           </div><div class="leadership-paper">${sticker(data.artwork?.heart, "leadership-sticker")}<h3>leadership & community</h3>${leadershipList()}</div>
-          <div class="about-school"><div class="school-card">${sticker(data.artwork?.school, "school-sticker")}<h3>school & major</h3><strong>${esc(profile.school)}</strong><p>${esc(profile.degree)}</p><p>Minor: ${esc(profile.minor)}</p><span class="education-years">${esc(profile.years)}</span></div>
+          <div class="about-school"><div class="school-card">${sticker(data.artwork?.school, "school-sticker")}<h3>education</h3><strong>${esc(profile.school)}</strong><p>${esc(profile.degree)}</p><p>Minor: ${esc(profile.minor)}</p><span class="education-years">${esc(profile.years)}</span></div>
             
           </div></div>
         </section>
         <section class="panel play-panel" aria-labelledby="play-heading" data-section="play">
-          <div class="game-layout"><div class="game-copy"><span class="section-number">04 / FOR FUN</span><h2 id="play-heading">A little<br><em>flower break.</em></h2><p>Good things take a little curiosity.<br>Turn over the cards and find the four matching pairs.</p></div>
-            <div class="game-paper"><div class="game-topline"><span>the little flower garden</span><span id="game-moves">0 moves</span></div>
+          <div class="game-layout"><div class="game-copy"><span class="section-number">04 / FOR FUN</span><h2 id="play-heading">a tiny<br><em>flower game</em></h2><p>find four matching pairs.</p>${sticker(data.artwork?.gameDecor, "game-decor")}</div>
+            <div class="game-paper"><div class="game-topline"><span>match the blooms</span><span id="game-moves">0 moves</span></div>
               <div class="memory-grid" id="memory-grid" aria-label="Flower matching game"></div>
               <div class="game-bottom"><span id="game-status" role="status" aria-live="polite">0 / 4 pairs found</span><button class="text-link" data-action="restart">${icon("restart")} Play again</button></div>
             </div>
@@ -201,7 +199,7 @@
       <header class="resume-header"><div><h1>${esc(String(profile.name).toLowerCase())}</h1><p>Product design & UI/UX <span>· Recruiter mode</span></p></div><div class="resume-contact"><a href="${esc(email)}">${esc(profile.email)}${icon("external")}</a>${linkedin ? `<a href="${esc(linkedin)}"${externalAttributes(linkedin)}>LinkedIn${icon("external")}</a>` : ""}</div>${sticker(data.artwork?.recruiter, "resume-sticker")}</header>
       <div class="resume-columns"><div><section><h2>selected works</h2>${recruiterRows(works)}</section><section><h2>passion projects</h2>${recruiterRows(passions.filter((project) => project.featured !== false))}</section></div>
         <div><section class="resume-education"><h2>education</h2><strong>${esc(profile.school)}</strong><p>${esc(profile.degree)}</p><p>Minor: ${esc(profile.minor)} · ${esc(profile.years)}</p></section><section><h2>leadership & community</h2>${leadershipList()}</section><section class="resume-skills"><h2>skills & tools</h2><p>${esc(profile.skills)}</p></section></div>
-      </div><footer class="resume-footer"><span>${esc(profile.name)} · Portfolio ${esc(profile.year)}</span><a href="${esc(pageUrl)}" data-action="portfolio">Back to the full portfolio</a></footer>
+      </div><footer class="resume-footer"><span>${esc(profile.name)} · Portfolio ${esc(profile.year)}</span><a href="#home" data-action="portfolio">Back to the full portfolio</a></footer>
     </main>
     <dialog class="story-dialog" id="project-dialog" aria-labelledby="story-title"></dialog>
   `;
@@ -269,32 +267,6 @@
     true,
   );
 
-  // Every panel belongs to the same scroll surface. Some panels can be wider
-  // than a viewport, so navigation uses their measured positions.
-  function layoutStops() {
-    let width = 0;
-    const starts = [...track.querySelectorAll(":scope > .panel")].map(
-      (panel) => {
-        const start = width;
-        width += panel.offsetWidth || track.clientWidth;
-        return start;
-      },
-    );
-    const end = Math.max(0, width - track.clientWidth);
-    return { starts, end };
-  }
-  function nearestSection() {
-    const { starts } = layoutStops();
-    let closest = 0;
-    starts.forEach((start, index) => {
-      if (
-        Math.abs(start - track.scrollLeft) <
-        Math.abs(starts[closest] - track.scrollLeft)
-      )
-        closest = index;
-    });
-    return closest;
-  }
   function updateIndicators(index) {
     state.section = Math.min(4, Math.max(0, index));
     root.querySelectorAll(".site-header [data-go]").forEach((link) => {
@@ -303,42 +275,63 @@
       else link.removeAttribute("aria-current");
     });
     root.querySelector('[data-action="previous"]').disabled =
-      track.scrollLeft <= 1;
+      state.position <= 0.001;
     root.querySelector('[data-action="next"]').disabled =
-      track.scrollLeft >= layoutStops().end - 1;
+      state.position >= 3.999;
+  }
+  function setHash(hash, replace = false) {
+    if (replace) {
+      // Same-document hash replacement also works when previewing the files locally.
+      try {
+        history.replaceState(null, "", hash);
+      } catch {
+        location.hash = hash;
+      }
+      readRoute();
+    } else if (location.hash === hash) readRoute();
+    else location.hash = hash;
   }
   function goTo(index) {
-    positionSection(Math.min(4, Math.max(0, index)), true);
-  }
-  function moveTrack(left, smooth) {
-    cancelAnimationFrame(positionFrame);
-    programmaticScroll = true;
-    positionFrame = requestAnimationFrame(() => {
-      track.scrollTo({
-        left,
-        behavior: smooth && !reducedMotion() ? "smooth" : "instant",
-      });
-      state.position = track.clientWidth
-        ? track.scrollLeft / track.clientWidth
-        : 0;
-      programmaticScroll = false;
-      updateIndicators(nearestSection());
-    });
+    const bounded = Math.min(4, Math.max(0, index));
+    setHash(`#${sectionIds[bounded]}`);
   }
   function stepSection(direction) {
-    const { starts, end } = layoutStops();
-    const stops = [
-      ...new Set([...starts.map((start) => Math.min(start, end)), end]),
-    ];
-    const left =
+    const position = track.clientWidth
+      ? track.scrollLeft / track.clientWidth
+      : state.position;
+    goTo(
       direction > 0
-        ? (stops.find((stop) => stop > track.scrollLeft + 1) ?? end)
-        : (stops.reverse().find((stop) => stop < track.scrollLeft - 1) ?? 0);
-    moveTrack(left, true);
+        ? Math.floor(position + 0.001) + 1
+        : Math.ceil(position - 0.001) - 1,
+    );
   }
   function positionSection(index, smooth) {
-    const { starts, end } = layoutStops();
-    moveTrack(Math.min(starts[index] || 0, end), smooth);
+    cancelAnimationFrame(positionFrame);
+    programmaticScroll = true;
+    state.position = index;
+    updateIndicators(index);
+    positionFrame = requestAnimationFrame(() => {
+      track.scrollTo({
+        left: index * track.clientWidth,
+        behavior: smooth && !reducedMotion() ? "smooth" : "instant",
+      });
+      programmaticScroll = false;
+    });
+  }
+  function parseRoute() {
+    let hash;
+    try {
+      hash = decodeURIComponent(location.hash.slice(1));
+    } catch {
+      hash = "";
+    }
+    const recruiter = hash === "recruiter" || hash.startsWith("recruiter/");
+    const match = hash.match(/^(?:recruiter\/)?project\/([^/]+)$/);
+    return {
+      recruiter,
+      project: match ? match[1] : null,
+      section: sectionIds.indexOf(hash),
+    };
   }
   function renderStory(project) {
     if (!project) {
@@ -365,50 +358,55 @@
         <button class="pill-button" data-action="close-story">${icon("left")} Back to the portfolio</button>
       </div></div>`;
   }
-  function updateTitle() {
-    document.title = `${profile.name} · ${state.recruiter ? "Recruiter overview" : `Portfolio ${profile.year}`}`;
-  }
-  function setRecruiter(enabled) {
-    state.recruiter = enabled;
-    document.documentElement.classList.toggle("portfolio-mode", !enabled);
-    fullPortfolio.hidden = enabled;
-    overview.hidden = !enabled;
-    window.scrollTo(0, 0);
-    if (!enabled) {
-      track.scrollTo({
-        left: state.position * track.clientWidth,
-        behavior: "instant",
-      });
+  function readRoute(initial = false) {
+    const route = parseRoute();
+    const modeChanged = state.recruiter !== route.recruiter;
+    state.recruiter = route.recruiter;
+    document.documentElement.classList.toggle(
+      "portfolio-mode",
+      !route.recruiter,
+    );
+    fullPortfolio.hidden = route.recruiter;
+    overview.hidden = !route.recruiter;
+    if (modeChanged) window.scrollTo(0, 0);
+    if (route.project) {
+      const project = projects.find((item) => item.id === route.project);
+      if (!state.project && !state.trigger) {
+        state.returnHash = route.recruiter
+          ? "#recruiter"
+          : passions.includes(project)
+            ? "#passion"
+            : "#works";
+      }
+      if (state.project !== route.project) renderStory(project);
+      state.project = route.project;
+      if (!dialog.open) dialog.showModal();
+      document.title = `${project?.title || "Project not found"} · ${profile.name}`;
+    } else {
+      const wasOpen = dialog.open;
+      if (wasOpen) dialog.close();
+      state.project = null;
+      if (!route.recruiter)
+        positionSection(
+          route.section >= 0 ? route.section : state.section,
+          !initial && !modeChanged,
+        );
+      if (wasOpen) {
+        const trigger = state.trigger;
+        state.trigger = null;
+        requestAnimationFrame(() => {
+          if (trigger?.isConnected && !trigger.closest("[hidden]"))
+            trigger.focus({ preventScroll: true });
+        });
+      }
+      document.title = `${profile.name} · ${route.recruiter ? "Recruiter overview" : `Portfolio ${profile.year}`}`;
     }
-    updateTitle();
-  }
-  function openStory(id, trigger) {
-    const project = projects.find((item) => item.id === id);
-    state.project = id;
-    state.trigger = trigger;
-    renderStory(project);
-    dialog.showModal();
-    document.title = `${project?.title || "Project not found"} · ${profile.name}`;
   }
   function closeStory() {
-    if (dialog.open) dialog.close();
-    state.project = null;
-    const trigger = state.trigger;
-    state.trigger = null;
-    updateTitle();
-    requestAnimationFrame(() => {
-      if (trigger?.isConnected && !trigger.closest("[hidden]"))
-        trigger.focus({ preventScroll: true });
-    });
-  }
-  function startAtBeginning() {
-    clearFragment();
-    if (dialog.open) dialog.close();
-    state.project = null;
-    state.trigger = null;
-    state.position = 0;
-    setRecruiter(false);
-    positionSection(0, false);
+    setHash(
+      state.returnHash || (state.recruiter ? "#recruiter" : "#works"),
+      true,
+    );
   }
   dialog.addEventListener("cancel", (event) => {
     event.preventDefault();
@@ -433,9 +431,11 @@
       !event.shiftKey &&
       event.button === 0
     ) {
-      event.preventDefault();
-      openStory(projectAnchor.dataset.projectLink, projectAnchor);
-      return;
+      state.returnHash = state.recruiter
+        ? "#recruiter"
+        : `#${sectionIds[state.section]}`;
+      state.trigger = projectAnchor;
+      return; // Preserve normal anchor links, new tabs, and shareable URLs.
     }
     const card = event.target.closest("[data-card]");
     if (card) {
@@ -447,9 +447,8 @@
     event.preventDefault();
     if (action === "next") stepSection(1);
     if (action === "previous") stepSection(-1);
-    if (action === "recruiter") setRecruiter(true);
-    if (action === "portfolio") setRecruiter(false);
-    if (action === "skip-content") track.focus({ preventScroll: true });
+    if (action === "recruiter") setHash("#recruiter");
+    if (action === "portfolio") setHash(`#${sectionIds[state.section]}`);
     if (action === "close-story") closeStory();
     if (action === "print") window.print();
     if (action === "restart") newGame();
@@ -462,7 +461,7 @@
         scrollFrame = null;
         if (!programmaticScroll) {
           state.position = track.scrollLeft / track.clientWidth;
-          updateIndicators(nearestSection());
+          updateIndicators(Math.round(state.position));
         }
       });
     },
@@ -478,6 +477,26 @@
       )
         return;
       if (!event.deltaY) return;
+      const rail = event.target.closest(
+        ".about-grid, .projects-grid, .passion-grid, .game-layout",
+      );
+      if (
+        rail &&
+        rail.scrollWidth > rail.clientWidth + 2 &&
+        ((event.deltaY > 0 &&
+          rail.scrollLeft < rail.scrollWidth - rail.clientWidth - 2) ||
+          (event.deltaY < 0 && rail.scrollLeft > 0))
+      ) {
+        event.preventDefault();
+        rail.scrollLeft +=
+          event.deltaY *
+          (event.deltaMode === 1
+            ? 18
+            : event.deltaMode === 2
+              ? rail.clientWidth
+              : 1);
+        return;
+      }
       event.preventDefault();
       track.scrollLeft +=
         event.deltaY *
@@ -516,9 +535,7 @@
       });
     }
   });
-  // Old bookmarked fragments also resolve to the beginning, then disappear.
-  window.addEventListener("hashchange", startAtBeginning);
-  window.addEventListener("pageshow", startAtBeginning);
+  window.addEventListener("hashchange", () => readRoute());
 
   // Memory game: four pairs, no timer or sound, with a readable completion state.
   let cards = [];
@@ -535,10 +552,10 @@
     matched = new Set();
     moves = 0;
     const blooms = [
-      { name: "Buttercup", sticker: "buttercup" },
-      { name: "Rose", sticker: "rose-anemone" },
-      { name: "Coral", sticker: "coral-flower" },
-      { name: "Poppy", sticker: "crimson-daisy" },
+      { name: "Poppy", sticker: "apricot-poppy" },
+      { name: "Magenta", sticker: "magenta-flower" },
+      { name: "Lavender", sticker: "lavender-flower" },
+      { name: "Blossom", sticker: "tangerine-bloom" },
     ];
     cards = blooms.flatMap((bloom, pair) =>
       [0, 1].map((copy) => ({ ...bloom, pair, id: `${pair}-${copy}` })),
@@ -604,5 +621,6 @@
   }
 
   newGame();
-  startAtBeginning();
+  updateIndicators(0);
+  readRoute(true);
 })();
