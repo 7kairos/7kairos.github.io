@@ -56,7 +56,6 @@
       el('img', { src: sticker(project.sticker || choices[index % choices.length]), alt: '' }));
   }
 
-  // The ENTIRE rectangle is the link to a write-up: image, heading and text.
   function projectCard(project, index, category) {
     const media = project.image
       ? el('img', { class: 'cover', src: project.image, alt: project.imageAlt || '',
@@ -99,21 +98,34 @@
   });
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
 
+  const heroTitle = P.heroTitle || 'portfolio';
+  const heroKicker = P.heroKicker || 'welcome to my';
+  
+  const useOptionThreeWordmark = heroTitle.trim().toLowerCase() === 'portfolio' &&
+    heroKicker.trim().toLowerCase() === 'welcome to my';
+  const heroHeading = useOptionThreeWordmark
+    ? el('h1', { class: 'hero-title hero-title-reference serif', 'aria-label': `${heroKicker} ${heroTitle}` },
+        el('img', {
+          class: 'hero-lettering-image',
+          src: 'assets/images/hero-option-three-lettering.png',
+          alt: '', 'aria-hidden': 'true', draggable: 'false',
+          onerror: event => { event.currentTarget.replaceWith(el('span', { class: 'hero-word' }, heroTitle)); }
+        }))
+    : el('div', { class: 'hero-editable-title' },
+        el('p', { class: 'hero-kicker hand' }, heroKicker),
+        el('h1', { class: 'hero-title serif' }, el('span', { class: 'hero-word' }, heroTitle)));
   const home = el('section', { class: 'page hero', id: 'home' },
     [
-      [element('orange-wash'), '-12%', '-12%', size(55, 90, 320), 0, 'wash'],
-      [element('rose-wash'), '-5%', '39%', size(47, 69, 280), 0, 'wash'],
-      [sticker('coral-flower'), '1%', '12%', size(26, 43, 175), -8, 'sway', ['-10%', '18%']],
-      [element('violet-pansy'), '20%', '50%', size(20, 33, 130), 8, 'sway', ['20%', '68%']],
-      [element('orange-bloom'), '23%', '1%', size(16, 27, 100), 12, '', ['49%', '14%']],
-      [icon('coral-butterfly'), '35%', '51%', size(10, 18, 70), -12, 'small-art', ['66%', '58%']],
-      [element('gold-stars'), '2%', '74%', size(10, 16, 65), 0, 'small-art']
+      [element('orange-wash'), '-22%', '-11%', size(52, 89, 320), 0, 'wash'],
+      [element('rose-wash'), '72%', '39%', size(32, 56, 210), 0, 'wash'],
+      [sticker('coral-flower'), '77%', '57%', size(17, 30, 125), 13, 'sway', ['71%', '65%']],
+      [element('orange-bloom'), '6.5%', '7.5%', size(15, 25, 95), -9, 'small-art', ['6%', '10%']],
+      [element('gold-stars'), '86%', '66%', size(7, 12, 50), 8, 'small-art nomob']
     ].map(artwork),
     el('div', { class: 'hero-copy' },
-      el('p', { class: 'eyebrow hand' }, P.eyebrow),
-      el('h1', { class: 'serif' }, P.tagline + ' ', el('span', { class: 'underlined' }, P.accent)),
+      heroHeading,
       el('div', { class: 'hero-foot' },
-        el('p', { class: 'hand scroll-cue' }, 'scroll sideways to explore'),
+        el('p', { class: 'hand hero-descriptor' }, P.heroDescriptor || P.eyebrow),
         el('span', { class: 'hero-year hand' }, P.year))));
 
   const works = section('works', [
@@ -123,8 +135,7 @@
     [icon('patchwork-star'), '82%', '7%', size(6, 12, 55), 8, 'small-art']
   ], heading('my works', 'things i made & loved'), ...D.works.map((p, i) => projectCard(p, i, 'works')));
 
-  // A pocket folder and open scrapbook page, not a second row of formal cards.
-  // Every item can be dragged with mouse, pen or touch; click and Enter/Space also work.
+  
   function passionArt(project, index, cssClass) {
     const src = project.image;
     const fallback = () => el('div', { class: `${cssClass} passion-flower ${project.tone || 'rose'}` },
@@ -279,11 +290,10 @@
       el('span', { class: 'hand' }, 'collected with love ♡')),
     el('p', { class: 'folder-hint hand' }, 'drag onto the page · or tap'));
 
-  // The title lives above the folder and scrapbook instead of alongside them.
   const passions = section('passion', [
     [icon('pink-brush-wash'), '-10%', '30%', size(40, 64, 230), 0, 'wash']
   ], el('div', { class: 'passion-spread' },
-    heading('passion projects', 'little experiments & other loves'),
+    heading('passion projects'),
     el('div', { class: 'passion-content' }, folder, passionWorkspace)));
 
   const portrait = el('div', { class: 'portrait-wrap' }, P.photo
@@ -292,13 +302,78 @@
         el('img', { src: sticker('coral-flower'), alt: '' }),
         el('span', { class: 'hand' }, 'your photo goes here')));
 
-  const aboutIntro = el('div', { class: 'about-intro' },
-    el('h2', { class: 'serif' }, "hi, i'm ", el('span', { class: 'underlined' }, 'khloe!')),
-    el('div', { class: 'paper-note' }, el('p', {}, P.intro)),
-    el('div', { class: 'social-links' },
-      el('a', { href: `mailto:${P.email}`, class: 'hand' }, 'say hello'),
-      el('a', { href: `https://${P.linkedin}`, target: '_blank', rel: 'noopener noreferrer', class: 'hand' }, 'linkedin ↗')));
+        
+  const favoriteCursor = el('span', { class: 'favorite-cursor hand', 'aria-hidden': 'true' });
+  const favorites = Array.isArray(D.favorites) ? D.favorites : [];
+  let activeFavorite = null;
+  function positionFavoriteCursor(clientX, clientY) {
+    const inset = 12;
+    const width = favoriteCursor.offsetWidth || 190;
+    const height = favoriteCursor.offsetHeight || 34;
+    favoriteCursor.style.left = `${Math.max(inset, Math.min(clientX + 16, innerWidth - width - inset))}px`;
+    favoriteCursor.style.top = `${Math.max(inset, Math.min(clientY + 16, innerHeight - height - inset))}px`;
+  }
+  function showFavoriteCursor(item, x, y) {
+    favoriteCursor.textContent = item.label || item.title || '';
+    activeFavorite = item.id;
+    favoriteCursor.classList.add('visible');
+    positionFavoriteCursor(x, y);
+  }
+  function hideFavoriteCursor(item) {
+    if (!item || activeFavorite === item.id) {
+      favoriteCursor.classList.remove('visible');
+      activeFavorite = null;
+    }
+  }
+  function makeFavorite(item, index) {
+    const linked = Boolean(item.href);
+    const isExternal = linked && /^https?:\/\//i.test(item.href);
+    const label = item.label || item.title || '';
+    const picture = el(linked ? 'a' : 'button', {
+      class: `favorite-item favorite-item-${index + 1}`,
+      type: linked ? null : 'button',
+      href: linked ? item.href : null,
+      target: isExternal ? '_blank' : null,
+      rel: isExternal ? 'noopener noreferrer' : null,
+      'aria-label': label
+    }, el('img', { src: item.image, alt: '', loading: 'eager', draggable: 'false' }));
+    picture.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'touch') showFavoriteCursor(item, event.clientX, event.clientY);
+    });
+    picture.addEventListener('pointermove', event => {
+      if (event.pointerType !== 'touch') showFavoriteCursor(item, event.clientX, event.clientY);
+    });
+    picture.addEventListener('pointerleave', () => hideFavoriteCursor(item));
+    picture.addEventListener('focus', () => {
+      const rect = picture.getBoundingClientRect();
+      showFavoriteCursor(item, rect.left + rect.width / 2, rect.bottom + 1);
+    });
+    picture.addEventListener('blur', () => hideFavoriteCursor(item));
+    if (!linked) picture.addEventListener('click', () => {
+      const rect = picture.getBoundingClientRect();
+      showFavoriteCursor(item, rect.left + rect.width / 2, rect.bottom + 1);
+    });
+    return picture;
+  }
+  const favoriteBoard = el('div', { class: 'favorite-board' },
+    el('p', { class: 'hand favorite-overline' }, 'a few of my favorite things ♡'),
+    el('div', { class: 'favorite-gallery' }, favorites.map(makeFavorite)));
 
+  const aboutIntro = el('div', { class: 'about-intro' },
+    el('h2', { class: 'serif' }, 'meet the designer'),
+    favoriteBoard,
+    el('div', { class: 'social-links' },
+      el('a', { href: `mailto:${P.email}`, class: 'hand hello-link' }, 'say hello ↗'),
+      el('a', { href: P.linkedin.startsWith('http') ? P.linkedin : `https://${P.linkedin}`,
+        target: '_blank', rel: 'noopener noreferrer', class: 'social-icon-link',
+        'aria-label': 'LinkedIn profile' },
+        el('img', { src: 'assets/icons/social/linkedin.svg', alt: 'LinkedIn', width: '29', height: '29' })),
+      P.github ? el('a', { href: P.github, target: '_blank', rel: 'noopener noreferrer',
+        class: 'social-icon-link', 'aria-label': 'GitHub profile' },
+        el('img', { src: 'assets/icons/social/github.svg', alt: 'GitHub', width: '29', height: '29' })) : null));
+
+  const designTools = Array.isArray(D.designTools) ? D.designTools : [];
+  const programmingLanguages = Array.isArray(D.programmingLanguages) ? D.programmingLanguages : [];
   const aboutFacts = el('div', { class: 'about-facts' },
     el('section', { class: 'about-fact' },
       el('h3', { class: 'hand' }, 'school'),
@@ -308,9 +383,15 @@
     el('section', { class: 'about-fact' },
       el('h3', { class: 'hand' }, 'leadership'),
       ...D.leadership.map(l => el('p', { class: 'lead-item' }, el('strong', {}, l.role), ` · ${l.org}`))),
-    el('section', { class: 'about-fact' },
+    el('section', { class: 'about-fact tools-fact' },
       el('h3', { class: 'hand' }, 'things i use'),
-      el('div', { class: 'chips' }, P.skills.map(skill => el('span', {}, skill)))));
+      el('div', { class: 'design-tool-grid' }, designTools.map(tool =>
+        el('div', { class: 'design-tool', title: tool.name },
+          el('img', { src: tool.icon, alt: tool.name, width: '36', height: '36', loading: 'eager' }),
+          el('span', {}, tool.name)))),
+      el('h4', { class: 'hand code-heading' }, 'programming languages'),
+      el('div', { class: 'language-list' }, programmingLanguages.map(language =>
+        el('span', {}, language)))));
 
   const about = section('about', [
     [icon('lemon-brush-wash'), '-4%', '59%', size(39, 60, 230), 0, 'wash'],
@@ -448,7 +529,7 @@
     updateNavigation();
   }
 
-  document.getElementById('app').append(header, track, recruiter, dialog);
+  document.getElementById('app').append(header, track, recruiter, dialog, favoriteCursor);
   window.addEventListener('hashchange', route);
   route();
 })();

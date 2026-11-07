@@ -1,5 +1,5 @@
 /*
- * EDIT YOUR PORTFOLIO HERE.
+ * EDITABLE PORTFOLIO DATA HERE
  * Everything in this file updates both the full portfolio and recruiter mode.
  * Keep project IDs unique and stable, even when you rename a project.
  * Paths are relative to index.html: "assets/images/my-project.png".
