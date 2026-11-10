@@ -133,7 +133,7 @@
     [element('olive-sprig'), '3%', '7%', size(8, 20, 65), -8],
     [element('blue-dashes'), '13%', '78%', size(8, 16, 55), -10, 'small-art'],
     [icon('patchwork-star'), '82%', '7%', size(6, 12, 55), 8, 'small-art']
-  ], heading('my works', 'things i made & loved'), ...D.works.map((p, i) => projectCard(p, i, 'works')));
+  ], heading('my works', '& their processes!'), ...D.works.map((p, i) => projectCard(p, i, 'works')));
 
   
   function passionArt(project, index, cssClass) {
@@ -214,9 +214,7 @@
   }
 
   passionWorkspace.append(el('div', { class: 'workspace-empty' },
-    el('span', { class: 'workspace-doodle hand', 'aria-hidden': 'true' }, '✳'),
-    el('p', { class: 'serif' }, 'A blank page, for now.'),
-    el('span', { class: 'hand' }, 'drag a project here, or tap one in the folder')));
+    el('p', { class: 'serif' }, 'replace this with a flower element.')));
 
   function wirePassionDrag(button, project, index) {
     let drag = null;
@@ -287,13 +285,13 @@
       return button;
     })),
     el('div', { class: 'folder-front' },
-      el('span', { class: 'hand' }, 'collected with love ♡')),
-    el('p', { class: 'folder-hint hand' }, 'drag onto the page · or tap'));
+      el('span', { class: 'hand' }, '♡')),
+    el('p', { class: 'folder-hint hand' }, ''));
 
   const passions = section('passion', [
     [icon('pink-brush-wash'), '-10%', '30%', size(40, 64, 230), 0, 'wash']
   ], el('div', { class: 'passion-spread' },
-    heading('passion projects'),
+    heading('passion projects', 'drag onto the page · or tap'),
     el('div', { class: 'passion-content' }, folder, passionWorkspace)));
 
   const portrait = el('div', { class: 'portrait-wrap' }, P.photo
@@ -344,14 +342,20 @@
       if (event.pointerType !== 'touch') showFavoriteCursor(item, event.clientX, event.clientY);
     });
     picture.addEventListener('pointerleave', () => hideFavoriteCursor(item));
-    picture.addEventListener('focus', () => {
-      const rect = picture.getBoundingClientRect();
-      showFavoriteCursor(item, rect.left + rect.width / 2, rect.bottom + 1);
+    picture.addEventListener('focus', event => {
+      if (event.target.matches(':focus-visible')) {
+        const rect = picture.getBoundingClientRect();
+        showFavoriteCursor(
+          item,
+          rect.left + rect.width / 2,
+          rect.bottom + 1
+        );
+      }
     });
     picture.addEventListener('blur', () => hideFavoriteCursor(item));
-    if (!linked) picture.addEventListener('click', () => {
-      const rect = picture.getBoundingClientRect();
-      showFavoriteCursor(item, rect.left + rect.width / 2, rect.bottom + 1);
+    if (!linked) picture.addEventListener('click', event => {
+      if (event.detail === 0) return; // Keyboard clicks
+      showFavoriteCursor(item, event.clientX, event.clientY);
     });
     return picture;
   }

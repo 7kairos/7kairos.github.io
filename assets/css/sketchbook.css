@@ -51,8 +51,6 @@ a { color: inherit; }
   line-height: 1.12; cursor: pointer; transform: rotate(-1deg); }
 .recruiter-toggle:hover, .recruiter-toggle:focus-visible { background: #f7e5d5; }
 
-/* ONE uninterrupted paper surface: sections carry no individual backgrounds,
-   book borders, page-hole gradients or snap points. */
 #track {
   position: fixed; inset: 0; z-index: 1;
   display: flex; align-items: stretch;
@@ -596,6 +594,12 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   box-shadow: none; filter: none; pointer-events: none; visibility: hidden; opacity: 0;
   transition: opacity .1s ease, visibility .1s ease; white-space: normal; }
 .favorite-cursor.visible { visibility: visible; opacity: 1; }
+.favorite-cursor {
+  transform: translate(-50%, -50%);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
 .social-links { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(14px, 1.6vw, 25px); margin-top: 20px; }
 .social-links .hello-link { font-size: clamp(1.4rem, 1.65vw, 1.85rem); }
 .social-links .social-icon-link { display: inline-flex; align-items: center; justify-content: center;
@@ -756,4 +760,18 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 }
 @media (max-height: 500px) and (min-width: 721px) {
   .hero .hero-copy { width: min(53vw, 660px); transform: translateY(6vh); }
+}
+
+/* Favorite things — subtle sticker pop-out effect */
+.favorite-item img {
+  transition: transform 0.25s ease;
+  transform-origin: center;
+}
+.favorite-item:hover img {
+  transform: translateY(-6px) scale(1.08);
+}
+
+/* Keyboard accessibility */
+.favorite-item:focus-visible img {
+  transform: translateY(-6px) scale(1.08);
 }
