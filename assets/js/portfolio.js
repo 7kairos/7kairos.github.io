@@ -79,7 +79,7 @@
   }
   function sticker(name, className = "", label = "") {
     const directory = safePath(
-      data.artwork?.stickerDirectory || "assets/icons",
+      data.artwork?.stickerDirectory || "assets/artwork",
     ).replace(/\/$/, "");
     const filename = /^[a-z0-9-]+$/.test(name || "") ? name : "apricot-poppy";
     const source = directory + "/" + filename + ".png";

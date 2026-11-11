@@ -15,7 +15,7 @@ const proj = (id, title, tone, more = {}) => ({
 });
 
 window.SKETCHBOOK = {
-  stickerDir: "assets/icons/stickers",
+  stickerDir: "assets/artwork",
   artwork: { works: ["ochre-flower", "rose-anemone", "burgundy-bloom"], passions: ["botanical-pair", "buttercup"] },
   profile: {
     name: "khloe sakai",
@@ -29,18 +29,21 @@ window.SKETCHBOOK = {
     resumePdf: "assets/resume/khloe-sakai-resume.pdf",
     email: "khloekjs@gmail.com", linkedin: "linkedin.com/in/khloe-sakai",
     github: "https://github.com/7kairos",
-    school: "Rensselaer Polytechnic Institute",
+    school: "Rensselaer Polytechnic Institute", schoolUrl: "https://www.rpi.edu/",
     degree: "B.S. Dual: Information Technology & Web Science / Communications, Media & Design",
     minor: "Marketing", dates: "Aug 2025 – May 2029 (expected)",
-    skills: ["Visual & UI/UX design", "Low to high fidelity prototyping", "Figma", "Photoshop & Illustrator", "HTML / CSS / JavaScript", "Python, SQL, C#, Unity"]
+    skills: [
+      "Visual & UI/UX design", "Low- to high-fidelity prototyping",
+      "Community operations", "Event coordination", "Marketing & communications"
+    ]
   },
   // FAVORITE THINGS Section
   favorites: [
-    { id: "matcha", label: "homemade matcha lattes", image: "assets/icons/hobbies/matcha.png" },
-    { id: "music", label: "playlist-making", image: "assets/icons/hobbies/headphones.png", href: "https://open.spotify.com/user/9n7o35e91l272fnouizjp1wyy?si=f2f742a8f17a4a31" },
-    { id: "games", label: "videogames!", image: "assets/icons/hobbies/game-controller.png", href: "milkymon/index.html" },
-    { id: "sketches", label: "creative writing", image: "assets/icons/hobbies/sketching-pen.png" },
-    { id: "ocean", label: "my favorite aquarium exhibit", image: "assets/icons/hobbies/jellyfish.png", href: "https://www.montereybayaquarium.org/cams-videos/live-cams/jelly-cam" }
+    { id: "matcha", label: "homemade matcha lattes", image: "assets/artwork/hobby-matcha.png" },
+    { id: "music", label: "playlist-making", image: "assets/artwork/hobby-headphones.png", href: "https://open.spotify.com/user/9n7o35e91l272fnouizjp1wyy?si=f2f742a8f17a4a31" },
+    { id: "games", label: "videogames!", image: "assets/artwork/hobby-game-controller.png", href: "milkymon/index.html" },
+    { id: "sketches", label: "creative writing", image: "assets/artwork/hobby-sketching-pen.png" },
+    { id: "ocean", label: "my favorite aquarium exhibit", image: "assets/artwork/hobby-jellyfish.png", href: "https://www.montereybayaquarium.org/cams-videos/live-cams/jelly-cam" }
   ],
   // WHAT I USE Section
   designTools: [
@@ -50,15 +53,21 @@ window.SKETCHBOOK = {
     { name: "Adobe Lightroom", icon: "https://api.iconify.design/logos/adobe-lightroom.svg" },
     { name: "DaVinci Resolve", icon: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_DavinciResolve_Simple.svg" },
     { name: "ChatGPT", icon: "https://api.iconify.design/logos/openai-icon.svg" },
-    { name: "Claude", icon: "https://api.iconify.design/fa7-brands/claude.svg" }
+    { name: "Claude", icon: "https://api.iconify.design/fa7-brands/claude.svg" },
+    { name: "Canva", icon: "https://cdn.simpleicons.org/canva/00C4CC" }
   ],
   programmingLanguages: ["Python", "HTML", "CSS", "C++", "C#", "SQL", "PHP"],
   leadership: [
-    { role: "Co-Founder", org: "Independent Project · gaming creator community" },
-    { role: "Work Party Manager", org: "Alpha Gamma Delta" },
+    // Descriptions are editable starter copy; only these three roles appear in Recruiter Mode.
+    { role: "Co-Founder", org: "Independent Project · gaming creator community",
+      description: "Led creator recruitment, onboarding, and a cross-functional staff team." },
+    { role: "Work Party Manager", org: "Alpha Gamma Delta",
+      url: "https://alphagammadelta.org/",
+      description: "Coordinated chapter activities, event planning, and logistics." },
     { role: "General Board Member", org: "Philippine American League" },
     { role: "General Board Member", org: "Club Water Polo" },
-    { role: "Marketing Lead", org: "School Club · 2022–2025" }
+    { role: "Marketing Lead", org: "School Club · 2022–2025",
+      description: "Developed promotional materials and communications for club activities." }
   ],
   works: [proj("work-one", "Work title one", "peach"), proj("work-two", "Work title two", "rose"), proj("work-three", "Work title three", "sand")],
 

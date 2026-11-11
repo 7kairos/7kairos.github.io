@@ -158,7 +158,7 @@ window.PORTFOLIO = {
     },
   ],
   artwork: {
-    stickerDirectory: "assets/icons",
+    stickerDirectory: "assets/artwork",
     heroMain: "apricot-poppy",
     heroAccent: "pink-blossom-sprig",
     heroTop: "golden-stars",

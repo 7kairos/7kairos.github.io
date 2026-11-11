@@ -5,9 +5,19 @@
   if (!D) return;
   const P = D.profile;
   const body = document.body;
-  const element = name => `assets/icons/elements/${name}.png`;
-  const icon = name => `assets/icons/${name}.png`;
-  const sticker = name => `${D.stickerDir}/${name}.png`;
+  // Every watercolor graphic lives in one flat, easy-to-browse folder.
+  const element = name => `assets/artwork/element-${name}.png`;
+  const icon = name => `assets/artwork/${name}.png`;
+  const sticker = name => `${D.stickerDir}/sticker-${name}.png`;
+  const logoFallback = event => {
+    const image = event.currentTarget;
+    if (image.dataset.flowerFallback) return;
+    image.dataset.flowerFallback = 'true';
+    image.classList.add('is-flower-fallback');
+    image.alt = 'Watercolor flower (logo unavailable)';
+    image.src = sticker('coral-flower');
+  };
+  const resumePath = P.resumePdf || 'assets/resume/khloe-sakai-resume.pdf';
   const size = (vw, vh, min = 80) => `min(max(${vw}vw, ${min}px), ${vh}vh)`;
 
   function el(tag, attrs = {}, ...children) {
@@ -107,7 +117,7 @@
     ? el('h1', { class: 'hero-title hero-title-reference serif', 'aria-label': `${heroKicker} ${heroTitle}` },
         el('img', {
           class: 'hero-lettering-image',
-          src: 'assets/images/hero-option-three-lettering.png',
+          src: 'assets/artwork/hero-option-three-lettering.png',
           alt: '', 'aria-hidden': 'true', draggable: 'false',
           onerror: event => { event.currentTarget.replaceWith(el('span', { class: 'hero-word' }, heroTitle)); }
         }))
@@ -131,8 +141,8 @@
   const works = section('works', [
     [icon('apricot-brush-wash'), '-7%', '60%', size(38, 58, 210), 0, 'wash'],
     [element('olive-sprig'), '3%', '7%', size(8, 20, 65), -8],
-    [element('blue-dashes'), '13%', '78%', size(8, 16, 55), -10, 'small-art'],
-    [icon('patchwork-star'), '82%', '7%', size(6, 12, 55), 8, 'small-art']
+    [icon('patchwork-star'), '6%', '78%', size(8, 16, 55), -10, 'small-art'],
+    [element('blue-dashes'), '91%', '6%', size(7, 12, 55), 8, 'small-art']
   ], heading('my works', '& their processes!'), ...D.works.map((p, i) => projectCard(p, i, 'works')));
 
   
@@ -146,7 +156,7 @@
 
   const passionWorkspace = el('div', {
     class: 'passion-workspace', id: 'passion-workspace', role: 'region',
-    'aria-label': 'Passion project scrapbook workspace'
+    'aria-label': 'Passion project scrapbook workspace. Drag a polaroid here or tap one to explore.'
   });
 
   function showPassion(project, index) {
@@ -214,7 +224,7 @@
   }
 
   passionWorkspace.append(el('div', { class: 'workspace-empty' },
-    el('p', { class: 'serif' }, 'replace this with a flower element.')));
+    el('p', { class: 'workspace-empty-label hand' }, 'drag a polaroid here · or tap one to explore')));
 
   function wirePassionDrag(button, project, index) {
     let drag = null;
@@ -291,7 +301,7 @@
   const passions = section('passion', [
     [icon('pink-brush-wash'), '-10%', '30%', size(40, 64, 230), 0, 'wash']
   ], el('div', { class: 'passion-spread' },
-    heading('passion projects', 'drag onto the page · or tap'),
+    heading('passion projects'),
     el('div', { class: 'passion-content' }, folder, passionWorkspace)));
 
   const portrait = el('div', { class: 'portrait-wrap' }, P.photo
@@ -308,8 +318,8 @@
     const inset = 12;
     const width = favoriteCursor.offsetWidth || 190;
     const height = favoriteCursor.offsetHeight || 34;
-    favoriteCursor.style.left = `${Math.max(inset, Math.min(clientX + 16, innerWidth - width - inset))}px`;
-    favoriteCursor.style.top = `${Math.max(inset, Math.min(clientY + 16, innerHeight - height - inset))}px`;
+    favoriteCursor.style.left = `${Math.max(width / 2 + inset, Math.min(clientX, innerWidth - width / 2 - inset))}px`;
+    favoriteCursor.style.top = `${Math.max(height / 2 + inset, Math.min(clientY, innerHeight - height / 2 - inset))}px`;
   }
   function showFavoriteCursor(item, x, y) {
     favoriteCursor.textContent = item.label || item.title || '';
@@ -371,27 +381,38 @@
       el('a', { href: P.linkedin.startsWith('http') ? P.linkedin : `https://${P.linkedin}`,
         target: '_blank', rel: 'noopener noreferrer', class: 'social-icon-link',
         'aria-label': 'LinkedIn profile' },
-        el('img', { src: 'assets/icons/social/linkedin.svg', alt: 'LinkedIn', width: '29', height: '29' })),
+        el('img', { src: 'https://cdn.simpleicons.org/linkedin/9F4C39',
+          alt: 'LinkedIn', width: '29', height: '29', onerror: logoFallback })),
       P.github ? el('a', { href: P.github, target: '_blank', rel: 'noopener noreferrer',
         class: 'social-icon-link', 'aria-label': 'GitHub profile' },
-        el('img', { src: 'assets/icons/social/github.svg', alt: 'GitHub', width: '29', height: '29' })) : null));
+        el('img', { src: 'https://cdn.simpleicons.org/github/9F4C39',
+          alt: 'GitHub', width: '29', height: '29', onerror: logoFallback })) : null,
+      el('a', { class: 'about-resume hand', href: resumePath, download: '',
+        'aria-label': 'Download resume PDF' }, 'download resume ↓')));
 
   const designTools = Array.isArray(D.designTools) ? D.designTools : [];
   const programmingLanguages = Array.isArray(D.programmingLanguages) ? D.programmingLanguages : [];
   const aboutFacts = el('div', { class: 'about-facts' },
     el('section', { class: 'about-fact' },
-      el('h3', { class: 'hand' }, 'school'),
-      el('strong', { class: 'serif' }, P.school),
+      el('h3', { class: 'hand' }, el('a', { href: P.schoolUrl || 'https://www.rpi.edu/',
+        target: '_blank', rel: 'noopener noreferrer' }, 'school')),
+      el('strong', { class: 'serif' }, el('a', { href: P.schoolUrl || 'https://www.rpi.edu/',
+        target: '_blank', rel: 'noopener noreferrer' }, P.school)),
       el('p', {}, P.degree),
       el('p', { class: 'meta' }, `Minor: ${P.minor} · ${P.dates}`)),
     el('section', { class: 'about-fact' },
-      el('h3', { class: 'hand' }, 'leadership'),
-      ...D.leadership.map(l => el('p', { class: 'lead-item' }, el('strong', {}, l.role), ` · ${l.org}`))),
+      el('h3', { class: 'hand' }, el('a', { href: '#recruiter' }, 'community & leadership')),
+      ...D.leadership.map(l => el('p', { class: 'lead-item' },
+        l.url ? el('a', { class: 'lead-role-link', href: l.url,
+          target: /^https?:\/\//i.test(l.url) ? '_blank' : null,
+          rel: /^https?:\/\//i.test(l.url) ? 'noopener noreferrer' : null },
+          el('strong', {}, l.role)) : el('strong', {}, l.role), ` · ${l.org}`))),
     el('section', { class: 'about-fact tools-fact' },
       el('h3', { class: 'hand' }, 'things i use'),
       el('div', { class: 'design-tool-grid' }, designTools.map(tool =>
         el('div', { class: 'design-tool', title: tool.name },
-          el('img', { src: tool.icon, alt: tool.name, width: '36', height: '36', loading: 'eager' }),
+          el('img', { src: tool.icon, alt: tool.name, width: '36', height: '36',
+            loading: 'eager', onerror: logoFallback }),
           el('span', {}, tool.name)))),
       el('h4', { class: 'hand code-heading' }, 'programming languages'),
       el('div', { class: 'language-list' }, programmingLanguages.map(language =>
@@ -428,9 +449,12 @@
       el('button', { class: 'recruiter-toggle hand', id: 'recruiter-toggle', type: 'button',
         onclick: () => { location.hash = inRecruiter() ? 'home' : 'recruiter'; } }, 'recruiter mode')));
 
-  const resumePath = P.resumePdf || 'assets/resume/khloe-sakai-resume.pdf';
   const recSection = (title, ...children) => el('section', { class: 'recruiter-section' },
-    el('h2', { class: 'hand' }, title), ...children);
+    el('h2', { class: 'hand' },
+      title === 'school' ? el('a', { href: P.schoolUrl || 'https://www.rpi.edu/',
+        target: '_blank', rel: 'noopener noreferrer' }, title) :
+      title === 'community & leadership' ? el('a', { href: '#about' }, title) : title),
+    ...children);
   const recProject = project => el('button', {
     class: 'recruiter-project', type: 'button', onclick: () => openProject(project),
     'aria-label': `Read ${project.title} write-up`
@@ -438,36 +462,54 @@
     el('span', { class: 'meta hand' }, `${project.role} · ${project.year}`),
     el('p', {}, project.summary));
 
+  // Recruiter mode: school + leadership on the left; work, passion and skills on the right.
+  // The three featured leadership roles have editable descriptions in sketchbook-data.js.
+  const featuredLeadershipRoles = new Set(['Co-Founder', 'Work Party Manager', 'Marketing Lead']);
+  const recruiterLeadership = D.leadership.filter(item => featuredLeadershipRoles.has(item.role));
+  const recSkillGroup = (title, items) => el('div', { class: 'recruiter-skill-group' },
+    el('h3', { class: 'hand' }, title),
+    el('div', { class: 'recruiter-skills' }, items.map(item => el('span', {}, item))));
+
   const recruiter = el('main', { id: 'recruiter-view' },
     el('div', { class: 'recruiter-sheet' },
-      artwork([icon('coral-butterfly'), '92%', '2%', size(8, 14, 62), 12, 'recruiter-art']),
+      artwork([icon('coral-butterfly'), '95%', '3%', size(8, 14, 62), 12, 'recruiter-art']),
       artwork([icon('blush-brush-wash'), '-11%', '49%', size(29, 45, 200), -4, 'recruiter-art wash']),
       el('div', { class: 'recruiter-top' },
         el('div', {}, el('h1', { class: 'serif' }, P.name),
           el('p', { class: 'hand recruiter-role' }, P.eyebrow)),
-        el('div', { class: 'recruiter-contact' },
-          el('a', { href: `mailto:${P.email}` }, P.email),
-          el('a', { href: `https://${P.linkedin}`, target: '_blank', rel: 'noopener noreferrer' }, P.linkedin))),
+        el('div', { class: 'recruiter-top-right' },
+          el('div', { class: 'recruiter-contact' },
+            el('a', { href: `mailto:${P.email}` }, P.email),
+            el('a', { href: P.linkedin.startsWith('http') ? P.linkedin : `https://${P.linkedin}`,
+              target: '_blank', rel: 'noopener noreferrer' }, P.linkedin)),
+          el('a', { class: 'resume-button hand', href: resumePath, download: '',
+            'aria-label': 'Download resume PDF' }, 'download resume ↓'))),
       el('div', { class: 'recruiter-grid' },
-        el('div', { class: 'recruiter-column' },
-          recSection('education',
-            el('h3', { class: 'serif' }, P.school),
+        el('div', { class: 'recruiter-column recruiter-background' },
+          recSection('school',
+            el('h3', { class: 'serif' }, el('a', { href: P.schoolUrl || 'https://www.rpi.edu/',
+              target: '_blank', rel: 'noopener noreferrer' }, P.school)),
             el('p', {}, P.degree),
             el('p', { class: 'meta' }, `Minor: ${P.minor}`),
             el('p', { class: 'meta' }, P.dates)),
-          recSection('skills', el('div', { class: 'recruiter-skills' },
-            P.skills.map(skill => el('span', {}, skill))))),
-        el('div', { class: 'recruiter-column' },
-          recSection('works', D.works.map(recProject))),
-        el('div', { class: 'recruiter-column' },
-          recSection('leadership',
-            D.leadership.map(item => el('div', { class: 'recruiter-lead' },
-              el('strong', {}, item.role), el('span', {}, item.org)))),
-          recSection('passion projects',
-            D.passions.filter(project => project.featured !== false).map(recProject)))),
-      el('div', { class: 'recruiter-footer' },
-        el('a', { class: 'resume-button hand', href: resumePath, download: '' },
-          'download resume ↓'))));
+          recSection('community & leadership',
+            recruiterLeadership.map(item => el('div', { class: 'recruiter-lead' },
+              item.url ? el('a', { class: 'recruiter-role-link', href: item.url,
+                target: /^https?:\/\//i.test(item.url) ? '_blank' : null,
+                rel: /^https?:\/\//i.test(item.url) ? 'noopener noreferrer' : null },
+                el('strong', {}, item.role)) : el('strong', {}, item.role),
+              el('span', { class: 'recruiter-lead-org' }, item.org),
+              item.description ? el('p', { class: 'recruiter-lead-description' }, item.description) : null)))),
+        el('div', { class: 'recruiter-column recruiter-portfolio' },
+          el('div', { class: 'recruiter-project-grid' },
+            recSection('works', D.works.map(recProject)),
+            recSection('passion projects',
+              D.passions.filter(project => project.featured !== false).map(recProject))),
+          recSection('skills',
+            el('div', { class: 'recruiter-skill-grid' },
+              recSkillGroup('apps i use', designTools.map(tool => tool.name)),
+              recSkillGroup('programming languages', programmingLanguages),
+              recSkillGroup('skills', P.skills)))))));
 
   let ticking = false;
   function updateNavigation() {

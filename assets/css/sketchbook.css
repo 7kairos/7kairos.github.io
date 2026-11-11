@@ -112,8 +112,8 @@ a { color: inherit; }
   box-shadow: 0 19px 34px -15px rgba(73,43,32,.4); }
 .project-card::before { content: ''; position: absolute; z-index: 3; left: 50%; top: -14px;
   width: 90px; height: 28px; margin-left: -45px; transform: rotate(-3deg);
-  background: url('../icons/coral-gingham-tape.png') center/contain no-repeat; }
-.project-card.pol::before { background-image: url('../icons/blue-gingham-tape.png'); transform: rotate(5deg); }
+  background: url('../artwork/coral-gingham-tape.png') center/contain no-repeat; }
+.project-card.pol::before { background-image: url('../artwork/blue-gingham-tape.png'); transform: rotate(5deg); }
 .cover, .cover-placeholder { display: block; width: 100%; aspect-ratio: 1.48; object-fit: cover; border-radius: 2px; }
 .pol .cover, .pol .cover-placeholder { aspect-ratio: 1.35; }
 .cover-placeholder { display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -137,7 +137,7 @@ a { color: inherit; }
 .portrait-wrap { position: relative; flex: 0 0 auto; transform: rotate(-3deg); }
 .portrait-wrap::before { content: ''; position: absolute; z-index: 3; left: 50%; top: -13px;
   width: 100px; height: 33px; transform: translateX(-50%) rotate(4deg);
-  background: url('../icons/sage-washi-tape.png') center/contain no-repeat; }
+  background: url('../artwork/sage-washi-tape.png') center/contain no-repeat; }
 .portrait { display: block; width: clamp(200px, 21vw, 300px); aspect-ratio: 3/4;
   object-fit: cover; border: 7px solid var(--paper-light); border-radius: 5px;
   box-shadow: 0 14px 30px -18px rgba(62,40,30,.45); }
@@ -185,62 +185,68 @@ dialog figcaption { color: var(--muted); font-size: 1.35rem; }
 .dialog-close { float: right; border: 1px dashed var(--rust); background: var(--paper-light);
   padding: 2px 12px; color: var(--rust); cursor: pointer; font-size: 1.3rem; }
 
-/* Recruiter mode: a compact, balanced three-column sheet with restrained art. */
+/* Recruiter mode: grouped two-column summary, with the resume action in the top-right. */
 #recruiter-view { display: none; }
 body.recruiter #track { display: none; }
 body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   overflow-x: hidden; overflow-y: auto;
   background: var(--grain), var(--paper);
-  padding: calc(var(--header-height) + 18px) clamp(20px, 4vw, 64px) 35px; }
-.recruiter-sheet { position: relative; width: 100%; max-width: 1240px; margin: 0 auto; }
-.recruiter-art { opacity: .72; }
+  padding: calc(var(--header-height) + 15px) clamp(18px, 3.4vw, 56px) 28px; }
+.recruiter-sheet { position: relative; width: 100%; max-width: 1360px; margin: 0 auto; }
+.recruiter-art { opacity: .68; }
 .recruiter-top { position: relative; z-index: 2; display: flex;
-  align-items: flex-end; justify-content: space-between; gap: 22px;
-  padding: 0 12px 19px; margin-bottom: 22px;
+  align-items: flex-end; justify-content: space-between; gap: 24px;
+  padding: 0 5px 15px; margin-bottom: 17px;
   border-bottom: 1px solid rgba(159,76,57,.29); }
-.recruiter-top h1 { margin: 0; color: var(--rust); font-size: clamp(3rem, 4.7vw, 4.3rem);
-  font-weight: 600; font-style: italic; line-height: 1; }
-.recruiter-role { margin: 7px 0 0; font-size: 1.65rem; color: var(--muted); }
-.recruiter-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 3px;
-  padding-right: 32px; font-size: .89rem; }
+.recruiter-top h1 { margin: 0; color: var(--rust);
+  font-size: clamp(3rem, 4.2vw, 4.3rem); font-weight: 600;
+  font-style: italic; line-height: 1; }
+.recruiter-role { margin: 5px 0 0; font-size: 1.55rem; color: var(--muted); }
+.recruiter-top-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.recruiter-contact { display: flex; flex-direction: column; align-items: flex-end;
+  gap: 2px; font-size: .81rem; }
 .recruiter-contact a { color: var(--rust); text-decoration: none; }
 .recruiter-contact a:hover { text-decoration: underline; }
+.resume-button { display: inline-flex; align-items: center; padding: 5px 16px;
+  border: 1.5px dashed var(--rust); color: var(--rust); background: #fffaf2;
+  font-size: 1.42rem; line-height: 1.05; text-decoration: none;
+  cursor: pointer; transform: rotate(-1deg); }
+.resume-button:hover { background: #f9e7db; }
 .recruiter-grid { position: relative; z-index: 2; display: grid;
-  grid-template-columns: .95fr 1.16fr 1.03fr; align-items: start; gap: clamp(14px, 2vw, 25px); }
-.recruiter-column { display: grid; gap: 17px; min-width: 0; }
-.recruiter-section { padding: 17px 19px 19px;
+  grid-template-columns: minmax(290px, .78fr) minmax(0, 1.62fr);
+  align-items: start; gap: clamp(14px, 1.7vw, 24px); }
+.recruiter-column { display: grid; align-content: start; gap: 14px; min-width: 0; }
+.recruiter-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px; align-items: start; }
+.recruiter-section { min-width: 0; padding: 15px 18px 17px;
   background: rgba(255,250,242,.88); border: 1px solid rgba(118,78,52,.13);
   box-shadow: 0 11px 20px -18px rgba(60,40,25,.45); }
-.recruiter-section h2 { margin: 0 0 9px; font-size: 1.95rem; color: var(--rust);
-  line-height: .92; border-bottom: 1px dashed rgba(159,76,57,.24); padding-bottom: 7px; }
-.recruiter-section h3 { margin: 0 0 4px; color: var(--ink); font-size: 1.42rem;
-  font-weight: 600; line-height: 1.08; }
-.recruiter-section p { margin: 3px 0; font-size: .87rem; line-height: 1.42; }
-.recruiter-section .meta { font-size: .79rem; }
-.recruiter-skills { display: flex; flex-wrap: wrap; gap: 6px; }
-.recruiter-skills span { font-size: .79rem; padding: 3px 8px; line-height: 1.2;
-  border: 1px solid rgba(111,140,175,.53); background: rgba(244,248,249,.55); }
-.recruiter-lead { margin-bottom: 8px; display: flex; flex-direction: column; gap: 0; }
+.recruiter-section h2 { margin: 0 0 9px; font-size: 1.85rem; color: var(--rust);
+  line-height: 1; border-bottom: 1px dashed rgba(159,76,57,.24); padding-bottom: 8px; }
+.recruiter-section h3 { margin: 0 0 4px; color: var(--ink);
+  font-size: 1.36rem; font-weight: 600; line-height: 1.1; }
+.recruiter-section p { margin: 3px 0; font-size: .82rem; line-height: 1.42; }
+.recruiter-section .meta { font-size: .76rem; }
+.recruiter-lead { margin: 0 0 13px; display: flex; flex-direction: column; gap: 1px; }
 .recruiter-lead:last-child { margin-bottom: 0; }
-.recruiter-lead strong { font-size: .84rem; font-weight: 600; }
-.recruiter-lead span { color: var(--muted); font-size: .78rem; }
+.recruiter-lead strong { font-size: .88rem; font-weight: 600; }
+.recruiter-lead .recruiter-lead-org { color: var(--muted); font-size: .78rem; }
+.recruiter-lead .recruiter-lead-description { color: #57463b; margin: 4px 0 0; font-size: .78rem; }
 .recruiter-project { display: block; width: 100%; text-align: left; cursor: pointer;
-  padding: 10px 0 12px; background: none; border: 0;
+  padding: 9px 0 11px; background: none; border: 0;
   border-bottom: 1px dashed rgba(159,76,57,.19); }
 .recruiter-project:first-of-type { padding-top: 2px; }
 .recruiter-project:last-child { padding-bottom: 0; border-bottom: 0; }
-.recruiter-project h3 { display: inline-block; color: var(--rust); font-size: 1.5rem; }
+.recruiter-project h3 { display: inline-block; color: var(--rust); font-size: 1.42rem; }
 .recruiter-project:hover h3, .recruiter-project:focus-visible h3 { text-decoration: underline; text-underline-offset: 3px; }
-.recruiter-project .meta { display: block; font-size: 1.12rem; margin: 0 0 2px; }
-.recruiter-footer { position: relative; z-index: 2; display: flex; justify-content: center; margin-top: 24px; }
-.resume-button { display: inline-block; padding: 7px 26px; border: 1.5px dashed var(--rust);
-  color: var(--rust); background: #fffaf2; text-decoration: none; cursor: pointer;
-  font-size: 1.6rem; transform: rotate(-1deg); }
-.resume-button:hover { background: #f9e7db; }
+.recruiter-project .meta { display: block; font-size: 1.05rem; margin: 0 0 2px; }
+.recruiter-skill-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+.recruiter-skill-group h3 { color: var(--rust); font-size: 1.31rem; font-weight: 500; margin: 0 0 7px; }
+.recruiter-skills { display: flex; flex-wrap: wrap; gap: 5px; }
+.recruiter-skills span { font-size: .75rem; padding: 3px 7px; line-height: 1.25;
+  border: 1px solid rgba(111,140,175,.48); background: rgba(244,248,249,.55); }
 
 @media (max-width: 1100px) {
-  .recruiter-grid { grid-template-columns: 1fr 1fr; }
-  .recruiter-column:nth-child(3) { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 17px; }
   .page-row { gap: 26px; padding-left: 50px; padding-right: 50px; }
   .section-heading { width: 165px; }
   .project-card { width: 268px; }
@@ -275,8 +281,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .portrait { width: 66vw; max-width: 280px; }
   .about-intro { width: min(80vw, 380px); }
   .about-facts { width: min(84vw, 380px); }
-  .recruiter-grid { grid-template-columns: 1fr; }
-  .recruiter-column:nth-child(3) { grid-column: auto; grid-template-columns: 1fr; }
   .recruiter-top { flex-direction: column; align-items: flex-start; gap: 8px; }
   .recruiter-contact { align-items: flex-start; padding-right: 0; }
   .recruiter-section { padding: 14px 16px 16px; }
@@ -369,6 +373,16 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 .passion-workspace.drag-over { outline: 3px dashed #b17558; outline-offset: 4px; background: #fff1e1; }
 .workspace-empty { position: relative; display: flex; flex-direction: column; align-items: center;
   justify-content: center; height: 100%; gap: 8px; color: #8d7a6c; text-align: center; }
+.workspace-empty-flower {
+  display: block;
+  width: clamp(150px, 48%, 280px);
+  max-height: 65%;
+  object-fit: contain;
+  transform: rotate(-9deg);
+  opacity: .92;
+  pointer-events: none;
+  user-select: none;
+}
 .workspace-doodle { color: #cf9e86; font-size: 6rem; line-height: 1; }
 .workspace-empty p { margin: 2px 0; font-size: 2.8rem; color: #9b5c44; font-style: italic; }
 .workspace-empty span:last-child { font-size: 1.65rem; }
@@ -774,4 +788,60 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 /* Keyboard accessibility */
 .favorite-item:focus-visible img {
   transform: translateY(-6px) scale(1.08);
+}
+/* V9 polish: quiet, instructive scrapbook placeholder and smaller cursor writing. */
+.workspace-empty-flower { width: clamp(130px, 37%, 210px); max-height: 49%; }
+.workspace-empty .workspace-empty-label {
+  max-width: 90%; margin: 7px 0 0; font-size: clamp(1.22rem, 1.85vw, 1.65rem);
+  color: #966f5f; font-style: normal; line-height: 1.15;
+}
+.favorite-cursor { font-size: clamp(1.08rem, 1.35vw, 1.48rem); }
+
+@media (max-width: 1130px) {
+  .recruiter-grid { grid-template-columns: minmax(240px, .8fr) minmax(0, 1.5fr); }
+  .recruiter-project-grid { gap: 10px; }
+  .recruiter-skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 880px) {
+  .recruiter-grid { grid-template-columns: 1fr; }
+  .recruiter-background { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .recruiter-project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .recruiter-skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .recruiter-top { align-items: flex-start; }
+  .recruiter-top-right { align-items: flex-start; }
+  .recruiter-contact { align-items: flex-start; }
+  .recruiter-background, .recruiter-project-grid, .recruiter-skill-grid { grid-template-columns: 1fr; }
+  .recruiter-section { padding: 14px 16px; }
+  .recruiter-top h1 { font-size: 3.4rem; }
+}
+
+/* V10: finish the scrapbook and about-me interactions. */
+#works .section-heading { width: clamp(240px, 20vw, 315px); }
+#works .section-heading h2 { white-space: nowrap; font-size: clamp(3.25rem, 4.45vw, 5rem); }
+#passion .section-heading p { display: none; }
+.workspace-empty { padding: 25px; }
+.workspace-empty .workspace-empty-label { margin: 0; max-width: 95%; }
+.favorite-item-3 { left: 44%; width: 28%; }
+.favorite-item-4 { left: 74%; width: 12%; top: 4%; transform: rotate(9deg); }
+.favorite-item-5 { left: 86%; width: 14%; }
+.social-links { column-gap: clamp(12px, 1.45vw, 21px); row-gap: 10px; }
+.about-resume { display: inline-flex; align-items: center; padding: 5px 11px 6px;
+  color: var(--rust); font-size: clamp(1.18rem, 1.5vw, 1.52rem);
+  line-height: 1; text-decoration: none; background: rgba(255,250,242,.87);
+  border: 1px dashed var(--rust); white-space: nowrap; transform: rotate(-1deg); }
+.about-resume:hover, .about-resume:focus-visible { background: #f9e7db; text-decoration: none; }
+.social-icon-link img { filter: none; }
+.social-icon-link img.is-flower-fallback { filter: none; object-fit: contain; }
+.design-tool img.is-flower-fallback { width: clamp(31px, 3vw, 39px); height: clamp(31px, 3vw, 39px); }
+.about-fact h3 a, .recruiter-section h2 a, .about-fact strong.serif a,
+.lead-role-link, .recruiter-role-link { color: inherit; text-decoration: none; }
+.about-fact h3 a:hover, .recruiter-section h2 a:hover,
+.about-fact strong.serif a:hover, .lead-role-link:hover, .recruiter-role-link:hover {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+@media (max-width: 720px) {
+  #works .section-heading { width: auto; min-width: 210px; }
+  #works .section-heading h2 { font-size: clamp(3rem, 7vw, 4rem); }
+  .favorite-item-4 { left: 73%; width: 13%; }
 }
