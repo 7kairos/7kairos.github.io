@@ -845,3 +845,21 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   #works .section-heading h2 { font-size: clamp(3rem, 7vw, 4rem); }
   .favorite-item-4 { left: 73%; width: 13%; }
 }
+
+/* V11: lift the Passion Projects heading, leaving the folder and drop area in place. */
+#passion .section-heading {
+  transform: translateY(-42px) rotate(-1.4deg);
+}
+/* Faint existing watercolor stickers around the composition; never intercept drag input. */
+#passion .stk.passion-decor {
+  opacity: .78;
+  pointer-events: none;
+}
+@media (max-height: 860px) {
+  #passion .section-heading { transform: translateY(-17px) rotate(-1.4deg); }
+}
+@media (max-width: 720px) {
+  #passion .section-heading { transform: translateY(-10px) rotate(-1.4deg); }
+  #passion .stk.passion-decor { opacity: .55; }
+  #passion .stk.passion-leaves { display: none; }
+}

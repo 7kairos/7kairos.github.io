@@ -54,7 +54,7 @@ window.SKETCHBOOK = {
     { name: "DaVinci Resolve", icon: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_DavinciResolve_Simple.svg" },
     { name: "ChatGPT", icon: "https://api.iconify.design/logos/openai-icon.svg" },
     { name: "Claude", icon: "https://api.iconify.design/fa7-brands/claude.svg" },
-    { name: "Canva", icon: "https://cdn.simpleicons.org/canva/00C4CC" }
+    { name: "Canva", icon: "assets/brand-icons/canva.svg" }
   ],
   programmingLanguages: ["Python", "HTML", "CSS", "C++", "C#", "SQL", "PHP"],
   leadership: [

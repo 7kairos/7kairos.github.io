@@ -299,7 +299,11 @@
     el('p', { class: 'folder-hint hand' }, ''));
 
   const passions = section('passion', [
-    [icon('pink-brush-wash'), '-10%', '30%', size(40, 64, 230), 0, 'wash']
+    [icon('pink-brush-wash'), '-10%', '30%', size(40, 64, 230), 0, 'wash'],
+    // Small watercolor details, kept behind and away from the interactive scrapbook.
+    [element('olive-sprig'), '1%', '16%', size(6, 18, 55), -12, 'passion-decor passion-leaves'],
+    [element('gold-stars'), '80%', '11%', size(7, 12, 58), 11, 'passion-decor'],
+    [element('pink-buds'), '90%', '66%', size(7, 19, 58), -14, 'passion-decor']
   ], el('div', { class: 'passion-spread' },
     heading('passion projects'),
     el('div', { class: 'passion-content' }, folder, passionWorkspace)));
@@ -381,7 +385,7 @@
       el('a', { href: P.linkedin.startsWith('http') ? P.linkedin : `https://${P.linkedin}`,
         target: '_blank', rel: 'noopener noreferrer', class: 'social-icon-link',
         'aria-label': 'LinkedIn profile' },
-        el('img', { src: 'https://cdn.simpleicons.org/linkedin/9F4C39',
+        el('img', { src: 'assets/brand-icons/linkedin.svg',
           alt: 'LinkedIn', width: '29', height: '29', onerror: logoFallback })),
       P.github ? el('a', { href: P.github, target: '_blank', rel: 'noopener noreferrer',
         class: 'social-icon-link', 'aria-label': 'GitHub profile' },
