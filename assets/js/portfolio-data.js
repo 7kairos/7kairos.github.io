@@ -50,7 +50,7 @@ window.PORTFOLIO = {
       id: "work-one",
       title: "Scam Awareness Campaign Website",
       role: "Project Manager & UI/UX Lead",
-      year: "2024",
+      year: "2025",
       summary: "Designed a website UI in partnership with the Santa Clara County District Attorney's Office to educate users about online scams and provide resources for scam prevention.",
       image: "assets/images/scda office commendation and recognition.jpg",
       imageAlt: "",
@@ -64,14 +64,51 @@ window.PORTFOLIO = {
       tone: "peach",
       featured: true,
       writeup: {
-        overview:
-          "[ Introduce the project: who it’s for, why it matters, and what you designed. ]",
-        problem:
-          "[ What challenge did you set out to solve? What did you learn from people? ]",
-        process:
-          "[ Share your research, sketches, decisions, iterations, and testing. ]",
-        outcome:
-          "[ Explain what changed, what you learned, and what you would do next. ]",
+        overview: `How can we make online scam prevention resources more accessible for people of all ages and levels of technological literacy?
+
+In today's digital age, online scams are becoming increasingly sophisticated, yet trustworthy information isn't always easy to find, especially for those with lower levels of digital literacy.
+
+As Project Lead on a four-person team, I coordinated our research and development process, organized interview findings and our written proposal, and headed the design of the website interface. We worked with the Santa Clara County District Attorney's Office to explore an accessible, easy-to-navigate scam awareness resource for local residents. Our overarching goal was to make prevention feel less overwhelming and more approachable.`,
+        problem: `People were concerned about scams, but didn't know where to turn for help.
+
+Through interviews with stakeholders ranging from teenagers to seniors, we identified three recurring challenges: high concern but low awareness of resources, scattered or unreliable information, and accessibility barriers for people with limited technological experience.
+
+Only 15% of participants in our initial research sample were aware of existing scam-related resources. Younger interviewees were often particularly concerned about older relatives who were less comfortable with technology or weren't fluent in English.
+
+Rather than simply building another informational website, we needed to design something people could understand, trust, and navigate confidently.`,
+        process: `We conducted over 40 interviews across different age groups, spoke with online-fraud professionals, and regularly met with a community prosecutor specializing in crime prevention. I helped organize our interview data and proposal so the team could find patterns and turn research into design priorities.
+
+We used an ideation exercise called “Worst Idea Ever” to explore unexpected directions before narrowing our ideas. I headed the website's interface design, starting with a landing-page prototype that made the website's purpose and scam categories easy to find. Teammates explored features such as quizzes, victim testimonies, and scam updates.
+
+After creating paper sketches and digital mockups, we developed a working Wix prototype and returned to users for feedback. Their responses pushed us toward clearer categories, shorter descriptions, accessible guidance, prominent emergency resources, and more engaging visuals without unnecessary complexity.`,
+        solution: `Our prototype brought information about four scam categories into one approachable experience: phishing, pig butchering, romance scams, and extortion.
+
+Each category used a consistent format to explain the scam, explain the warning signs, share protection tips, and point visitors toward next steps and relevant resources. We also included a victim testimonies section to show that scams can affect anyone.
+
+For the homepage, I focused on introducing the resource clearly and making navigation feel intuitive. Features we explored included a walkthrough video, larger text, translations, and text-to-speech support. The goal was for people with different levels of technical confidence to find help without feeling overwhelmed.`,
+        outcome: `65% of interviewed participants indicated that a resource like ours would be useful to them or someone they knew. Their feedback reinforced the value of a centralized, clearly organized website.
+
+Our team developed a website prototype and presented the research, design decisions, and proposed implementation plan to representatives of the Santa Clara County District Attorney's Office and San Jose Police Department. I helped organize and co-author the written proposal, including our findings, design rationale, and next steps.
+
+This project taught me how important it is to organize research thoughtfully, establish clear priorities and team communication, and turn qualitative feedback into design decisions. But most importantly, I learned that thoughtful design doesn't have to be complex. Sometimes, making information easier to understand is what helps people feel confident enough to use it.`,
+        highlights: {
+          problem: [
+            { value: '40+', label: 'user interviews conducted' },
+            { value: '85%', label: 'initial participants unaware of scam resources' },
+          ],
+          outcome: [{ value: '65%', label: 'participants who said the resource would be useful' }],
+        },
+        // Each section has its own editable image gallery. Add or change src/caption as needed.
+        media: {
+          overview: [{ src: 'assets/images/scam-interface-desktop.png', alt: 'Scam awareness website desktop prototype', caption: 'The central idea: an approachable, easy-to-navigate resource.' }],
+          problem: [{ src: 'assets/images/scam-research-charts.png', alt: 'Research charts comparing scam concern and awareness of resources', caption: 'Interview findings: concern about scams contrasted with low awareness of existing resources.' }],
+          process: [{ src: 'assets/images/scam-prototype-explorations.png', alt: 'Four early prototypes from Khloe, Luke, Bhavya, and Parth', caption: 'Early concept explorations from our team, including my landing-page prototype.' }],
+          solution: [
+            { src: 'assets/images/scam-interface-desktop.png', alt: 'Desktop homepage mockup for the scam awareness site', caption: 'Homepage prototype' },
+            { src: 'assets/images/scam-interface-mobile.png', alt: 'Three mobile views of the prototype', caption: 'Mobile layouts and topic pages' },
+          ],
+          outcome: [{ src: 'assets/images/scda office commendation and recognition.jpg', alt: 'Recognition from Santa Clara County for the project', caption: 'Project recognition & commendation' }],
+        },
         images: [],
       },
     },

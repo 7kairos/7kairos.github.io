@@ -82,31 +82,134 @@
         ? el('p', { class: 'tags' }, project.tags.map(tag => el('span', {}, tag))) : null));
   }
 
+  // Chapter-style case study: keep each part compact, browsable and editable.
+  // w.media accepts { overview: [{src, alt, caption}], problem: [...], ... }.
+  // Older projects with only overview/problem/process/outcome still work.
   function openWriteup(project) {
     const w = project.writeup || {};
+    const chapters = [
+      ['overview', 'Overview', 'the big picture'],
+      ['problem', 'Problem', 'what we discovered'],
+      ['process', 'Process', 'from research to design'],
+      ['solution', 'Solution', 'the experience we designed'],
+      ['outcome', 'Outcomes', 'reflections & next steps']
+    ].filter(([key]) => Boolean(w[key] || (w.media && w.media[key]?.length)));
+    if (!chapters.length) chapters.push(['overview', 'Overview', 'a closer look']);
+
+    const resources = Object.entries(project.resources || {})
+      .filter(([key]) => ['proposal', 'presentation'].includes(key))
+      .map(([key, target]) => target
+        ? el('a', { class: 'writeup-resource hand', href: target,
+            ...( /^https?:\/\//i.test(target) ? {target: '_blank', rel: 'noopener noreferrer'} : {}) },
+            `view ${key} ↗`)
+        : el('span', { class: 'writeup-resource unavailable hand',
+            title: `Add the ${key} URL in portfolio-data.js` }, `view ${key} · link coming soon`));
+
+    const tabs = [];
+    const panels = [];
+    const progress = el('span', { class: 'case-counter', 'aria-live': 'polite' }, '01 / 05');
+    const progressBar = el('span', { class: 'case-progress-fill', 'aria-hidden': 'true' });
+    const backButton = el('button', { type: 'button', class: 'case-step-button hand' }, '← previous');
+    const nextButton = el('button', { type: 'button', class: 'case-step-button case-next hand' }, 'next page →');
+    const main = el('div', { class: 'case-main' });
+    let activeStep = 0;
+
+    const paragraphs = value => String(value || '').trim().split(/\n\s*\n/)
+      .map(text => text.trim()).filter(Boolean)
+      .map(text => el('p', { class: 'case-paragraph' }, text));
+
+    const imageNode = (im, index) => {
+      const item = typeof im === 'string' ? { src: im } : im || {};
+      const empty = () => el('div', { class: 'case-image-empty' },
+        el('img', { src: sticker('coral-flower'), alt: '', 'aria-hidden': 'true' }),
+        el('span', { class: 'hand' }, 'add a project image'));
+      return el('figure', { class: 'case-figure' },
+        item.src ? el('img', { src: item.src, alt: item.alt || `Project illustration ${index + 1}`,
+          loading: 'lazy', onerror: event => event.currentTarget.replaceWith(empty()) }) : empty(),
+        item.caption ? el('figcaption', { class: 'hand' }, item.caption) : null);
+    };
+
+    for (const [index, [key, title, overline]] of chapters.entries()) {
+      const tab = el('button', { type: 'button', class: 'case-tab hand', role: 'tab',
+        id: `case-tab-${index}`, 'aria-controls': `case-panel-${index}` },
+        el('span', { class: 'case-tab-number' }, String(index + 1).padStart(2, '0')),
+        title);
+      tabs.push(tab);
+      const media = (w.media && w.media[key]) || (key === 'outcome' ? (w.images || []) : []);
+      const highlights = (w.highlights && w.highlights[key]) || [];
+      const copy = el('div', { class: 'case-copy' },
+        el('p', { class: 'case-overline hand' }, overline),
+        el('h3', { class: 'case-section-title serif' }, title.toLowerCase()),
+        ...paragraphs(w[key] || ''));
+      const stats = highlights.length ? el('div', { class: 'case-highlights' },
+        highlights.map(h => el('div', { class: 'case-highlight' },
+          el('strong', { class: 'serif' }, h.value || ''), el('span', {}, h.label || '')))) : null;
+      const rightColumn = (media.length || stats) ? el('div', { class: 'case-visual-column' },
+        media.length ? el('div', { class: `case-gallery ${media.length > 1 ? 'multiple' : ''}` },
+          media.map(imageNode)) : null,
+        stats) : null;
+      const content = el('div', { class: `case-layout ${rightColumn ? 'has-media' : ''}` },
+        copy,
+        rightColumn);
+      const panel = el('section', { class: 'case-panel', id: `case-panel-${index}`,
+        role: 'tabpanel', 'aria-labelledby': `case-tab-${index}` }, content);
+      panels.push(panel);
+    }
+
+    function setStep(index, moveFocus = false) {
+      activeStep = Math.max(0, Math.min(index, chapters.length - 1));
+      tabs.forEach((tab, i) => {
+        const active = i === activeStep;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      progress.textContent = `${String(activeStep + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}`;
+      progressBar.style.width = `${100 * (activeStep + 1) / chapters.length}%`;
+      backButton.disabled = activeStep === 0;
+      nextButton.textContent = activeStep === chapters.length - 1 ? 'finish reading ✓' : 'next page →';
+      main.scrollTop = 0;
+      if (moveFocus) tabs[activeStep].focus({ preventScroll: true });
+    }
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => setStep(i));
+      tab.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          event.preventDefault();
+          setStep((i + (event.key === 'ArrowRight' ? 1 : -1) + chapters.length) % chapters.length, true);
+        }
+        if (event.key === 'Home' || event.key === 'End') {
+          event.preventDefault();
+          setStep(event.key === 'Home' ? 0 : chapters.length - 1, true);
+        }
+      });
+    });
+    backButton.addEventListener('click', () => setStep(activeStep - 1));
+    nextButton.addEventListener('click', () => {
+      if (activeStep === chapters.length - 1) dialog.close();
+      else setStep(activeStep + 1);
+    });
+    main.append(...panels);
+    dialog.classList.add('case-dialog');
     dialog.replaceChildren(
-      el('button', { type: 'button', class: 'dialog-close hand', onclick: () => dialog.close(),
-        'aria-label': 'Close project write-up' }, 'close ×'),
-      el('p', { class: 'meta hand' }, `${project.role} · ${project.year}`),
-      el('h2', { class: 'serif' }, project.title),
-      ...(project.resources ? [el('div', { class: 'writeup-resources', 'aria-label': 'Project documents' },
-        ...[['proposal', 'view proposal'], ['presentation', 'view presentation']].map(([key, label]) => {
-          const target = project.resources[key];
-          return target
-            ? el('a', { class: 'writeup-resource hand', href: target,
-                ...( /^https?:\/\//i.test(target) ? { target: '_blank', rel: 'noopener noreferrer' } : {} ) }, label + ' ↗')
-            : el('span', { class: 'writeup-resource unavailable hand',
-                title: 'Add the ' + key + ' link in assets/js/portfolio-data.js' }, label + ' · link coming soon');
-        }))] : []),
-      ...[
-        ['overview', 'overview'], ['problem', 'the problem'],
-        ['process', 'the process'], ['outcome', 'the outcome']
-      ].flatMap(([key, title]) => w[key]
-        ? [el('h3', { class: 'hand' }, title), el('p', { class: 'writeup-text' }, w[key])] : []),
-      ...(w.images || []).map(im => el('figure', {},
-        el('img', { src: im.src, alt: im.alt || '' }),
-        im.caption ? el('figcaption', { class: 'hand' }, im.caption) : null))
-    );
+      el('div', { class: 'case-shell' },
+        el('header', { class: 'case-header' },
+          el('div', { class: 'case-topline' },
+            el('span', { class: 'case-eyebrow hand' }, 'from the sketchbook / case study'),
+            el('button', { type: 'button', class: 'case-close hand',
+              'aria-label': 'Close project case study', onclick: () => dialog.close() }, 'close ×')),
+          el('h2', { class: 'case-title serif' }, project.title),
+          el('div', { class: 'case-header-bottom' },
+            el('p', { class: 'case-meta hand' }, [project.role, project.year].filter(Boolean).join(' · ')),
+            resources.length ? el('div', { class: 'writeup-resources' }, ...resources) : null)),
+        el('nav', { class: 'case-tabs', role: 'tablist', 'aria-label': 'Case study chapters' }, ...tabs),
+        main,
+        el('footer', { class: 'case-footer' },
+          backButton,
+          el('div', { class: 'case-progress' }, progress,
+            el('span', { class: 'case-progress-track' }, progressBar)),
+          nextButton)));
+    setStep(0);
     if (!dialog.open) dialog.showModal();
   }
 

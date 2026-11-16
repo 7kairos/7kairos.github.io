@@ -1,6 +1,6 @@
-# My Portfolio docs
+# Portfolio Documentation!
 
-## Start here: which files should I edit?
+## Editing Files..
 
 | What you want to change | File to edit |
 | --- | --- |
@@ -19,8 +19,6 @@
 - `assets/artwork/` — the watercolor flowers, stickers, and decorative assets that are already supplied. You generally do **not** need to change these.
 - `assets/brand-icons/` — locally bundled logo SVGs such as LinkedIn and Canva.
 - `assets/resume/` — add your final PDF resume here.
-
-Paths in your data are relative to the **repository root** (the folder containing `index.html`), not relative to the JS file. Use forward slashes and **match capitalization, spaces, and file extensions exactly** (especially on GitHub Pages).
 
 ## 1. Edit a Works project
 
@@ -134,8 +132,6 @@ profile: {
 }
 ```
 
-The photostrip has **three frames**. Use `""` for a frame you haven't filled yet; it shows a watercolor illustration. The three photo paths in your current uploaded file (`flower photo 1.png`, `me  (2).jpg`, `drinks (1).jpg`) are **not included in this supplied package**. Add files with those precise names to `assets/images/`, or update the paths to your real files, to replace the placeholders. The caption under the strip is **khloe sakai · 2026**. If you want to change that *label*, it currently lives in `assets/js/sketchbook.js`.
-
 For favorite-things illustrations, edit the `favorites` array:
 
 ```js
@@ -147,7 +143,7 @@ For favorite-things illustrations, edit the `favorites` array:
 
 To add your resume, put a **real PDF** at the path in `profile.resumePdf`. If the PDF isn't there, the Download Resume link won't work.
 
-## 4. Community & Leadership popups (Alpha Gamma Delta and Lifeguard)
+## 4. Community & Leadership popups 
 
 Open **`assets/js/sketchbook-data.js` → `leadership`**. The Alpha Gamma Delta **Work Party Manager** and **Lifeguard** entries already have `popup` settings. Clicking their bulletpoint on About Me (or the role in Recruiter Mode if listed) opens a dialog containing photos, your role description, and an optional destination link.
 
@@ -204,4 +200,4 @@ node --check assets/js/sketchbook.js
 
 ## Notes
 
-This site does not require external frameworks or a database. Some software logos still load from published external URLs and use a watercolor-flower fallback if unavailable. The photo slots and first few work/passions entries may contain sample content; review all public text, dates, resume contents and contact links before publishing. Avoid uploading private documents or images you don't have permission to share.
+This site does not require external frameworks or a database. Some software logos still load from published external URLs and use a watercolor-flower element fallback if unavailable. The photo slots and first few work/passions entries may contain sample content; review all public text, dates, resume contents and contact links before publishing. Avoid uploading private documents or images you don't have permission to share.
