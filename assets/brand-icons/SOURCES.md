@@ -4,3 +4,5 @@ Published brand artwork used without alteration to paths:
 - LinkedIn — Font Awesome Free Brands (CC BY 4.0 icon); source: https://fontawesome.com/icons/linkedin?f=brands&s=solid . SVG supplied with Font Awesome Free in the development environment, recolored to match the site. Attribution: Font Awesome by Fonticons, Inc. https://fontawesome.com/license/free .
 
 The SVGs are stored locally so the two logos work without a network connection. If the files are missing, the existing flower image fallback still applies.
+
+- Mail — Lucide icon (ISC license), https://lucide.dev/icons/mail . Stroke color matches the site palette.

@@ -1,6 +1,8 @@
 /*
  * EDITABLE PORTFOLIO DATA HERE
- * Everything in this file updates both the full portfolio and recruiter mode.
+ * ACTIVE SOURCE for Works and Passion Projects: cards, recruiter summaries, and write-ups.
+ * The homepage loads this file before sketchbook-data.js; that file retains
+ * About Me, favorite things and scrapbook-only extras.
  * Keep project IDs unique and stable, even when you rename a project.
  * Paths are relative to index.html: "assets/images/my-project.png".
  * A blank image keeps the designed placeholder; a blank URL opens the built-in write-up.
@@ -23,20 +25,16 @@ window.PORTFOLIO = {
       "B.S. dual: Information Technology & Web Science / Communications, Media & Design",
     minor: "Marketing",
     years: "2025–2029 (expected)",
-    skills: "[ Add your skills and tools ]",
+    skills: "Computer programming, Visual & UI/UX design, Low-to-high-fidelity prototyping, Community operations, Event coordination, Cross-functional coordination, Information architecture, Stakeholder interviews and presentations, User research, and more!",
   },
   leadership: [
     {
       role: "Co-Founder",
-      organization: "Independent Project, gaming creator community",
+      organization: "Digital Creator & Community Platform",
     },
     {
-      role: "Project Lead",
-      organization: "Scam Awareness Campaign Website",
-    },
-    {
-      role: "Marketing Lead",
-      organization: "School club",
+      role: "Marketing & Outreach Lead",
+      organization: "Allies for Neurodiversity - School Club",
     },
     {
       role: "Work Party Manager",
@@ -50,14 +48,19 @@ window.PORTFOLIO = {
   works: [
     {
       id: "work-one",
-      title: "project 01",
-      role: "",
-      year: "2026",
-      summary: "",
-      image: "",
+      title: "Scam Awareness Campaign Website",
+      role: "Project Manager & UI/UX Lead",
+      year: "2024",
+      summary: "Designed a website UI in partnership with the Santa Clara County District Attorney's Office to educate users about online scams and provide resources for scam prevention.",
+      image: "assets/images/scda office commendation and recognition.jpg",
       imageAlt: "",
+      // Blank url = open the built-in project write-up when the card is clicked.
       url: "",
-      tags: ["Product design", "UI/UX"],
+      resources: {
+        proposal: "https://canva.link/qs7ow7wi7lvijng",
+        presentation: "https://canva.link/g4f2ne2zkbtf1lx",
+      },
+      tags: ["Project Management", "UI/UX Design", "Web Development", "User Research"],
       tone: "peach",
       featured: true,
       writeup: {

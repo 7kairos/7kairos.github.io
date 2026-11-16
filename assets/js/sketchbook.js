@@ -5,7 +5,6 @@
   if (!D) return;
   const P = D.profile;
   const body = document.body;
-  // Every watercolor graphic lives in one flat, easy-to-browse folder.
   const element = name => `assets/artwork/element-${name}.png`;
   const icon = name => `assets/artwork/${name}.png`;
   const sticker = name => `${D.stickerDir}/sticker-${name}.png`;
@@ -48,6 +47,7 @@
     el('div', { class: 'section-heading' }, el('h2', { class: 'serif' }, title),
       subtitle ? el('p', { class: 'hand' }, subtitle) : null);
   const dialog = el('dialog', { id: 'writeup', 'aria-label': 'Project write-up' });
+  const leadershipDialog = el('dialog', { id: 'leadership-dialog', 'aria-label': 'Community and leadership details' });
   const inRecruiter = () => body.classList.contains('recruiter');
   let currentPage = 'home';
 
@@ -89,6 +89,15 @@
         'aria-label': 'Close project write-up' }, 'close ×'),
       el('p', { class: 'meta hand' }, `${project.role} · ${project.year}`),
       el('h2', { class: 'serif' }, project.title),
+      ...(project.resources ? [el('div', { class: 'writeup-resources', 'aria-label': 'Project documents' },
+        ...[['proposal', 'view proposal'], ['presentation', 'view presentation']].map(([key, label]) => {
+          const target = project.resources[key];
+          return target
+            ? el('a', { class: 'writeup-resource hand', href: target,
+                ...( /^https?:\/\//i.test(target) ? { target: '_blank', rel: 'noopener noreferrer' } : {} ) }, label + ' ↗')
+            : el('span', { class: 'writeup-resource unavailable hand',
+                title: 'Add the ' + key + ' link in assets/js/portfolio-data.js' }, label + ' · link coming soon');
+        }))] : []),
       ...[
         ['overview', 'overview'], ['problem', 'the problem'],
         ['process', 'the process'], ['outcome', 'the outcome']
@@ -107,6 +116,63 @@
     }
   });
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+
+  // Leadership details: the photographs, description and destination are editable in
+  // sketchbook-data.js. A blank photo uses a soft watercolor placeholder, never a broken image.
+  function leadershipPhotoPlaceholder(label, index = 0) {
+    const flowers = ['rose-anemone', 'ochre-flower', 'blush-bloom'];
+    return el('div', { class: 'leadership-photo-empty' },
+      el('img', { src: sticker(flowers[index % flowers.length]), alt: '', 'aria-hidden': 'true' }),
+      el('span', { class: 'hand' }, 'add photo'));
+  }
+
+  function openLeadership(item) {
+    if (!item.popup) return;
+    const photos = item.popup.photos || [];
+    const gallery = el('div', { class: 'leadership-photo-grid' },
+      ...(photos.length ? photos : [{ src: '', caption: 'add a photo' }]).map((photo, index) => {
+        const info = typeof photo === 'string' ? { src: photo } : photo;
+        const label = info.caption || `photo ${index + 1}`;
+        const photoNode = info.src
+          ? el('img', { src: info.src, alt: info.alt || `${item.org} photo ${index + 1}`,
+              loading: 'lazy', onerror: event => event.currentTarget.replaceWith(leadershipPhotoPlaceholder(label, index)) })
+          : leadershipPhotoPlaceholder(label, index);
+        return el('figure', { class: 'leadership-photo' },
+          photoNode,
+          el('figcaption', { class: 'hand' }, label));
+      }));
+    const url = String(item.url || '').trim();
+    const safeUrl = /^(https?:\/\/|[a-z0-9][a-z0-9/_ .-]*$)/i.test(url) ? url : '';
+    leadershipDialog.replaceChildren(
+      el('button', { type: 'button', class: 'dialog-close hand',
+        'aria-label': 'Close leadership details', onclick: () => leadershipDialog.close() }, 'close ×'),
+      el('p', { class: 'meta hand leadership-eyebrow' }, 'community & leadership'),
+      el('h2', { class: 'serif' }, item.role),
+      el('p', { class: 'hand leadership-organization' }, item.org),
+      gallery,
+      item.description ? el('div', { class: 'leadership-description' },
+        el('h3', { class: 'hand' }, 'what i did'),
+        el('p', { class: 'writeup-text' }, item.description)) : null,
+      safeUrl ? el('a', { class: 'leadership-visit hand', href: safeUrl,
+        ...( /^https?:\/\//i.test(safeUrl) ? { target: '_blank', rel: 'noopener noreferrer' } : {} ) },
+        (item.popup.linkLabel || 'learn more') + ' ↗') : null
+    );
+    if (!leadershipDialog.open) leadershipDialog.showModal();
+  }
+  leadershipDialog.addEventListener('click', event => {
+    if (event.target === leadershipDialog) leadershipDialog.close();
+  });
+  function leadershipBullet(item) {
+    const contents = [el('strong', {}, item.role), ` · ${item.org}`];
+    if (item.popup) {
+      return el('button', { type: 'button', class: 'lead-popup-trigger',
+        onclick: () => openLeadership(item),
+        'aria-label': `View ${item.role} at ${item.org}` }, ...contents);
+    }
+    if (item.url) return el('a', { class: 'lead-role-link', href: item.url,
+      ...( /^https?:\/\//i.test(item.url) ? { target: '_blank', rel: 'noopener noreferrer' } : {} ) }, ...contents);
+    return el('span', {}, ...contents);
+  }
 
   const heroTitle = P.heroTitle || 'portfolio';
   const heroKicker = P.heroKicker || 'welcome to my';
@@ -140,7 +206,6 @@
 
   const works = section('works', [
     [icon('apricot-brush-wash'), '-7%', '60%', size(38, 58, 210), 0, 'wash'],
-    [element('olive-sprig'), '3%', '7%', size(8, 20, 65), -8],
     [icon('patchwork-star'), '6%', '78%', size(8, 16, 55), -10, 'small-art'],
     [element('blue-dashes'), '91%', '6%', size(7, 12, 55), 8, 'small-art']
   ], heading('my works', '& their processes!'), ...D.works.map((p, i) => projectCard(p, i, 'works')));
@@ -308,11 +373,24 @@
     heading('passion projects'),
     el('div', { class: 'passion-content' }, folder, passionWorkspace)));
 
-  const portrait = el('div', { class: 'portrait-wrap' }, P.photo
-    ? el('img', { class: 'portrait', src: P.photo, alt: P.photoAlt || 'Portrait' })
-    : el('div', { class: 'portrait portrait-placeholder' },
-        el('img', { src: sticker('coral-flower'), alt: '' }),
-        el('span', { class: 'hand' }, 'your photo goes here')));
+  // Three independently editable photo slots. The old profile.photo still works as slot 1.
+  const photoStripImages = Array.isArray(P.photoStrip) ? P.photoStrip.slice(0, 3) : [];
+  while (photoStripImages.length < 3) photoStripImages.push('');
+  if (!photoStripImages[0] && P.photo) photoStripImages[0] = P.photo;
+  const photostripFlowers = ['rose-anemone', 'blush-bloom', 'ochre-flower'];
+  const photoPlaceholder = index => el('div', { class: 'photostrip-placeholder' },
+    el('img', { src: sticker(photostripFlowers[index]), alt: '', draggable: 'false' }));
+  const portrait = el('div', { class: 'photostrip-wrap', 'aria-label': 'Personal photo strip' },
+    el('div', { class: 'photostrip-paper' },
+      el('div', { class: 'photostrip-stack' }, photoStripImages.map((photo, index) =>
+        el('div', { class: `photostrip-frame photostrip-frame-${index + 1}` },
+          photo ? el('img', { src: photo,
+            alt: `Photo ${index + 1} of Khloe`, loading: 'eager',
+            onerror: event => event.currentTarget.replaceWith(photoPlaceholder(index)) })
+            : photoPlaceholder(index)))),
+      el('div', { class: 'photostrip-footer' },
+        el('span', { class: 'hand' }, 'khloe sakai · 2026'),
+        el('span', { class: 'photostrip-heart', 'aria-hidden': 'true' }, '♡'))));
 
         
   const favoriteCursor = el('span', { class: 'favorite-cursor hand', 'aria-hidden': 'true' });
@@ -381,7 +459,10 @@
     el('h2', { class: 'serif' }, 'meet the designer'),
     favoriteBoard,
     el('div', { class: 'social-links' },
-      el('a', { href: `mailto:${P.email}`, class: 'hand hello-link' }, 'say hello ↗'),
+      el('a', { href: `mailto:${P.email}`, class: 'social-icon-link',
+        'aria-label': 'Email Khloe', title: 'Send an email' },
+        el('img', { src: 'assets/brand-icons/mail.svg',
+          alt: '', width: '29', height: '29', onerror: logoFallback })),
       el('a', { href: P.linkedin.startsWith('http') ? P.linkedin : `https://${P.linkedin}`,
         target: '_blank', rel: 'noopener noreferrer', class: 'social-icon-link',
         'aria-label': 'LinkedIn profile' },
@@ -405,12 +486,8 @@
       el('p', {}, P.degree),
       el('p', { class: 'meta' }, `Minor: ${P.minor} · ${P.dates}`)),
     el('section', { class: 'about-fact' },
-      el('h3', { class: 'hand' }, el('a', { href: '#recruiter' }, 'community & leadership')),
-      ...D.leadership.map(l => el('p', { class: 'lead-item' },
-        l.url ? el('a', { class: 'lead-role-link', href: l.url,
-          target: /^https?:\/\//i.test(l.url) ? '_blank' : null,
-          rel: /^https?:\/\//i.test(l.url) ? 'noopener noreferrer' : null },
-          el('strong', {}, l.role)) : el('strong', {}, l.role), ` · ${l.org}`))),
+      el('h3', { class: 'hand' }, 'community & leadership'),
+      ...D.leadership.map(l => el('p', { class: 'lead-item' }, leadershipBullet(l)))),
     el('section', { class: 'about-fact tools-fact' },
       el('h3', { class: 'hand' }, 'things i use'),
       el('div', { class: 'design-tool-grid' }, designTools.map(tool =>
@@ -457,7 +534,7 @@
     el('h2', { class: 'hand' },
       title === 'school' ? el('a', { href: P.schoolUrl || 'https://www.rpi.edu/',
         target: '_blank', rel: 'noopener noreferrer' }, title) :
-      title === 'community & leadership' ? el('a', { href: '#about' }, title) : title),
+      title),
     ...children);
   const recProject = project => el('button', {
     class: 'recruiter-project', type: 'button', onclick: () => openProject(project),
@@ -468,8 +545,9 @@
 
   // Recruiter mode: school + leadership on the left; work, passion and skills on the right.
   // The three featured leadership roles have editable descriptions in sketchbook-data.js.
-  const featuredLeadershipRoles = new Set(['Co-Founder', 'Work Party Manager', 'Marketing Lead']);
-  const recruiterLeadership = D.leadership.filter(item => featuredLeadershipRoles.has(item.role));
+  const featuredLeadershipRoles = new Set(['Co-Founder', 'Work Party Manager', 'Marketing Lead', 'Lifeguard']);
+  const recruiterLeadership = D.leadership.filter(item => item.featured === true ||
+    (item.featured !== false && featuredLeadershipRoles.has(item.role)));
   const recSkillGroup = (title, items) => el('div', { class: 'recruiter-skill-group' },
     el('h3', { class: 'hand' }, title),
     el('div', { class: 'recruiter-skills' }, items.map(item => el('span', {}, item))));
@@ -498,6 +576,9 @@
             el('p', { class: 'meta' }, P.dates)),
           recSection('community & leadership',
             recruiterLeadership.map(item => el('div', { class: 'recruiter-lead' },
+              item.popup ? el('button', { type: 'button', class: 'recruiter-popup-trigger',
+                onclick: () => openLeadership(item),
+                'aria-label': `View ${item.role} details` }, el('strong', {}, item.role)) :
               item.url ? el('a', { class: 'recruiter-role-link', href: item.url,
                 target: /^https?:\/\//i.test(item.url) ? '_blank' : null,
                 rel: /^https?:\/\//i.test(item.url) ? 'noopener noreferrer' : null },
@@ -579,7 +660,7 @@
     updateNavigation();
   }
 
-  document.getElementById('app').append(header, track, recruiter, dialog, favoriteCursor);
+  document.getElementById('app').append(header, track, recruiter, dialog, leadershipDialog, favoriteCursor);
   window.addEventListener('hashchange', route);
   route();
 })();

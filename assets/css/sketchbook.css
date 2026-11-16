@@ -863,3 +863,126 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   #passion .stk.passion-decor { opacity: .55; }
   #passion .stk.passion-leaves { display: none; }
 }
+
+
+/* V12: photobooth strip, replacing the single portrait card. */
+.photostrip-wrap {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(192px, 17.8vw, 260px);
+  transform: rotate(-4deg);
+  isolation: isolate;
+}
+.photostrip-wrap::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 5px -8px -8px 9px;
+  background: #e8d5ce;
+  transform: rotate(5.5deg);
+  box-shadow: 0 12px 24px -17px rgba(70,45,38,.38);
+}
+.photostrip-paper {
+  padding: 13px 13px 7px;
+  background: #f5e6df;
+  border: 5px solid #fffaf2;
+  box-shadow: 0 17px 35px -21px rgba(66,42,34,.4);
+}
+.photostrip-stack { display: grid; gap: 7px; }
+.photostrip-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(94px, 10.5vw, 135px);
+  background: #e9d8d1;
+  overflow: hidden;
+}
+.photostrip-frame:nth-child(2) { background: #e6dbd6; }
+.photostrip-frame:nth-child(3) { background: #ead8cb; }
+.photostrip-frame > img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.photostrip-placeholder { width: 100%; height: 100%; display: grid; place-items: center; }
+.photostrip-placeholder img {
+  width: 49%; height: 80%; object-fit: contain;
+  opacity: .86;
+}
+.photostrip-frame:nth-child(2) .photostrip-placeholder img { width: 42%; }
+.photostrip-footer {
+  min-height: 43px;
+  padding: 5px 4px 1px;
+  display: flex; justify-content: space-between; align-items: center;
+  color: #9f4c39;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+.photostrip-heart { font-size: 1.25rem; }
+/* The email icon aligns with the existing LinkedIn/GitHub pictograms. */
+.social-links .social-icon-link img[src$='mail.svg'] { width: 29px; height: 29px; }
+.social-links .social-icon-link:hover { text-decoration: none; }
+@media (max-height: 710px) and (min-width: 721px) {
+  .photostrip-wrap { width: clamp(175px, 15.4vw, 215px); }
+  .photostrip-frame { height: clamp(79px, 8.2vw, 106px); }
+  .photostrip-paper { padding: 10px 10px 4px; }
+  .photostrip-footer { min-height: 34px; }
+}
+@media (max-width: 720px) {
+  .photostrip-wrap { width: clamp(155px, 42vw, 212px); }
+  .photostrip-frame { height: clamp(83px, 25vw, 116px); }
+  .photostrip-paper { padding: 10px 10px 4px; border-width: 4px; }
+  .photostrip-footer { min-height: 35px; font-size: 1.28rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photostrip-wrap { transition: none; }
+}
+/* Keep the photostrip's handwritten caption on a single line. */
+.photostrip-footer .hand { white-space: nowrap; }
+@media (max-width: 720px) {
+  .photostrip-footer { font-size: 1.08rem; }
+  .photostrip-heart { font-size: 1.06rem; }
+}
+
+/* v13 — proposal and presentation links inside project write-ups */
+.writeup-resources { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 22px; }
+.writeup-resource { display: inline-flex; align-items: center; justify-content: center;
+  padding: 7px 15px; background: rgba(254,249,239,.8); color: var(--rust);
+  border: 1px dashed var(--rust); text-decoration: none; font-size: 1.35rem;
+  line-height: 1.25; transition: background .15s ease, transform .15s ease; }
+a.writeup-resource:hover { background: #f3e3d7; transform: translateY(-2px); }
+a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+.writeup-resource.unavailable { opacity: .55; border-color: #b9a399; cursor: default; }
+
+/* v14 — photo-and-description community/leadership popups */
+.lead-popup-trigger, .recruiter-popup-trigger {
+  display: inline; border: 0; padding: 0; margin: 0; background: transparent;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+  text-decoration: underline; text-decoration-color: rgba(159,76,57,.42);
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.lead-popup-trigger:hover, .recruiter-popup-trigger:hover { color: var(--rust); text-decoration-color: currentColor; }
+.lead-popup-trigger:focus-visible, .recruiter-popup-trigger:focus-visible {
+  outline: 2px solid var(--rust); outline-offset: 3px;
+}
+#leadership-dialog { width: min(92vw, 790px); }
+#leadership-dialog .leadership-eyebrow { margin: 2px 0 7px; color: var(--muted); font-size: 1.5rem; }
+#leadership-dialog h2 { margin-bottom: 3px; }
+#leadership-dialog .leadership-organization { color: var(--muted); font-size: 1.65rem; margin-bottom: 18px; }
+.leadership-photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(9px, 1.6vw, 18px); margin: 18px 0 22px; }
+#leadership-dialog .leadership-photo { min-width: 0; margin: 0; padding: 7px 7px 10px;
+  background: #fffaf3; border: 1px solid rgba(115,74,48,.15);
+  box-shadow: 0 8px 22px rgba(72,41,31,.11); }
+#leadership-dialog .leadership-photo:nth-child(2) { transform: rotate(1.7deg); }
+#leadership-dialog .leadership-photo:nth-child(3) { transform: rotate(-1.2deg); }
+#leadership-dialog .leadership-photo > img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 1px; }
+.leadership-photo-empty { width: 100%; aspect-ratio: 4/5; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px; background: #f1dfd5; }
+.leadership-photo-empty img { width: min(62%, 120px); height: 65%; object-fit: contain; opacity: .83; }
+.leadership-photo-empty span { color: var(--muted); font-size: 1.25rem; text-align: center; }
+#leadership-dialog .leadership-photo figcaption { margin: 5px 0 0; line-height: 1.15; font-size: 1.34rem; text-align: center; }
+.leadership-description h3 { margin-top: 8px; }
+.leadership-visit { display: inline-block; margin-top: 22px; padding: 5px 14px;
+  border: 1px dashed var(--rust); color: var(--rust); background: #fffaf2;
+  text-decoration: none; font-size: 1.42rem; }
+.leadership-visit:hover { background: #f8e6db; }
+@media (max-width: 520px) {
+  #leadership-dialog { padding: 18px; }
+  .leadership-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .leadership-photo-grid .leadership-photo:nth-child(3) { grid-column: span 2; max-width: 55%; justify-self: center; }
+}

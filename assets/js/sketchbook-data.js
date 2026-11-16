@@ -24,8 +24,9 @@ window.SKETCHBOOK = {
 
     heroKicker: "welcome to my",
     heroTitle: "portfolio",
-    heroDescriptor: "product design & ui/ux",
-    photo: "", photoAlt: "A portrait of Khloe",
+    heroDescriptor: "product management, design & ui/ux",
+    photo: "", photoAlt: "my photos!",
+    photoStrip: ["assets/images/flower photo 1.png", "assets/images/me  (2).jpg", "assets/images/drinks (1).jpg"],
     resumePdf: "assets/resume/khloe-sakai-resume.pdf",
     email: "khloekjs@gmail.com", linkedin: "linkedin.com/in/khloe-sakai",
     github: "https://github.com/7kairos",
@@ -57,17 +58,42 @@ window.SKETCHBOOK = {
     { name: "Canva", icon: "assets/brand-icons/canva.svg" }
   ],
   programmingLanguages: ["Python", "HTML", "CSS", "C++", "C#", "SQL", "PHP"],
+  // ABOUT ME / COMMUNITY & LEADERSHIP
+  // Only entries with a `popup` object open a photo-and-description dialog.
+  // Leave `src` blank until you add your own photos under assets/images/.
   leadership: [
-    // Descriptions are editable starter copy; only these three roles appear in Recruiter Mode.
-    { role: "Co-Founder", org: "Independent Project · gaming creator community",
-      description: "Led creator recruitment, onboarding, and a cross-functional staff team." },
-    { role: "Work Party Manager", org: "Alpha Gamma Delta",
+    {
+      role: "Work Party Manager",
+      org: "Alpha Gamma Delta, Zeta Eta Chapter",
       url: "https://alphagammadelta.org/",
-      description: "Coordinated chapter activities, event planning, and logistics." },
-    { role: "General Board Member", org: "Philippine American League" },
-    { role: "General Board Member", org: "Club Water Polo" },
-    { role: "Marketing Lead", org: "School Club · 2022–2025",
-      description: "Developed promotional materials and communications for club activities." }
+      description: "Coordinated and tracked member responsibilities, maintained organization for facility care and accountability.",
+      featured: true,
+      popup: {
+        linkLabel: "visit alpha gamma delta",
+        photos: [
+          { src: "", alt: "Alpha Gamma Delta chapter photograph", caption: "chapter moments" },
+          { src: "", alt: "Work party activities photograph", caption: "work party" },
+          { src: "", alt: "Alpha Gamma Delta team photograph", caption: "the team" },
+        ],
+      },
+    },
+    {
+      role: "Lifeguard",
+      org: "Morgan Hill Aquatics Center",
+      url: "https://www.morganhill.ca.gov/189/Aquatics-Center-AC",
+      description: "Honed customer service skills while assisting patrons of all ages; developed effective conflict resolution & composure under high-pressure situations; trained on First Aid, water safety and Red Cross skills.",
+      featured: true,
+      popup: {
+        linkLabel: "visit the aquatics center",
+        photos: [
+          { src: "", alt: "Aquatics center photograph", caption: "the pool" },
+          { src: "", alt: "Lifeguard experience photograph", caption: "on duty" },
+          { src: "", alt: "Aquatics team photograph", caption: "the team" },
+        ],
+      },
+    },
+    { role: "General Board Member", org: "RPI Philippine American League", featured: false },
+    { role: "General Board Member", org: "RPI Club Water Polo", featured: false },
   ],
   works: [proj("work-one", "Work title one", "peach"), proj("work-two", "Work title two", "rose"), proj("work-three", "Work title three", "sand")],
 
@@ -103,3 +129,24 @@ window.SKETCHBOOK = {
     })
   ]
 };
+
+
+// PROJECT CONTENT BRIDGE
+// The homepage loads portfolio-data.js before this file. Edit that file for
+// titles, covers, summaries and write-ups. Keep scrapbook-only extras here.
+// This avoids two separate sources of truth for the same project popups.
+if (window.PORTFOLIO) {
+  for (const category of ['works', 'passions']) {
+    const source = window.PORTFOLIO[category];
+    if (!Array.isArray(source)) continue;
+    const existing = new Map((window.SKETCHBOOK[category] || []).map(project => [project.id, project]));
+    window.SKETCHBOOK[category] = source.map(project => {
+      const extras = existing.get(project.id) || {};
+      return {
+        ...extras,
+        ...project,
+        scrapbook: project.scrapbook || extras.scrapbook
+      };
+    });
+  }
+}
