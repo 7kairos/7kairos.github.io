@@ -1,19 +1,4 @@
 /* EDITABLE DATA FOR "ABOUT ME" AND PASSION PROJECTS */
-const proj = (id, title, tone, more = {}) => ({
-  id, title, tone, role: "Your role", year: "2026",
-  summary: "One sentence about the problem and what you designed.",
-  image: "", imageAlt: "", url: "", /* url blank = built-in write-up */
-  tags: ["Product design", "UX research"],
-  writeup: {
-    overview: "Introduce the project and your contribution.",
-    problem: "Describe the starting point and the people involved.",
-    process: "Explain your research, design decisions, and iterations.",
-    outcome: "Share the result, evidence, lessons, and next steps.",
-    images: [] /* [{src:"assets/images/x.png", alt:"", caption:""}] */
-  },
-  ...more
-});
-
 window.SKETCHBOOK = {
   stickerDir: "assets/artwork",
   artwork: { works: ["ochre-flower", "rose-anemone", "burgundy-bloom"], passions: ["botanical-pair", "buttercup"] },
@@ -33,6 +18,12 @@ window.SKETCHBOOK = {
     school: "Rensselaer Polytechnic Institute", schoolUrl: "https://www.rpi.edu/",
     degree: "B.S. Dual: Information Technology & Web Science / Communications, Media & Design",
     minor: "Marketing", dates: "Aug 2025 – May 2029 (expected)",
+    // Editable education highlights used on About Me (and the recruiter view).
+    achievements: [
+      { title: "Recognition and Commendation", detail: "Santa Clara County District Attorney’s Office · 2025" },
+      { title: "Rensselaer Women’s Leadership Scholarship", detail: "2025–2026" },
+      { title: "AMSE Artist Honors: Media Arts Track", detail: "Graduated from Valley Christian High School · 2025" },
+    ],
     skills: [
       "Visual & UI/UX design", "Low- to high-fidelity prototyping",
       "Community operations", "Event coordination", "Marketing & communications"
@@ -44,8 +35,47 @@ window.SKETCHBOOK = {
     { id: "music", label: "playlist-making", image: "assets/artwork/hobby-headphones.png", href: "https://open.spotify.com/user/9n7o35e91l272fnouizjp1wyy?si=f2f742a8f17a4a31" },
     { id: "games", label: "videogames!", image: "assets/artwork/hobby-game-controller.png", href: "milkymon/index.html" },
     { id: "sketches", label: "creative writing", image: "assets/artwork/hobby-sketching-pen.png" },
-    { id: "ocean", label: "my favorite aquarium exhibit", image: "assets/artwork/hobby-jellyfish.png", href: "https://www.montereybayaquarium.org/cams-videos/live-cams/jelly-cam" }
+    { id: "ocean", label: "my favorite aquarium exhibit", image: "assets/artwork/hobby-jellyfish.png", href: "https://www.montereybayaquarium.org/cams-videos/live-cams/jelly-cam" },
+    //{ id: "journal", label: "graphics portfolio", image: "assets/artwork/hobby-journal.png", journal: true }
   ],
+  // GRAPHIC DESIGN BOOK — opened by clicking the watercolor journal in Favorite Things.
+  // Put your own artwork under assets/images/ and replace each empty src path.
+  // Add or remove pages and pieces freely; the book's navigation adjusts automatically.
+  designJournal: {
+    kicker: "graphic design / collected works",
+    signature: "khloe sakai · 2026",
+    pages: [
+      {
+        title: "posters & print",
+        description: "Posters, layouts, and other things made for people to see out in the world. This page is ready for finished pieces and earlier versions of each design.",
+        caption: "selected posters",
+        pieces: [
+          { src: "", label: "poster 01" },
+          { src: "", label: "poster 02" },
+          { src: "", label: "poster 03" },
+        ],
+      },
+      {
+        title: "visual identity",
+        description: "A space for branding, typography, and the small details that help a collection of visuals feel connected.",
+        caption: "identity studies",
+        pieces: [
+          { src: "", label: "identity 01" },
+          { src: "", label: "identity 02" },
+        ],
+      },
+      {
+        title: "in the making",
+        description: "Drafts, experiments, alternate directions, and anything worth remembering from the creative process.",
+        caption: "sketches & iterations",
+        pieces: [
+          { src: "", label: "early sketches" },
+          { src: "", label: "color studies" },
+          { src: "", label: "final exploration" },
+        ],
+      },
+    ],
+  },
   // WHAT I USE Section
   designTools: [
     { name: "Figma", icon: "https://api.iconify.design/logos/figma.svg" },
@@ -59,8 +89,7 @@ window.SKETCHBOOK = {
   ],
   programmingLanguages: ["Python", "HTML", "CSS", "C++", "C#", "SQL", "PHP"],
   // ABOUT ME / COMMUNITY & LEADERSHIP
-  // Only entries with a `popup` object open a photo-and-description dialog.
-  // Leave `src` blank until you add your own photos under assets/images/.
+  // These leadership entries display as plain text in both portfolio modes.
   leadership: [
     {
       role: "Work Party Manager",
@@ -68,14 +97,6 @@ window.SKETCHBOOK = {
       url: "https://alphagammadelta.org/",
       description: "Coordinated and tracked member responsibilities, maintained organization for facility care and accountability.",
       featured: true,
-      popup: {
-        linkLabel: "visit alpha gamma delta",
-        photos: [
-          { src: "", alt: "Alpha Gamma Delta chapter photograph", caption: "chapter moments" },
-          { src: "", alt: "Work party activities photograph", caption: "work party" },
-          { src: "", alt: "Alpha Gamma Delta team photograph", caption: "the team" },
-        ],
-      },
     },
     {
       role: "Lifeguard",
@@ -83,51 +104,14 @@ window.SKETCHBOOK = {
       url: "https://www.morganhill.ca.gov/189/Aquatics-Center-AC",
       description: "Honed customer service skills while assisting patrons of all ages; developed effective conflict resolution & composure under high-pressure situations; trained on First Aid, water safety and Red Cross skills.",
       featured: true,
-      popup: {
-        linkLabel: "visit the aquatics center",
-        photos: [
-          { src: "", alt: "Aquatics center photograph", caption: "the pool" },
-          { src: "", alt: "Lifeguard experience photograph", caption: "on duty" },
-          { src: "", alt: "Aquatics team photograph", caption: "the team" },
-        ],
-      },
     },
     { role: "General Board Member", org: "RPI Philippine American League", featured: false },
     { role: "General Board Member", org: "RPI Club Water Polo", featured: false },
   ],
-  works: [proj("work-one", "Work title one", "peach"), proj("work-two", "Work title two", "rose"), proj("work-three", "Work title three", "sand")],
-
-  // PASSION PROJECTS Section
-  passions: [
-    proj("passion-one", "Music festival poster", "rose", {
-      role: "Graphic design · example concept", featured: true,
-      summary: "Example content to show the new scrapbook interaction. Replace this with your own poster and process.",
-      tags: ["Graphic design", "Poster"],
-      scrapbook: {
-        iterations: [
-          { label: "first sketches", image: "" },
-          { label: "type studies", image: "" },
-          { label: "latest poster", image: "" }
-        ],
-        inspirations: ["bold type", "gig posters", "warm colors"],
-        playlist: { title: "add a playlist link", url: "" },
-        process: "Describe how your first concepts changed, what you explored, and why you chose the final direction."
-      }
-    }),
-    proj("passion-two", "Passion project two", "sand", {
-      role: "Personal exploration", featured: true,
-      scrapbook: {
-        iterations: [
-          { label: "early idea", image: "" },
-          { label: "in progress", image: "" },
-          { label: "most recent", image: "" }
-        ],
-        inspirations: ["reference one", "reference two"],
-        playlist: { title: "add a playlist link", url: "" },
-        process: "Add a few sentences about your creative process."
-      }
-    })
-  ]
+  // Project entries, write-ups and per-project scrapbook layouts are only
+  // defined in portfolio-data.js. Do not add a duplicate project list here.
+  works: [],
+  passions: []
 };
 
 

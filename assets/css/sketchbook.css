@@ -1101,3 +1101,705 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .case-tab { flex: 1 1 0; min-width: 0; padding: 7px 2px; font-size: 1.03rem; }
   .case-tab-number { display: none; }
 }
+
+
+/* v17: The tab labels already name each chapter. Do not repeat the label
+   as a second oversized heading inside the case study body. */
+#writeup .case-copy { padding-top: 5px; }
+#writeup .case-copy .case-paragraph:first-child { color: #5b4236; font-size: 1rem; }
+#writeup .case-copy .case-paragraph { white-space: pre-line; }
+
+/* Community platform — distinct editorial diagrams instead of an unused photo area. */
+.community-visual { border: 1px solid rgba(154, 94, 65, .17); padding: 19px;
+  background: linear-gradient(155deg, #f9ede3, #fffbf4 65%);
+  box-shadow: 0 10px 22px rgba(93, 55, 38, .09); }
+.community-visual-heading { margin: 0 0 12px; color: var(--rust); font-size: 1.7rem; }
+.community-visual-list { display: grid; gap: 8px; }
+.community-visual-item { display: grid; grid-template-columns: 30px 1fr; gap: 10px;
+  align-items: start; padding: 10px; background: #fffaf1;
+  border: 1px solid #e8d8cb; }
+.community-visual-item strong { display: block; color: #91543f; font: 600 .86rem/1.2 'DM Sans', sans-serif; }
+.community-visual-item p { margin: 4px 0 0; color: #786458; font: .75rem/1.35 'DM Sans', sans-serif; }
+.community-visual-number { color: #a77a61; font: .72rem/1.8 'DM Sans', sans-serif; }
+.community-visual--regions .community-visual-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.community-visual--regions .community-visual-item { display: block; min-height: 107px; }
+.community-visual--regions .community-visual-number { display: block; margin-bottom: 6px; }
+.community-visual--regions .community-visual-item:nth-child(2) { background: #f2dfd8; transform: rotate(1deg); }
+.community-visual--regions .community-visual-item:nth-child(3) { background: #f3e9d5; transform: rotate(-1deg); }
+.community-visual--regions .community-visual-item:nth-child(4) { background: #e8ebdf; }
+.community-visual--journey .community-visual-list { gap: 0; }
+.community-visual--journey .community-visual-item { position: relative; border: 0; border-left: 2px solid #caa393; background: transparent; padding-left: 16px; }
+.community-visual--roles .community-visual-item { border-left: 3px solid #ba8b72; }
+.community-visual-note { font-size: 1.1rem; line-height: 1.15; color: #9a7667; margin: 12px 0 0; }
+
+/* Passion Projects: two separate, data-driven scrapbook formats. */
+.workspace-project--gallery .workspace-grid { grid-template-columns: 165px minmax(0, 1fr); }
+.workspace-project--journal .workspace-grid { grid-template-columns: 145px minmax(0, 1fr); }
+.scrap-art-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start; gap: 8px; }
+.scrap-artifact { min-width: 0; margin: 0; transform: rotate(-2deg); }
+.scrap-artifact:nth-child(even) { transform: rotate(2deg); }
+.scrap-artifact > img, .scrap-photo-empty { width: 100%; height: 100px; display: block;
+  object-fit: cover; background: #f1ded7; border: 5px solid #fff;
+  box-shadow: 0 3px 10px rgba(85,56,40,.14); }
+.scrap-photo-empty { display: flex; flex-direction: column; justify-content: center;
+  align-items: center; gap: 2px; }
+.scrap-photo-empty img { width: 46%; height: 56%; object-fit: contain; }
+.scrap-photo-empty span { font-size: .95rem; color: #987d6a; }
+.scrap-artifact figcaption { text-align: center; color: #896c5d;
+  font-size: 1rem; line-height: 1; margin-top: 5px; }
+.workspace-gallery-layout, .workspace-journal-layout { gap: 10px; }
+.workspace-journal-layout { min-height: 0; }
+.journal-kicker { font-size: 1.25rem; color: #987460; margin: 0; }
+.journal-notes { display: grid; gap: 7px; }
+.journal-note { display: grid; grid-template-columns: 22px 1fr; gap: 8px;
+  padding: 6px 9px; background: #f9efe5; border-left: 2px solid #cb9d85; }
+.journal-note:nth-child(even) { transform: rotate(.5deg); background: #f3e5dd; }
+.journal-note h4 { color: var(--rust); margin: 0; font-size: 1.27rem; line-height: 1; }
+.journal-note p { margin: 3px 0 0; color: #745f52; font-size: .73rem; line-height: 1.35; }
+.journal-index { color: #ad8a72; font: .7rem/1.6 'DM Sans', sans-serif; }
+.journal-clippings .scrap-artifact > img, .journal-clippings .scrap-photo-empty { height: 67px; }
+.journal-reflection { margin: 0; font-size: .76rem; color: #705a4f; }
+.journal-link { color: var(--rust); font-size: 1.15rem; }
+
+@media (max-height: 780px) {
+ .scrap-artifact > img, .scrap-photo-empty { height: 69px; }
+ .journal-clippings .scrap-artifact > img, .journal-clippings .scrap-photo-empty { height: 51px; }
+ .journal-note { padding: 3px 7px; }
+ .journal-note p { font-size: .67rem; }
+ .workspace-project--gallery .workspace-grid { grid-template-columns: 140px minmax(0, 1fr); }
+ .workspace-project--journal .workspace-grid { grid-template-columns: 125px minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+ .workspace-project--gallery .workspace-grid,
+ .workspace-project--journal .workspace-grid { grid-template-columns: 130px minmax(0, 1fr); }
+}
+@media (max-height: 580px) {
+ .scrap-artifact > img, .scrap-photo-empty { height: 49px; }
+ .journal-note { padding: 2px 5px; }
+ .journal-note p { font-size: .62rem; }
+ .workspace-project--gallery .workspace-grid,
+ .workspace-project--journal .workspace-grid { grid-template-columns: 115px minmax(0, 1fr); }
+}
+
+/* v17 mobile fix: long bespoke chapter labels need a horizontal tab rail,
+   rather than being forced into five overlapping columns. */
+@media (max-width: 520px) {
+  #writeup .case-tabs {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding: 8px 12px 11px;
+  }
+  #writeup .case-tab { flex: 0 0 auto; min-width: auto; padding: 6px 11px;
+    font-size: 1.16rem; white-space: nowrap; }
+  #writeup .case-tab-number { display: inline-block; font-size: .6rem; }
+}
+
+/* v18 — Four accessible Polaroids, arranged in a compact fan inside the folder. */
+.passion-thumb {
+  left: calc(12px + var(--folder-index) * var(--folder-step, 91px));
+  top: calc(12px + var(--folder-index) * 8px);
+  transform: rotate(calc(-11deg + var(--folder-index) * 7deg));
+}
+.passion-thumb:hover, .passion-thumb:focus-visible {
+  transform: translateY(-14px) rotate(0deg);
+}
+
+/* Education: the label is plain text; only the university name is a link. */
+.school-name-link, .school-name-link:hover, .school-name-link:focus-visible {
+  text-decoration: none !important;
+  text-underline-offset: 0;
+}
+.school-name-link:hover, .school-name-link:focus-visible { color: #ad6d50; }
+.achievement-list { margin: 7px 0 0; padding: 6px 0 0 13px;
+  border-top: 1px dashed rgba(155,87,65,.24); list-style: none; }
+.achievement-list li { position: relative; margin: 0 0 5px; padding-left: 7px;
+  color: #65554b; font-size: .68rem; line-height: 1.29; }
+.achievement-list li::before { content: '✦'; position: absolute; left: -10px;
+  color: #be8879; font-size: .68rem; }
+.achievement-list li strong { font-weight: 600; color: #865042; }
+.recruiter-achievements { margin-top: 10px; }
+.recruiter-achievements li { font-size: .71rem; line-height: 1.36; }
+
+/* Each passion project has its own scrapbook voice and visual structure. */
+.workspace-project--community .workspace-project-title,
+.workspace-project--advocacy .workspace-project-title,
+.workspace-project--game .workspace-project-title,
+.workspace-project--gallery .workspace-project-title { font-size: clamp(1.9rem, 2.5vw, 2.65rem); line-height: .94; }
+.workspace-project--community .workspace-grid,
+.workspace-project--advocacy .workspace-grid,
+.workspace-project--game .workspace-grid { grid-template-columns: 148px minmax(0, 1fr); gap: 16px; }
+.workspace-project--community .workspace-cover,
+.workspace-project--advocacy .workspace-cover,
+.workspace-project--game .workspace-cover { height: 190px; }
+.workspace-community-layout, .workspace-advocacy-layout, .workspace-game-layout { gap: 7px; min-height: 0; }
+.scrap-region-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+.scrap-region { display: flex; justify-content: center; align-items: center; aspect-ratio: 1.12;
+  border-radius: 2px; font: 1.26rem/1 'Cormorant Garamond', serif; color: #81503c;
+  background: #e8d6c5; border: 1px solid rgba(157,101,80,.25); }
+.scrap-region:nth-child(2) { background: #e8dadd; }
+.scrap-region:nth-child(3) { background: #e6dfc8; }
+.scrap-region:nth-child(4) { background: #dce5d3; }
+.scrap-mini-notes { display: grid; gap: 5px; }
+.scrap-mini-note { border-left: 2px solid #c69880; padding: 2px 7px;
+  background: rgba(242,226,210,.48); }
+.scrap-mini-note strong { color: var(--rust); font-size: 1.2rem; line-height: 1; }
+.scrap-mini-note p { color: #725d4f; font-size: .69rem; line-height: 1.27; margin: 1px 0 0; }
+.scrap-advocacy-timeline { position: relative; display: grid; gap: 5px; }
+.scrap-advocacy-event { display: grid; grid-template-columns: 19px minmax(0, 1fr); gap: 6px;
+  padding: 5px 7px; background: #f7ece5; border-left: 1px dashed #c99d90; }
+.scrap-advocacy-event:nth-child(even) { background: #f3e9dd; }
+.scrap-event-marker { color: #b66b68; font-size: 14px; line-height: 1.2; }
+.scrap-advocacy-event h4 { color: var(--rust); font-size: 1.18rem; line-height: 1; margin: 0; }
+.scrap-advocacy-event p { color: #705e54; font-size: .68rem; line-height: 1.25; margin: 2px 0 0; }
+.scrap-game-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.scrap-game-note { padding: 5px; min-width: 0; background: #f5e6dc;
+  border-top: 2px solid rgba(153,80,67,.48); }
+.scrap-game-note strong { font-size: 1.15rem; color: var(--rust); line-height: 1; }
+.scrap-game-note p { color: #725d54; font-size: .63rem; line-height: 1.22; margin: 3px 0 0; }
+.scrap-closing-note { margin: 1px 0 0; font-size: 1.02rem; color: #8a6557; line-height: 1.12; }
+.workspace-game-layout .scrap-artifact > img,
+.workspace-game-layout .scrap-photo-empty { height: 73px; }
+.workspace-game-layout .scrap-art-gallery { gap: 5px; }
+.workspace-advocacy-layout .journal-link { font-size: 1.03rem; line-height: 1; }
+
+@media (max-height: 780px) {
+  .about-achievements li { font-size: .63rem; margin-bottom: 3px; line-height: 1.2; }
+  .about-fact.education-fact { padding-top: 6px; padding-bottom: 6px; }
+  .workspace-project--community .workspace-grid,
+  .workspace-project--advocacy .workspace-grid,
+  .workspace-project--game .workspace-grid { grid-template-columns: 130px minmax(0, 1fr); gap: 13px; }
+  .scrap-advocacy-event { padding: 3px 5px; }
+  .scrap-mini-note p, .scrap-advocacy-event p { font-size: .62rem; }
+  .scrap-game-note p { font-size: .58rem; }
+  .workspace-game-layout .scrap-artifact > img,
+  .workspace-game-layout .scrap-photo-empty { height: 56px; }
+  .workspace-project--community .workspace-cover,
+  .workspace-project--advocacy .workspace-cover,
+  .workspace-project--game .workspace-cover { height: 165px; }
+}
+@media (max-width: 720px) {
+  .workspace-project--community .workspace-grid,
+  .workspace-project--advocacy .workspace-grid,
+  .workspace-project--game .workspace-grid { grid-template-columns: 120px minmax(0, 1fr); gap: 12px; }
+  .workspace-project--community .workspace-cover,
+  .workspace-project--advocacy .workspace-cover,
+  .workspace-project--game .workspace-cover { height: 145px; }
+}
+
+/* Four-project folder: enough of each Polaroid stays exposed to be clickable. */
+.passion-folder { width: 350px; flex-basis: 350px; }
+.passion-thumb { left: calc(6px + var(--folder-index) * var(--folder-step, 91px)); }
+.passion-thumb-caption { font-size: 1.01rem; }
+@media (max-width: 1000px) {
+  .passion-folder { width: 340px; flex-basis: 340px; }
+}
+@media (max-width: 720px) {
+  .passion-folder { width: 340px; flex-basis: 340px; }
+}
+
+/* v19: compact, bespoke in-scrapbook storytelling (no second modal). */
+.workspace-project--story { gap: 9px; }
+.workspace-project--story .workspace-title { display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 1px 8px; }
+.workspace-project--story .workspace-project-title { cursor: default; margin: 0; font-size: clamp(1.6rem, 2.45vw, 2.5rem);
+  line-height: 1; color: var(--rust); }
+.workspace-project--story .workspace-meta { font-size: 1.04rem; white-space: nowrap; }
+.story-spread { display: flex; flex-direction: column; flex: 1 1 auto; gap: 9px; min-height: 0; }
+.story-tab-strip { display: flex; flex: 0 0 auto; gap: 7px; }
+.story-tab { appearance: none; border: 1px dashed #cfa995; border-radius: 1px; background: rgba(255,250,242,.45);
+  color: #927267; padding: 4px 12px; font-size: 1.05rem; line-height: 1; cursor: pointer; }
+.story-tab:hover, .story-tab:focus-visible { border-color: #a96651; background: #f4e2d7; }
+.story-tab[aria-selected="true"] { background: #ecd7c9; color: var(--rust); border-style: solid; }
+.story-page-stage { min-height: 0; flex: 1 1 auto; }
+.story-page { height: 100%; min-height: 0; }
+.story-page[hidden] { display: none !important; }
+.story-overview { display: grid; height: 100%; grid-template-columns: minmax(0, .91fr) minmax(0, 1fr);
+  gap: 16px; align-items: center; }
+.story-lead-photo { min-width: 0; max-height: 100%; margin: 2px 0 0; transform: rotate(-2deg);
+  background: #fffefb; border: 5px solid white; padding: 0 0 4px;
+  box-shadow: 0 6px 14px rgba(78,52,40,.14); }
+.story-lead-photo img { display: block; width: 100%; height: clamp(135px, 25vh, 242px);
+  object-fit: cover; object-position: center; }
+.story-lead-photo figcaption { font-size: 1rem; color: #80685c; text-align: center; margin-top: 3px; }
+.story-eyebrow { color: var(--rust); margin: 0 0 7px; font-size: 1.38rem; }
+.story-opening-copy p:last-child { margin: 0; color: #55463d; font-size: .81rem; line-height: 1.49; }
+.story-impact-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 9px; align-content: start; height: 100%; }
+.story-impact-card { min-width: 0; background: rgba(248,232,223,.7); padding: 8px 10px 9px;
+  border-left: 2px solid rgba(165,92,69,.54); }
+.story-impact-card:nth-child(2), .story-impact-card:nth-child(3) { background: rgba(242,235,219,.75); }
+.story-impact-number { display: inline-block; color: #9a7565; font: 600 .66rem/1 'DM Sans', sans-serif;
+  margin-right: 6px; letter-spacing: .06em; }
+.story-impact-card h4 { display: inline; color: var(--rust); font-size: 1.08rem; line-height: 1; }
+.story-impact-card p { color: #5c4b42; margin: 5px 0 0; font-size: .7rem; line-height: 1.37; }
+.story-photo-grid { height: 100%; display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
+  grid-template-rows: repeat(2,minmax(0,1fr)); gap: 9px; }
+.story-photo-grid:has(figure:nth-child(3):last-child) { grid-template-columns: repeat(3,minmax(0,1fr)); grid-template-rows: 1fr; }
+.story-photo { min-height: 0; min-width: 0; margin: 0; padding: 4px 4px 3px;
+  background: #fffefa; border: 1px solid #e6d4c9;
+  box-shadow: 0 3px 9px rgba(74,48,33,.1); }
+.story-photo:nth-child(2) { transform: rotate(1deg); }
+.story-photo:nth-child(3) { transform: rotate(-1deg); }
+.story-photo img { display: block; height: calc(100% - 22px); width: 100%; object-fit: cover; }
+.story-photo figcaption { color: #8a6355; margin: 1px 0 0; font-size: .91rem; line-height: 1; text-align: center; }
+.story-source-link { display: inline-flex; align-self: flex-start; flex: 0 0 auto; color: var(--rust);
+  text-decoration: none; border-bottom: 1px dashed #c49782; font-size: 1.1rem; line-height: 1.05; }
+.story-source-link:hover { color: #713d30; }
+
+/* Six favorite watercolor cutouts: a tactile, uneven two-by-three collage. */
+.favorite-board { height: clamp(330px, 43vh, 418px); }
+.favorite-overline { z-index: 2; }
+.favorite-gallery { position: absolute; inset: 40px 15px 12px; display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr)); grid-template-rows: repeat(2,minmax(0,1fr));
+  align-items: center; justify-items: center; column-gap: 7px; row-gap: 2px; }
+.favorite-gallery .favorite-item { position: relative; display: grid; width: 96%; height: 92%;
+  left: auto; top: auto; margin: 0; }
+.favorite-gallery .favorite-item-1 { transform: translateY(5px) rotate(-7deg); }
+.favorite-gallery .favorite-item-2 { transform: translateY(-3px) rotate(7deg); }
+.favorite-gallery .favorite-item-3 { transform: translateY(5px) rotate(-4deg); }
+.favorite-gallery .favorite-item-4 { transform: translateY(-3px) rotate(12deg); }
+.favorite-gallery .favorite-item-5 { transform: translateY(3px) rotate(8deg); }
+.favorite-gallery .favorite-item-6 { transform: translateY(-4px) rotate(-8deg); }
+.favorite-gallery .favorite-item img { object-fit: contain; }
+.achievement-list li::before { content: '•'; font-size: 1.05rem; left: -9px; top: -.19em; }
+
+/* Recruiter mode: three aligned columns, with works and skills grouped together. */
+.recruiter-sheet { max-width: 1410px; }
+.recruiter-grid { grid-template-columns: minmax(0,1.12fr) minmax(0,.93fr) minmax(0,1.05fr);
+  align-items: start; gap: clamp(12px,1.4vw,20px); }
+.recruiter-column { gap: 12px; }
+.recruiter-section { padding: 17px 18px 18px; }
+.recruiter-column .recruiter-section { width: 100%; }
+.recruiter-section h2 { margin-bottom: 11px; padding-bottom: 9px; }
+.recruiter-project { padding: 9px 0 14px; }
+.recruiter-work-and-skills .recruiter-skill-grid { display: grid; grid-template-columns: 1fr; gap: 11px; }
+.recruiter-work-and-skills .recruiter-skill-group { padding-bottom: 9px; border-bottom: 1px dashed rgba(159,76,57,.16); }
+.recruiter-work-and-skills .recruiter-skill-group:last-child { border-bottom: 0; padding-bottom: 0; }
+.recruiter-work-and-skills .recruiter-skill-group h3 { font-size: 1.22rem; }
+.recruiter-passions .recruiter-project h3 { font-size: 1.42rem; }
+.recruiter-passions .recruiter-project p { font-size: .82rem; line-height: 1.4; }
+
+@media (max-width: 1120px) {
+  .recruiter-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .recruiter-passions { grid-column: 2; }
+  .recruiter-work-and-skills { grid-column: 2; grid-row: 1; }
+  .recruiter-background { grid-column: 1; grid-row: 1 / span 2; }
+}
+@media (max-width: 720px) {
+  .recruiter-grid { grid-template-columns: 1fr !important; }
+  .recruiter-background,.recruiter-work-and-skills,.recruiter-passions { grid-row: auto; grid-column: 1; }
+  .favorite-board { height: 355px; }
+}
+@media (max-height: 770px) and (min-width: 721px) {
+  .favorite-board { height: clamp(260px, 37vh, 335px); }
+  .favorite-gallery { inset: 33px 12px 9px; }
+  .story-overview { gap: 9px; }
+  .story-lead-photo img { height: clamp(100px, 22vh, 175px); }
+  .story-impact-grid { gap: 5px; }
+  .story-impact-card { padding: 4px 7px; }
+  .story-impact-card h4 { font-size: 1rem; }
+  .story-impact-card p { font-size: .63rem; line-height: 1.27; margin-top: 2px; }
+  .story-photo-grid { gap: 6px; }
+}
+@media (max-height: 560px) and (min-width: 721px) {
+  .story-spread { gap: 3px; }
+  .story-tab { padding: 2px 7px; font-size: .94rem; }
+  .story-impact-card p { font-size: .58rem; line-height: 1.19; }
+  .story-photo img { height: calc(100% - 17px); }
+  .story-photo figcaption { font-size: .77rem; }
+  .story-lead-photo img { height: 100px; }
+  .story-opening-copy p:last-child { font-size: .69rem; line-height: 1.3; }
+}
+
+
+/* v20 — More breathing room for the watercolor favorites; no giant overlapping cutouts. */
+.favorite-board { height: clamp(278px, 34vh, 338px); }
+.favorite-gallery {
+  inset: 49px 24px 21px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 9px 13px;
+  align-items: center;
+  justify-items: center;
+}
+.favorite-gallery .favorite-item,
+.favorite-gallery .favorite-item-1,
+.favorite-gallery .favorite-item-2,
+.favorite-gallery .favorite-item-3,
+.favorite-gallery .favorite-item-4,
+.favorite-gallery .favorite-item-5,
+.favorite-gallery .favorite-item-6 {
+  position: relative; display: inline-flex; justify-content: center; align-items: center;
+  width: max-content; max-width: 100%; height: max-content; max-height: 100%;
+  margin: 0; padding: 4px; left: auto; top: auto;
+}
+.favorite-gallery .favorite-item img {
+  width: clamp(70px, 7vw, 109px);
+  height: clamp(67px, 11vh, 112px);
+  max-width: 100%; object-fit: contain;
+}
+.favorite-gallery .favorite-item-4 img { width: clamp(61px, 5.7vw, 83px); }
+.favorite-gallery .favorite-item-5 img { width: clamp(66px, 6vw, 90px); }
+.favorite-gallery .favorite-item-6 img { width: clamp(68px, 6.7vw, 101px); }
+@media (max-width: 720px) {
+  .favorite-board { height: 302px; }
+  .favorite-gallery { inset: 43px 12px 12px; gap: 6px; }
+  .favorite-gallery .favorite-item img { width: clamp(65px, 17vw, 96px); height: clamp(68px, 12vh, 96px); }
+}
+@media (max-height: 770px) and (min-width: 721px) {
+  .favorite-board { height: clamp(252px, 33vh, 304px); }
+  .favorite-gallery { inset: 40px 16px 11px; gap: 3px 9px; }
+  .favorite-gallery .favorite-item img { height: clamp(62px, 10vh, 90px); }
+}
+
+/* v20 — Egress photographs are wide contact prints, not elongated/cropped posters. */
+.story-photo-grid,
+.story-photo-grid:has(figure:nth-child(3):last-child) {
+  height: 100%;
+  grid-template-rows: auto;
+  align-content: center;
+  align-items: start;
+}
+.story-photo-grid--game {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 16px);
+}
+.story-photo-grid--game .story-photo { align-self: center; padding: 7px 7px 3px; }
+.story-photo-grid--game .story-photo img {
+  height: clamp(110px, 15vw, 195px);
+  max-height: 26vh;
+  width: 100%; object-fit: contain; object-position: center;
+  background: #202326;
+}
+.story-photo-grid--events .story-photo img {
+  height: clamp(112px, 17vh, 180px);
+  object-fit: cover;
+}
+.story-photo-grid .story-photo figcaption { margin: 4px 0 2px; }
+@media (max-width: 820px) {
+  .story-photo-grid--game { gap: 6px; }
+  .story-photo-grid--game .story-photo img { height: clamp(92px, 17vw, 145px); }
+}
+
+/* v20 — A separate, editable book popup for the Graphic Design Portfolio. */
+#design-journal {
+  position: fixed; width: min(1120px, 95vw); height: min(735px, 91dvh);
+  max-width: none; max-height: none; margin: auto; padding: 17px 26px 19px;
+  overflow: hidden; border: 1px solid #d7c4b2; border-radius: 8px;
+  color: #59493e; background: #f7f0e5;
+  box-shadow: 0 22px 75px rgba(42,30,23,.34);
+}
+#design-journal::backdrop { background: rgba(43,34,29,.58); backdrop-filter: blur(3px); }
+#design-journal .journal-dialog-heading {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; height: 39px; padding: 0 4px 8px;
+}
+#design-journal .journal-dialog-heading > span { color: var(--rust); font-size: 1.45rem; }
+#design-journal .journal-dialog-close,
+#design-journal .journal-book-arrow {
+  border: 1px dashed #b78270; background: rgba(255,248,239,.9);
+  color: var(--rust); cursor: pointer; font-size: 1.3rem;
+  padding: 4px 13px; line-height: 1.1;
+}
+#design-journal .journal-book-arrow:disabled { opacity: .33; cursor: default; }
+#design-journal .journal-book-arrow:not(:disabled):hover,
+#design-journal .journal-dialog-close:hover { background: #f3e0d3; }
+#design-journal .journal-book-spread {
+  height: calc(100% - 91px); display: grid; grid-template-columns: 1fr 1fr;
+  background: #fffaf1; border: 1px solid #ded0c1; border-radius: 4px;
+  overflow: hidden; box-shadow: 0 9px 25px rgba(80,55,39,.13);
+}
+#design-journal .journal-book-page {
+  position: relative; min-width: 0; min-height: 0; padding: clamp(20px, 3vw, 40px);
+  background: var(--grain), linear-gradient(135deg, #fffcf5, #f7eee2);
+  overflow: hidden;
+}
+#design-journal .journal-book-page--left {
+  border-right: 1px solid #d6c8b9;
+  box-shadow: inset -13px 0 19px -15px rgba(61,39,27,.28);
+}
+#design-journal .journal-book-page--right {
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--grain), linear-gradient(145deg, #fbf7ef, #fff9f0);
+  box-shadow: inset 13px 0 19px -15px rgba(61,39,27,.25);
+}
+#design-journal .journal-book-kicker { color: var(--rust); font-size: 1.55rem; }
+#design-journal .journal-book-numeral {
+  margin: 16px 0 4px; color: #a18470;
+  text-transform: uppercase; letter-spacing: .18em;
+  font: .64rem/1.2 'DM Sans', sans-serif;
+}
+#design-journal .journal-book-title {
+  max-width: 90%; margin: 0 0 14px; color: var(--rust);
+  font: italic 500 clamp(2.8rem, 5vw, 5.6rem)/.92 'Cormorant Garamond', Georgia, serif;
+}
+#design-journal .journal-book-description {
+  max-width: 32ch; font-size: clamp(.86rem, 1.14vw, 1rem); line-height: 1.58;
+}
+#design-journal .journal-book-sticker {
+  position: absolute; bottom: 12%; right: 7%; width: clamp(100px, 14vw, 177px);
+  max-height: 34%; object-fit: contain; transform: rotate(-13deg);
+  opacity: .68; pointer-events: none;
+}
+#design-journal .journal-book-signature {
+  position: absolute; left: clamp(20px, 3vw, 40px); bottom: 19px;
+  color: #9d7261; font-size: 1.35rem;
+}
+#design-journal .journal-book-side-title { font-size: 1.6rem; color: var(--rust); }
+#design-journal .journal-book-pieces {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr); gap: 12px; flex: 1; min-height: 0;
+  align-content: center;
+}
+#design-journal .journal-book-piece { margin: 0; min-height: 0; padding: 8px 8px 5px;
+  display: flex; flex-direction: column; background: #fffefd;
+  box-shadow: 0 5px 12px rgba(74,45,31,.11); transform: rotate(-1.3deg);
+}
+#design-journal .journal-book-piece:nth-child(2n) { transform: rotate(1.8deg); }
+#design-journal .journal-book-piece > img,
+#design-journal .journal-book-placeholder {
+  display: block; flex: 1; min-height: 0; width: 100%; height: 100%;
+  object-fit: contain; background: #efe3d8;
+}
+#design-journal .journal-book-placeholder {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 2px; background: #efe2d8;
+}
+#design-journal .journal-book-placeholder img { width: clamp(39px, 5vw, 75px);
+  height: clamp(39px, 5vw, 75px); object-fit: contain; }
+#design-journal .journal-book-placeholder span { color: #a28b78; font-size: 1rem; }
+#design-journal .journal-book-piece figcaption {
+  margin: 3px 0 0; color: #895f4f; text-align: center;
+  font-size: 1.1rem; line-height: 1;
+}
+#design-journal .journal-book-side-note { font-size: 1.17rem; color: #9c8270;
+  text-align: right; flex: 0 0 auto; }
+#design-journal .journal-book-navigation {
+  height: 52px; display: flex; justify-content: space-between; align-items: center;
+  gap: 14px; padding: 8px 2px 0;
+}
+#design-journal .journal-book-count { color: #90624f; font-size: 1.4rem; }
+@media (max-width: 650px) {
+  #design-journal { width: 96vw; height: min(720px, 93dvh); padding: 10px 10px 12px; }
+  #design-journal .journal-dialog-heading { height: 34px; }
+  #design-journal .journal-dialog-heading > span { font-size: 1.2rem; }
+  #design-journal .journal-book-spread { height: calc(100% - 80px); grid-template-columns: 1fr; grid-template-rows: minmax(125px,.7fr) minmax(0, 1.8fr); }
+  #design-journal .journal-book-page { padding: 13px 18px; }
+  #design-journal .journal-book-page--left { border-right: 0; border-bottom: 1px solid #d9c5b6; }
+  #design-journal .journal-book-page--right { gap: 4px; }
+  #design-journal .journal-book-numeral { margin: 0; }
+  #design-journal .journal-book-kicker { font-size: 1.2rem; }
+  #design-journal .journal-book-title { font-size: clamp(2.2rem, 9vw, 3.3rem); margin-bottom: 4px; }
+  #design-journal .journal-book-description { max-width: 55ch; font-size: .76rem; line-height: 1.3; }
+  #design-journal .journal-book-sticker, #design-journal .journal-book-signature { display: none; }
+  #design-journal .journal-book-side-title { font-size: 1.25rem; }
+  #design-journal .journal-book-pieces { gap: 7px; }
+  #design-journal .journal-book-piece { padding: 5px 5px 2px; }
+  #design-journal .journal-book-piece figcaption { font-size: .96rem; }
+  #design-journal .journal-book-placeholder img { width: 37px; height: 37px; }
+  #design-journal .journal-book-navigation { height: 46px; }
+  #design-journal .journal-book-arrow { font-size: 1.12rem; padding: 3px 8px; }
+}
+/* Landscape contact prints: keep the whole Egress screenshot visible at its natural proportions. */
+.story-photo-grid--game .story-photo img {
+  height: auto;
+  aspect-ratio: 1.7 / 1;
+  max-height: 22vh;
+  object-fit: contain;
+}
+@media (max-width: 820px) {
+  .story-photo-grid--game .story-photo img { height: auto; aspect-ratio: 1.7 / 1; }
+}
+
+
+/* v21 — Larger, balanced 2x2 photostrips in Passion Projects. */
+.story-photo-grid--game,
+.story-photo-grid--events,
+.story-photo-grid--game:has(figure:nth-child(3):last-child) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  align-content: center;
+  align-items: stretch;
+  gap: clamp(9px, 1.3vw, 17px);
+  height: 100%;
+}
+.story-photo-grid--game .story-photo,
+.story-photo-grid--events .story-photo { align-self: stretch; display: flex; flex-direction: column; }
+.story-photo-grid--game .story-photo img,
+.story-photo-grid--events .story-photo img {
+  height: calc(100% - 24px);
+  max-height: none;
+  min-height: 0;
+  flex: 1 1 auto;
+  width: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+  background: #282a2b;
+}
+.story-photo-grid--events .story-photo img { background: #eee7df; object-fit: cover; }
+.story-photo-grid .story-photo figcaption { flex: 0 0 auto; }
+.community-external-links { display: flex; flex-wrap: wrap; gap: 7px 18px; }
+
+/* Recruiter-only project scrapbook. Same story tabs and images, no route change. */
+#recruiter-passion-dialog {
+  width: min(1060px, 94vw);
+  height: min(750px, 91dvh);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #d9c5b6;
+  border-radius: 8px;
+  background: var(--grain), var(--paper-light);
+}
+#recruiter-passion-dialog::backdrop { background: rgba(44, 30, 28, .57); backdrop-filter: blur(3px); }
+.recruiter-passion-shell {
+  height: 100%; min-height: 0; box-sizing: border-box;
+  padding: clamp(14px, 2.4vw, 26px) clamp(15px, 3vw, 34px);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.recruiter-passion-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.recruiter-passion-heading h2 { margin: 0 0 2px; font-size: clamp(2rem, 3.65vw, 3.6rem); line-height: 1.02; }
+.recruiter-passion-kicker { margin: 0 0 6px; color: var(--rust); font-size: 1.35rem; }
+.recruiter-passion-meta { margin: 0; color: var(--muted); font-size: 1.36rem; }
+#recruiter-passion-dialog .story-spread { min-height: 0; overflow: hidden; }
+#recruiter-passion-dialog .story-page-stage { overflow-y: auto; min-height: 0; padding: 5px 3px 8px; }
+#recruiter-passion-dialog .story-page { height: 100%; min-height: 100%; }
+#recruiter-passion-dialog .story-photo-grid { min-height: 0; }
+#recruiter-passion-dialog .story-source-link { margin-top: 1px; }
+#recruiter-passion-dialog .story-opening-copy p:last-child { font-size: clamp(.89rem, 1.15vw, 1.04rem); line-height: 1.58; }
+#recruiter-passion-dialog .story-impact-card { padding: 12px 16px; }
+#recruiter-passion-dialog .story-impact-card p { font-size: .87rem; line-height: 1.46; }
+#recruiter-passion-dialog .story-impact-card h4 { font-size: 1.34rem; }
+#recruiter-passion-dialog .story-photo img { max-height: none; }
+@media (max-width: 650px) {
+  #recruiter-passion-dialog { width: 96vw; height: min(790px, 92dvh); }
+  .recruiter-passion-shell { gap: 12px; padding: 13px; }
+  .recruiter-passion-heading { gap: 8px; }
+  .recruiter-passion-heading h2 { font-size: clamp(1.8rem, 6.7vw, 2.7rem); }
+  .recruiter-passion-meta { font-size: 1.11rem; }
+  #recruiter-passion-dialog .story-tab-strip { gap: 5px; flex-wrap: wrap; }
+  #recruiter-passion-dialog .story-tab { font-size: .99rem; padding: 6px 8px; }
+  #recruiter-passion-dialog .story-overview { grid-template-columns: 1fr; align-content: start; }
+  #recruiter-passion-dialog .story-lead-photo { max-width: 300px; }
+  #recruiter-passion-dialog .story-lead-photo img { height: 155px; }
+  #recruiter-passion-dialog .story-impact-grid { grid-template-columns: 1fr; height: auto; }
+  #recruiter-passion-dialog .story-page { height: auto; }
+  #recruiter-passion-dialog .story-photo-grid { height: auto; grid-template-rows: auto; }
+  #recruiter-passion-dialog .story-photo img { height: 115px; min-height: 0; }
+}
+
+.story-photo-placeholder {
+  flex: 1 1 auto; min-height: 0; height: calc(100% - 24px); display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  background: #f3e7e0; gap: 2px;
+}
+.story-photo-placeholder img { width: 46px !important; height: 46px !important;
+  flex: 0 0 auto !important; object-fit: contain !important; background: none !important; }
+.story-photo-placeholder span { font-size: 1rem; color: #a07967; }
+
+
+/* v22 — Milkymon shares one three-tab story between the scrapbook and Recruiter Mode. */
+.milkymon-spread { gap: 8px; min-height: 0; }
+.milkymon-columns { display: grid; grid-template-columns: minmax(125px, .7fr) minmax(0, 1.95fr);
+  gap: 15px; flex: 1 1 auto; min-height: 0; }
+.milkymon-identity { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.milkymon-logo-print { background: rgba(255,252,246,.92); padding: 7px; margin: 2px 0 0;
+  border: 5px solid white; box-shadow: 0 4px 12px rgba(80,49,34,.13);
+  transform: rotate(-2deg); }
+.milkymon-logo-print img { display: block; width: 100%; height: clamp(110px, 18vh, 172px);
+  object-fit: contain; }
+.milkymon-description { margin: 0; color: #625046; font-size: .7rem; line-height: 1.4; }
+.milkymon-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.milkymon-tabs { display: grid; grid-template-columns: 1.4fr .72fr 1.35fr; gap: 5px;
+  margin-bottom: 8px; }
+.milkymon-tab { white-space: normal; text-align: center; font-size: .82rem;
+  line-height: 1.04; padding: 7px 4px; min-width: 0; }
+.milkymon-stage { min-height: 0; overflow-y: auto; scrollbar-width: thin; }
+.milkymon-page { height: auto; }
+.milkymon-page h4 { margin: 0 0 4px; font-size: 1.06rem; color: var(--rust); }
+.milkymon-page p { margin: 0; color: #57483f; font-size: .7rem; line-height: 1.36; }
+.milkymon-intro { margin-bottom: 7px !important; }
+.milkymon-path { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.milkymon-path li { display: grid; grid-template-columns: 27px 1fr; gap: 7px; min-width: 0;
+  border-left: 2px solid rgba(157,83,58,.30); background: rgba(247,233,222,.5); padding: 4px 7px; }
+.milkymon-step-number { color: var(--rust); font-size: .71rem; align-self: center; }
+.milkymon-path strong { display: block; margin-bottom: 1px; color: var(--rust);
+  font-weight: 500; font-size: .95rem; line-height: 1.05; }
+.milkymon-responsibilities { display: grid; gap: 7px; }
+.milkymon-duty { border-left: 2px solid rgba(157,83,58,.5); background: rgba(247,233,222,.55);
+  padding: 8px 10px; }
+.milkymon-stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 7px; margin-bottom: 10px; }
+.milkymon-stat { background: rgba(242,225,210,.6); padding: 8px 9px;
+  display: flex; flex-direction: column; min-width: 0; }
+.milkymon-stat strong { color: var(--rust); font-size: 1.6rem; line-height: 1; font-weight: 500; }
+.milkymon-stat span { color: #6d5a50; font-size: .69rem; line-height: 1.2; }
+.milkymon-links { display: flex; flex-wrap: wrap; gap: 5px 15px; flex: 0 0 auto; }
+.milkymon-link { color: var(--rust); font-size: 1.03rem; line-height: 1.08;
+  text-decoration: none; border-bottom: 1px dashed rgba(156,80,58,.55); }
+.milkymon-link:hover, .milkymon-link:focus-visible { color: #733c2e; border-bottom-style: solid; }
+/* Recruiter Mode: normalize paragraph and metadata typography, leave headings distinct. */
+body.recruiter .recruiter-section p,
+body.recruiter .recruiter-section .meta,
+body.recruiter .recruiter-section .recruiter-lead-org,
+body.recruiter .recruiter-section .recruiter-lead strong,
+body.recruiter .recruiter-achievements li,
+body.recruiter .recruiter-project .meta { font-size: .84rem; line-height: 1.46; }
+body.recruiter .recruiter-project p { font-size: .84rem; line-height: 1.46; }
+/* The recruiter popup uses exactly the same Milkymon content, with more generous text sizes. */
+#recruiter-passion-dialog .milkymon-spread { height: 100%; }
+#recruiter-passion-dialog .milkymon-columns { grid-template-columns: minmax(190px,.72fr) minmax(0,1.7fr); gap: 22px; }
+#recruiter-passion-dialog .milkymon-logo-print img { height: clamp(170px,25vh,240px); }
+#recruiter-passion-dialog .milkymon-description { font-size: 1rem; line-height: 1.52; }
+#recruiter-passion-dialog .milkymon-tab { font-size: 1.06rem; padding: 10px 8px; }
+#recruiter-passion-dialog .milkymon-page p { font-size: .93rem; line-height: 1.44; }
+#recruiter-passion-dialog .milkymon-page h4 { font-size: 1.4rem; }
+#recruiter-passion-dialog .milkymon-step-number { font-size: .86rem; }
+#recruiter-passion-dialog .milkymon-path strong { font-size: 1.2rem; }
+#recruiter-passion-dialog .milkymon-path li { padding: 8px 12px; }
+#recruiter-passion-dialog .milkymon-stat strong { font-size: 2.3rem; }
+#recruiter-passion-dialog .milkymon-stat span { font-size: .87rem; }
+#recruiter-passion-dialog .milkymon-link { font-size: 1.3rem; }
+@media (max-width: 720px) {
+  .milkymon-columns, #recruiter-passion-dialog .milkymon-columns {
+    grid-template-columns: 1fr; gap: 8px; overflow-y: auto; }
+  .milkymon-identity { display: grid; grid-template-columns: 86px 1fr; align-items: center; gap: 8px; }
+  .milkymon-logo-print { margin: 0; padding: 2px; border-width: 3px; }
+  .milkymon-logo-print img, #recruiter-passion-dialog .milkymon-logo-print img { height: 74px; }
+  .milkymon-description, #recruiter-passion-dialog .milkymon-description { font-size: .75rem; line-height: 1.3; }
+  .milkymon-tab, #recruiter-passion-dialog .milkymon-tab { font-size: .81rem; padding: 6px 3px; }
+  .milkymon-links { gap: 3px 9px; }
+  .milkymon-link, #recruiter-passion-dialog .milkymon-link { font-size: .92rem; }
+  #recruiter-passion-dialog .milkymon-page p { font-size: .82rem; }
+  #recruiter-passion-dialog .milkymon-page h4 { font-size: 1.08rem; }
+  #recruiter-passion-dialog .milkymon-path strong { font-size: 1rem; }
+}
+
+/* Keep the shared story's source links separate from its text, even with custom fonts. */
+.milkymon-links { padding-top: 5px; border-top: 1px dashed rgba(168,108,83,.22); }
+.milkymon-identity { min-height: 0; }
+#recruiter-passion-dialog .milkymon-description { font-size: .94rem; line-height: 1.45; }
+@media (max-width: 720px) {
+  #recruiter-passion-dialog .case-close { white-space: nowrap; }
+  #recruiter-passion-dialog .milkymon-description { font-size: .75rem; line-height: 1.3; }
+}
+
+/* v23 — the Milkymon introduction belongs inside its first tab, not beneath the logo. */
+.milkymon-identity { justify-content: flex-start; }
+.milkymon-logo-print { width: 100%; }
+.story-links { display: flex; flex-wrap: wrap; flex: 0 0 auto; align-items: center;
+  gap: 5px 15px; padding-top: 5px; border-top: 1px dashed rgba(168,108,83,.22); }
+@media (max-width: 720px) {
+  .milkymon-identity { display: flex; justify-content: center; align-items: center; }
+  .milkymon-logo-print { width: min(135px, 100%); }
+}
