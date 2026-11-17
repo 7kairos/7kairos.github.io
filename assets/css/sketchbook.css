@@ -1803,3 +1803,177 @@ body.recruiter .recruiter-project p { font-size: .84rem; line-height: 1.46; }
   .milkymon-identity { display: flex; justify-content: center; align-items: center; }
   .milkymon-logo-print { width: min(135px, 100%); }
 }
+
+
+
+/* Recruiter Mode — contact icons */
+
+.recruiter-social-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.recruiter-social-icons .social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  transition: transform 0.25s ease;
+}
+
+.recruiter-social-icons .social-icon-link img {
+  display: block;
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
+}
+
+.recruiter-social-icons .social-icon-link:hover {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.recruiter-social-icons .social-icon-link:focus-visible {
+  outline: 2px solid #9F4C39;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recruiter-social-icons .social-icon-link {
+    transition: none;
+  }
+}
+
+/* V24: recruiter actions sit beside the resume, above the divider and artwork. */
+body.recruiter .recruiter-top {
+  position: relative;
+  z-index: 10;
+  align-items: center;
+  padding-bottom: 22px;
+  margin-bottom: 17px;
+}
+body.recruiter .recruiter-top-right {
+  position: relative;
+  z-index: 12;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px 19px;
+  margin-bottom: 0;
+}
+body.recruiter .recruiter-top-right .resume-button {
+  transform: none;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+body.recruiter .recruiter-top-right .recruiter-social-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 0;
+}
+body.recruiter .recruiter-top-right .social-icon-link {
+  position: relative;
+  z-index: 12;
+  flex: 0 0 36px;
+  text-decoration: none;
+}
+body.recruiter .recruiter-sheet > .recruiter-art,
+body.recruiter .recruiter-sheet > .stk {
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 600px) {
+  body.recruiter .recruiter-top { align-items: flex-start; }
+  body.recruiter .recruiter-top-right { justify-content: flex-start; }
+}
+
+
+/* V25: Keep the contact icons LEFT of Download Resume, entirely ABOVE the divider. */
+body.recruiter .recruiter-top {
+  position: relative;
+  z-index: 15;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 195px;
+  padding: 8px 5px 25px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(159, 76, 57, .29);
+}
+body.recruiter .recruiter-top > div:first-child {
+  min-width: 0;
+  max-width: calc(100% - 480px);
+}
+body.recruiter .recruiter-top-right {
+  position: absolute;
+  right: 5px;
+  bottom: 24px; /* Above the divider, never below it */
+  top: auto;
+  z-index: 20;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  transform: none;
+}
+body.recruiter .recruiter-top-right .recruiter-social-icons {
+  order: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+}
+body.recruiter .recruiter-top-right .resume-button {
+  order: 1;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  transform: none;
+}
+body.recruiter .recruiter-top-right a { position: relative; z-index: 21; }
+body.recruiter .recruiter-sheet > .stk { z-index: 0; pointer-events: none; }
+
+@media (max-width: 980px) {
+  body.recruiter .recruiter-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    min-height: 0;
+    padding-bottom: 21px;
+  }
+  body.recruiter .recruiter-top > div:first-child { max-width: 100%; }
+  body.recruiter .recruiter-top-right {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    align-self: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  body.recruiter .recruiter-top-right {
+    gap: 14px;
+  }
+  body.recruiter .recruiter-top-right .recruiter-social-icons { gap: 12px; }
+  body.recruiter .recruiter-top-right .resume-button { font-size: 1.24rem; }
+}

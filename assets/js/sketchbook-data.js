@@ -5,7 +5,7 @@ window.SKETCHBOOK = {
   profile: {
     name: "khloe sakai",
     year: "2026",
-    eyebrow: "product design & ui/ux",
+    eyebrow: "product management, design & ui/ux - 2026",
 
     heroKicker: "welcome to my",
     heroTitle: "portfolio",
@@ -89,17 +89,16 @@ window.SKETCHBOOK = {
   ],
   programmingLanguages: ["Python", "HTML", "CSS", "C++", "C#", "SQL", "PHP"],
   // ABOUT ME / COMMUNITY & LEADERSHIP
-  // These leadership entries display as plain text in both portfolio modes.
   leadership: [
     {
-      role: "Work Party Manager",
+      role: "Work Party Manager · 2026",
       org: "Alpha Gamma Delta, Zeta Eta Chapter",
       url: "https://alphagammadelta.org/",
       description: "Coordinated and tracked member responsibilities, maintained organization for facility care and accountability.",
       featured: true,
     },
     {
-      role: "Lifeguard",
+      role: "Lifeguard · 2023-2026",
       org: "Morgan Hill Aquatics Center",
       url: "https://www.morganhill.ca.gov/189/Aquatics-Center-AC",
       description: "Honed customer service skills while assisting patrons of all ages; developed effective conflict resolution & composure under high-pressure situations; trained on First Aid, water safety and Red Cross skills.",
@@ -108,8 +107,6 @@ window.SKETCHBOOK = {
     { role: "General Board Member", org: "RPI Philippine American League", featured: false },
     { role: "General Board Member", org: "RPI Club Water Polo", featured: false },
   ],
-  // Project entries, write-ups and per-project scrapbook layouts are only
-  // defined in portfolio-data.js. Do not add a duplicate project list here.
   works: [],
   passions: []
 };

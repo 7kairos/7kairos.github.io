@@ -955,14 +955,31 @@
       artwork([icon('blush-brush-wash'), '-11%', '49%', size(29, 45, 200), -4, 'recruiter-art wash']),
       el('div', { class: 'recruiter-top' },
         el('div', {}, el('h1', { class: 'serif' }, P.name),
-          el('p', { class: 'hand recruiter-role' }, P.eyebrow)),
+          el('p', { class: 'hand recruiter-role' }, P.eyebrow))),
+
         el('div', { class: 'recruiter-top-right' },
-          el('div', { class: 'recruiter-contact' },
-            el('a', { href: `mailto:${P.email}` }, P.email),
+          el('div', { class: 'recruiter-contact recruiter-social-icons' },
+            el('a', { href: `mailto:${P.email}`, class: 'social-icon-link',
+              'aria-label': 'Email Khloe', title: 'Send an email' },
+              el('img', { src: 'assets/brand-icons/mail.svg', alt: '',
+                width: '29', height: '29', onerror: logoFallback })),
             el('a', { href: P.linkedin.startsWith('http') ? P.linkedin : `https://${P.linkedin}`,
-              target: '_blank', rel: 'noopener noreferrer' }, P.linkedin)),
-          el('a', { class: 'resume-button hand', href: resumePath, download: '',
-            'aria-label': 'Download resume PDF' }, 'download resume ↓'))),
+              target: '_blank', rel: 'noopener noreferrer', class: 'social-icon-link',
+              'aria-label': 'LinkedIn profile', title: 'LinkedIn' },
+              el('img', { src: 'assets/brand-icons/linkedin.svg', alt: '',
+                width: '29', height: '29', onerror: logoFallback })),
+            P.github ? el('a', { href: P.github.startsWith('http') ? P.github : `https://${P.github}`,
+              target: '_blank', rel: 'noopener noreferrer', class: 'social-icon-link',
+              'aria-label': 'GitHub profile', title: 'GitHub' },
+              el('img', { src: 'https://cdn.simpleicons.org/github/9F4C39', alt: '',
+                width: '29', height: '29', onerror: logoFallback })) : null
+          ),
+          el('a', {
+            class: 'resume-button hand', href: resumePath, download: '',
+            'aria-label': 'Download resume PDF'
+          }, 'download resume ↓')
+        )
+      ),
       el('div', { class: 'recruiter-grid' },
         el('div', { class: 'recruiter-column recruiter-background' },
           recSection('education & achievements',
@@ -986,7 +1003,7 @@
               recSkillGroup('skills', P.skills)))),
         el('div', { class: 'recruiter-column recruiter-passions' },
           recSection('passion projects',
-            D.passions.filter(project => project.featured !== false).map(recProject))))));
+            D.passions.filter(project => project.featured !== false).map(recProject)))));
 
 
   let ticking = false;
