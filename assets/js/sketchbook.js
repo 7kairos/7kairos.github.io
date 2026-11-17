@@ -341,7 +341,7 @@
         el('div', {}, el('strong', { class: 'hand' }, step.title), el('p', {}, step.text)))));
     const how = el('div', { class: 'milkymon-how' },
       el('p', { class: 'milkymon-intro' }, sb.description || project.summary || ''),
-      el('h4', { class: 'hand' }, "a creator's path in"), pathList);
+      el('h4', { class: 'hand' }, ""), pathList);
     const role = el('div', { class: 'milkymon-responsibilities' },
       ...(sb.responsibilities || []).map(item => el('article', { class: 'milkymon-duty' },
         el('h4', { class: 'hand' }, item.title), el('p', {}, item.text))));
