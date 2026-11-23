@@ -92,9 +92,6 @@
         ? el('p', { class: 'tags' }, project.tags.map(tag => el('span', {}, tag))) : null));
   }
 
-  // Chapter-style case study: keep each part compact, browsable and editable.
-  // w.media accepts { overview: [{src, alt, caption}], problem: [...], ... }.
-  // Older projects with only overview/problem/process/outcome still work.
   function openWriteup(project) {
     const w = project.writeup || {};
     const chapters = [
@@ -104,13 +101,11 @@
       ['solution', 'Solution'],
       ['outcome', 'Outcomes']
     ];
-    // Optional chapter list lets projects tell different stories, with their own sections.
-    // [{ key: 'experience', label: 'The regions' }, ...] in portfolio-data.js.
     const chapterList = Array.isArray(w.chapters) && w.chapters.length
       ? w.chapters.map(ch => [ch.key, ch.label || ch.key])
       : chapters;
-    const visibleChapters = chapterList.filter(([key]) => Boolean(w[key] ||
-      (w.media && w.media[key]?.length) || (w.visuals && w.visuals[key])));
+    const visibleChapters = chapterList.filter(([key]) => w[key]?.length ||
+      w.media?.[key]?.length || (key === 'outcome' && w.images?.length));
     if (!visibleChapters.length) visibleChapters.push(['overview', 'Overview']);
 
     // A project may link to documents, a social page, a playable demo, or other work.
@@ -130,68 +125,37 @@
 
     const tabs = [];
     const panels = [];
-    const progress = el('span', { class: 'case-counter', 'aria-live': 'polite' }, '01 / 05');
-    const progressBar = el('span', { class: 'case-progress-fill', 'aria-hidden': 'true' });
     const backButton = el('button', { type: 'button', class: 'case-step-button hand' }, '← previous');
     const nextButton = el('button', { type: 'button', class: 'case-step-button case-next hand' }, 'next page →');
     const main = el('div', { class: 'case-main' });
     let activeStep = 0;
 
-    const paragraphs = value => String(value || '').trim().split(/\n\s*\n/)
-      .map(text => text.trim()).filter(Boolean)
-      .map(text => el('p', { class: 'case-paragraph' }, text));
+    function chapterCopy(value) {
+      const blocks = Array.isArray(value) ? value : String(value || '').trim().split(/\n\s*\n/);
+      return blocks.filter(Boolean).map(block => Array.isArray(block)
+        ? el('ul', {}, block.map(text => el('li', {}, text)))
+        : el('p', {}, block.trim()));
+    }
 
     const imageNode = (im, index) => {
       const item = typeof im === 'string' ? { src: im } : im || {};
       const empty = () => el('div', { class: 'case-image-empty' },
-        el('img', { src: sticker('coral-flower'), alt: '', 'aria-hidden': 'true' }),
-        el('span', { class: 'hand' }, 'add a project image'));
+        el('img', { src: sticker('coral-flower'), alt: 'Project image unavailable' }));
       return el('figure', { class: 'case-figure' },
         item.src ? el('img', { src: item.src, alt: item.alt || `Project illustration ${index + 1}`,
           loading: 'lazy', onerror: event => event.currentTarget.replaceWith(empty()) }) : empty(),
-        item.caption ? el('figcaption', { class: 'hand' }, item.caption) : null);
+        item.caption ? el('figcaption', {}, item.caption) : null);
     };
-
-    // Data-driven visual sidebars, used for community/operations case studies.
-    // Unlike the standard image gallery, these can show a member journey or workstreams.
-    function communityVisual(config) {
-      const type = config.type || 'cards';
-      const items = Array.isArray(config.items) ? config.items : [];
-      if (!items.length) return null;
-      const cards = items.map((item, i) => {
-        const node = typeof item === 'string' ? { title: item } : item;
-        return el('div', { class: 'community-visual-item' },
-          el('span', { class: 'community-visual-number' }, String(i + 1).padStart(2, '0')),
-          el('div', {}, el('strong', {}, node.title || ''),
-            node.text ? el('p', {}, node.text) : null));
-      });
-      return el('aside', { class: `community-visual community-visual--${type}` },
-        config.title ? el('p', { class: 'community-visual-heading hand' }, config.title) : null,
-        el('div', { class: 'community-visual-list' }, ...cards),
-        config.note ? el('p', { class: 'community-visual-note hand' }, config.note) : null);
-    }
 
     for (const [index, [key, title]] of visibleChapters.entries()) {
       const tab = el('button', { type: 'button', class: 'case-tab hand', role: 'tab',
-        id: `case-tab-${index}`, 'aria-controls': `case-panel-${index}` },
-        el('span', { class: 'case-tab-number' }, String(index + 1).padStart(2, '0')),
-        title);
+        id: `case-tab-${index}`, 'aria-controls': `case-panel-${index}` }, title);
       tabs.push(tab);
-      const media = (w.media && w.media[key]) || (key === 'outcome' ? (w.images || []) : []);
-      const highlights = (w.highlights && w.highlights[key]) || [];
-      const copy = el('div', { class: 'case-copy' }, ...paragraphs(w[key] || ''));
-      const customVisual = w.visuals && w.visuals[key] ? communityVisual(w.visuals[key]) : null;
-      const stats = highlights.length ? el('div', { class: 'case-highlights' },
-        highlights.map(h => el('div', { class: 'case-highlight' },
-          el('strong', { class: 'serif' }, h.value || ''), el('span', {}, h.label || '')))) : null;
-      const rightColumn = (media.length || stats || customVisual) ? el('div', { class: 'case-visual-column' },
-        customVisual,
+      const media = w.media?.[key] || (key === 'outcome' ? w.images || [] : []);
+      const content = el('div', { class: `case-layout ${media.length ? 'has-media' : ''}` },
+        el('div', { class: 'case-copy' }, chapterCopy(w[key])),
         media.length ? el('div', { class: `case-gallery ${media.length > 1 ? 'multiple' : ''}` },
-          media.map(imageNode)) : null,
-        stats) : null;
-      const content = el('div', { class: `case-layout ${rightColumn ? 'has-media' : ''}` },
-        copy,
-        rightColumn);
+          media.map(imageNode)) : null);
       const panel = el('section', { class: 'case-panel', id: `case-panel-${index}`,
         role: 'tabpanel', 'aria-labelledby': `case-tab-${index}` }, content);
       panels.push(panel);
@@ -205,8 +169,6 @@
         tab.tabIndex = active ? 0 : -1;
         panels[i].hidden = !active;
       });
-      progress.textContent = `${String(activeStep + 1).padStart(2, '0')} / ${String(visibleChapters.length).padStart(2, '0')}`;
-      progressBar.style.width = `${100 * (activeStep + 1) / visibleChapters.length}%`;
       backButton.disabled = activeStep === 0;
       nextButton.textContent = activeStep === visibleChapters.length - 1 ? 'finish reading ✓' : 'next page →';
       main.scrollTop = 0;
@@ -240,27 +202,20 @@
       else setStep(activeStep + 1);
     });
     main.append(...panels);
-    dialog.classList.add('case-dialog');
     dialog.replaceChildren(
       el('div', { class: 'case-shell' },
         el('header', { class: 'case-header' },
-          el('div', { class: 'case-topline' },
-            el('span', { class: 'case-eyebrow hand' }, 'from the sketchbook / case study'),
-            el('button', { type: 'button', class: 'case-close hand',
-              'aria-label': 'Close project case study', onclick: () => dialog.close() }, 'close ×')),
           el('h2', { class: 'case-title serif' }, project.title),
+          el('button', { type: 'button', class: 'case-close hand', autofocus: true,
+            'aria-label': 'Close project write-up', onclick: () => dialog.close() }, 'close ×'),
           el('div', { class: 'case-header-bottom' },
             el('p', { class: 'case-meta hand' }, [project.role, project.year].filter(Boolean).join(' · ')),
             resources.length ? el('div', { class: 'writeup-resources' }, ...resources) : null)),
-        el('nav', { class: 'case-tabs', role: 'tablist', 'aria-label': 'Case study chapters' }, ...tabs),
+        el('nav', { class: 'case-tabs', role: 'tablist', 'aria-label': 'Project write-up sections' }, ...tabs),
         main,
-        el('footer', { class: 'case-footer' },
-          backButton,
-          el('div', { class: 'case-progress' }, progress,
-            el('span', { class: 'case-progress-track' }, progressBar)),
-          nextButton)));
-    setStep(0);
+        el('footer', { class: 'case-footer' }, backButton, nextButton)));
     if (!dialog.open) dialog.showModal();
+    setStep(0);
   }
 
   dialog.addEventListener('close', () => {
@@ -325,7 +280,36 @@
     'aria-label': 'Passion project scrapbook workspace. Drag a polaroid here or tap one to explore.'
   });
 
-  // Milkymon uses one data-driven, three-tab spread in both portfolio modes.
+  const emptyWorkspace = el('div', { class: 'workspace-empty' },
+    el('p', { class: 'workspace-empty-label hand' }, 'drag a polaroid here · or tap one to explore'));
+  passionWorkspace.append(emptyWorkspace);
+
+  const clearPassionButton = el('button', {
+    type: 'button',
+    class: 'folder-clear hand',
+    'aria-label': 'Clear passion project write-up',
+    'aria-controls': 'passion-workspace',
+    title: 'Clear write-up',
+    disabled: true,
+    onclick: clearPassion,
+  }, '♡');
+
+  function selectPassionThumb(projectId) {
+    clearPassionButton.disabled = !projectId;
+    folder.querySelectorAll('.passion-thumb').forEach(thumb => {
+      const selected = thumb.dataset.project === projectId;
+      thumb.classList.toggle('chosen', selected);
+      thumb.setAttribute('aria-pressed', String(selected));
+    });
+  }
+
+  function clearPassion() {
+    folder.querySelector('.passion-thumb.chosen')?.focus({ preventScroll: true });
+    passionWorkspace.replaceChildren(emptyWorkspace);
+    selectPassionThumb();
+  }
+
+  // Milkymon uses the same spread in both portfolio modes.
   function makeCommunitySpread(project) {
     const sb = project.scrapbook || {};
     const makeLink = link => el('a', {
@@ -570,16 +554,9 @@
         projectName,
         el('p', { class: 'hand workspace-meta' }, [project.role, project.year].filter(Boolean).join(' · '))),
       inlineStory ? makeStorySpread(project) : el('div', { class: 'workspace-grid' }, feature, contentByLayout[layout]));
-    passionWorkspace.classList.add('has-project');
     passionWorkspace.replaceChildren(details);
-    document.querySelectorAll('.passion-thumb').forEach(node => {
-      node.classList.toggle('chosen', node.dataset.project === project.id);
-      node.setAttribute('aria-pressed', String(node.dataset.project === project.id));
-    });
+    selectPassionThumb(project.id);
   }
-
-  passionWorkspace.append(el('div', { class: 'workspace-empty' },
-    el('p', { class: 'workspace-empty-label hand' }, 'drag a polaroid here · or tap one to explore')));
 
   function wirePassionDrag(button, project, index) {
     let drag = null;
@@ -649,9 +626,7 @@
       wirePassionDrag(button, project, i);
       return button;
     })),
-    el('div', { class: 'folder-front' },
-      el('span', { class: 'hand' }, '♡')),
-    el('p', { class: 'folder-hint hand' }, ''));
+    el('div', { class: 'folder-front' }, clearPassionButton));
 
   const passions = section('passion', [
     [icon('pink-brush-wash'), '-10%', '30%', size(40, 64, 230), 0, 'wash'],

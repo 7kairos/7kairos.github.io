@@ -1,4 +1,4 @@
-/* Local typography files keep the design readable when Google Fonts is unavailable. */
+/* Fonts */
 @font-face { font-family: 'DM Sans'; src: url('../fonts/portfolio/dm-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'DM Sans'; src: url('../fonts/portfolio/dm-sans-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'DM Sans'; src: url('../fonts/portfolio/dm-sans-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
@@ -29,7 +29,7 @@ a { color: inherit; }
 .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
 .underlined { background: var(--wave) bottom/100% .24em no-repeat; padding-bottom: .08em; }
 
-/* A quiet header with section names immediately next to recruiter mode. */
+/* Site navigation */
 #site-header {
   position: fixed; z-index: 40; inset: 0 0 auto; height: var(--header-height);
   display: flex; align-items: center; gap: 20px;
@@ -81,7 +81,7 @@ a { color: inherit; }
 .stk.sway { animation: gentle-sway 8s ease-in-out infinite alternate; }
 @keyframes gentle-sway { to { transform: rotate(calc(var(--r) + 3deg)) translateY(-5px); } }
 
-/* Landing: illustration on one side, concise headline on the other. */
+/* Home */
 .hero-copy { position: relative; z-index: 2; margin-left: auto; margin-right: 7vw;
   max-width: min(50vw, 710px); }
 .hero .eyebrow { display: inline-block; margin: 0 0 14px;
@@ -93,7 +93,7 @@ a { color: inherit; }
 .scroll-cue { margin: 0; color: var(--muted); font-size: clamp(1.5rem, 1.9vw, 2rem); }
 .hero-year { display: inline-block; color: var(--rust); font-size: 1.85rem; transform: rotate(-5deg); }
 
-/* Work and passion projects: the whole card is a single accessible button. */
+/* Project cards */
 .section-heading { flex: 0 0 auto; width: clamp(172px, 17vw, 258px);
   margin-right: clamp(4px, 1.1vw, 18px); transform: rotate(-2deg); }
 .section-heading h2, .about-intro h2 { margin: 0; color: var(--rust); font-style: italic;
@@ -133,7 +133,7 @@ a { color: inherit; }
   border: 1px solid var(--coral); color: #59483d;
   font: 1.18rem/1.14 Caveat, 'Segoe Print', cursive; }
 
-/* About: one horizontal spread, including compact details alongside the portrait. */
+/* About Me */
 .portrait-wrap { position: relative; flex: 0 0 auto; transform: rotate(-3deg); }
 .portrait-wrap::before { content: ''; position: absolute; z-index: 3; left: 50%; top: -13px;
   width: 100px; height: 33px; transform: translateX(-50%) rotate(4deg);
@@ -167,7 +167,7 @@ a { color: inherit; }
 .chips span { display: inline-block; font: 1.1rem/1 Caveat, cursive;
   border: 1px solid var(--blue); padding: 2px 8px; }
 
-/* Write-ups appear over the project card that was clicked. */
+/* Dialogs */
 dialog { width: min(92vw, 740px); max-height: 87dvh; overflow-y: auto;
   padding: clamp(24px, 4vw, 42px); margin: auto;
   border: 0; border-radius: 5px; color: var(--ink);
@@ -178,14 +178,22 @@ dialog h2 { margin: 6px 0 18px; color: var(--rust); font-size: clamp(2.6rem, 5vw
   line-height: 1; font-weight: 600; font-style: italic; }
 dialog h3 { margin: 24px 0 4px; color: var(--rust); font-size: 1.8rem; }
 dialog p { margin: 0; }
-.writeup-text { white-space: pre-line; line-height: 1.7; }
 dialog figure { margin: 20px 0; }
 dialog figure img { width: 100%; height: auto; border-radius: 4px; }
 dialog figcaption { color: var(--muted); font-size: 1.35rem; }
-.dialog-close { float: right; border: 1px dashed var(--rust); background: var(--paper-light);
-  padding: 2px 12px; color: var(--rust); cursor: pointer; font-size: 1.3rem; }
+.case-close {
+  padding: 3px 12px;
+  border: 1px dashed var(--rust);
+  background: #fff9ef;
+  color: var(--rust);
+  font-size: 1.42rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.case-close:hover { background: #f7e7dc; }
 
-/* Recruiter mode: grouped two-column summary, with the resume action in the top-right. */
+/* Recruiter mode */
 #recruiter-view { display: none; }
 body.recruiter #track { display: none; }
 body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
@@ -299,8 +307,7 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .page-row { padding-top: calc(var(--header-height) + 6px); padding-bottom: 12px; }
 }
 
-/* Passion projects are loose paper pieces to pull from a folder into a scrapbook.
-   Keep all content on the horizontal canvas: no scrolling inside an individual page. */
+/* Passion Projects */
 #passion .page-row { justify-content: center; padding-top: calc(var(--header-height) + 12px);
   padding-bottom: 22px; padding-left: clamp(52px, 5vw, 86px);
   padding-right: clamp(64px, 6vw, 100px); }
@@ -348,13 +355,30 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 .folder-front { position: absolute; z-index: 4; left: 0; right: 0; bottom: 48px; height: 142px;
   background: #e7bda4; border: 1px solid #c79578;
   clip-path: polygon(0 9%, 50% 24%, 100% 9%, 100% 100%, 0 100%);
-  display: flex; justify-content: center; align-items: end; padding: 0 0 26px;
+  display: flex; justify-content: center; align-items: end; padding-bottom: 16px;
   box-shadow: inset 0 -8px 18px rgba(177,118,88,.08); pointer-events: none; }
 .folder-front::after { content: ''; position: absolute; inset: 0;
   background: var(--grain); opacity: .7; pointer-events: none; }
-.folder-front span { font-size: 1.7rem; color: #965b44; transform: rotate(-2deg); }
-.folder-hint { position: absolute; left: 0; right: 0; bottom: 0; margin: 0;
-  color: var(--muted); text-align: center; font-size: 1.37rem; }
+.folder-clear {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: #743f2e;
+  font-size: 1.7rem;
+  line-height: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.folder-clear:hover:enabled, .folder-clear:focus-visible {
+  border-color: currentColor;
+  background: #f9e5d8;
+}
+.folder-clear:disabled { opacity: .65; cursor: default; }
 .passion-drag-ghost { position: fixed !important; z-index: 9999 !important;
   transform: translate(-50%, -50%) rotate(4deg) !important;
   pointer-events: none !important; opacity: .95; margin: 0; cursor: grabbing;
@@ -369,26 +393,12 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 .passion-workspace::before { content: ''; pointer-events: none; position: absolute; inset: 0;
   background: radial-gradient(circle at 12% 18%, rgba(252,222,196,.22), transparent 38%), var(--grain);
   opacity: .6; }
-/* The scrapbook has a clean top edge; no clipped green tape. */
 .passion-workspace.drag-over { outline: 3px dashed #b17558; outline-offset: 4px; background: #fff1e1; }
 .workspace-empty { position: relative; display: flex; flex-direction: column; align-items: center;
   justify-content: center; height: 100%; gap: 8px; color: #8d7a6c; text-align: center; }
-.workspace-empty-flower {
-  display: block;
-  width: clamp(150px, 48%, 280px);
-  max-height: 65%;
-  object-fit: contain;
-  transform: rotate(-9deg);
-  opacity: .92;
-  pointer-events: none;
-  user-select: none;
-}
-.workspace-doodle { color: #cf9e86; font-size: 6rem; line-height: 1; }
-.workspace-empty p { margin: 2px 0; font-size: 2.8rem; color: #9b5c44; font-style: italic; }
-.workspace-empty span:last-child { font-size: 1.65rem; }
 .workspace-project { position: relative; height: 100%; display: flex; flex-direction: column; gap: 12px; }
 .workspace-title { flex: 0 0 auto; }
-.workspace-overline { margin: 0; font-size: 1.22rem; color: #9e735d; line-height: 1; }
+
 .workspace-project-title { display: inline-block; border: 0; background: none; padding: 0;
   color: var(--rust); font-size: 2.85rem; font-weight: 600; font-style: italic;
   line-height: 1; text-align: left; cursor: pointer; }
@@ -467,7 +477,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
-/* Very short laptop windows: still horizontal-only, with compact scrapbook notes. */
 @media (max-height: 580px) {
   .passion-workspace { min-height: 280px; height: calc(100dvh - 120px); padding: 12px 17px; }
   .passion-folder { transform: scale(.76) rotate(-3deg); flex-basis: 240px; margin: -35px -20px; }
@@ -483,7 +492,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .process-note p { font-size: .7rem; }
 }
 
-/* Keep the heading ABOVE the scrapbook without forcing vertical scrolling on short screens. */
 @media (max-height: 700px) {
   #passion .page-row { padding-top: calc(var(--header-height) + 5px); padding-bottom: 9px; }
   .passion-spread { gap: 3px; }
@@ -503,10 +511,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .passion-folder { transform: scale(.8) rotate(-3deg); flex-basis: 260px; margin: -20px -14px; }
 }
 
-
-/* V6 landing typography — third concept: elegant editorial italic with a fine swash.
-   The watercolor paper and other artwork stay as supplied; only the orange
-   bloom is moved to the top left, and the headline sits between the washes. */
 .hero { align-items: center; }
 .hero-copy {
   margin: 0 0 0 clamp(360px, 34vw, 670px);
@@ -547,7 +551,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   display: inline-block;
   padding: 0 .02em .14em .015em;
 }
-/* The swash is an SVG stroke, not a fixed image or another sticker. */
 .hero-word::after {
   content: '';
   position: absolute;
@@ -577,11 +580,10 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 .hero-descriptor { margin: 0; color: #56604e; font-size: clamp(1.5rem, 1.9vw, 2.3rem); line-height: 1; }
 .hero-year { color: var(--rust); font-size: clamp(1.5rem, 2vw, 2.3rem); transform: rotate(3deg); }
 
-/* About Me — small original watercolor cutouts, with editable cursor notes. */
+/* Favorites */
 #about .page-row { gap: clamp(23px, 2.9vw, 49px); padding-left: clamp(52px, 6vw, 100px); }
 .about-intro { width: clamp(360px, 32vw, 495px); }
 .about-intro h2 { font-size: clamp(3.2rem, 4.1vw, 5.4rem); white-space: nowrap; }
-/* Favorites: no bottom caption, note card, selected drop shadow, or hover lift. */
 .favorite-board { position: relative; margin-top: 14px; width: 100%; height: 284px;
   background: rgba(255,250,243,.53); border: 1px solid rgba(155,101,80,.16);
   box-shadow: 0 10px 25px -20px rgba(62,40,30,.28); transform: rotate(.5deg); }
@@ -687,10 +689,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 }
 @media (prefers-reduced-motion: reduce) { .favorite-item, .favorite-cursor { transition: none; } }
 
-
-/* V7 — faithful Option 3 typography. The entire word and its delicate looping
-   flourish are one image asset derived from the chosen reference. This avoids
-   the misaligned separate underline and unrelated italic font in V6. */
 .hero {
   align-items: center;
   justify-content: center;
@@ -776,7 +774,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .hero .hero-copy { width: min(53vw, 660px); transform: translateY(6vh); }
 }
 
-/* Favorite things — subtle sticker pop-out effect */
 .favorite-item img {
   transition: transform 0.25s ease;
   transform-origin: center;
@@ -785,12 +782,10 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   transform: translateY(-6px) scale(1.08);
 }
 
-/* Keyboard accessibility */
 .favorite-item:focus-visible img {
   transform: translateY(-6px) scale(1.08);
 }
-/* V9 polish: quiet, instructive scrapbook placeholder and smaller cursor writing. */
-.workspace-empty-flower { width: clamp(130px, 37%, 210px); max-height: 49%; }
+
 .workspace-empty .workspace-empty-label {
   max-width: 90%; margin: 7px 0 0; font-size: clamp(1.22rem, 1.85vw, 1.65rem);
   color: #966f5f; font-style: normal; line-height: 1.15;
@@ -817,7 +812,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .recruiter-top h1 { font-size: 3.4rem; }
 }
 
-/* V10: finish the scrapbook and about-me interactions. */
 #works .section-heading { width: clamp(240px, 20vw, 315px); }
 #works .section-heading h2 { white-space: nowrap; font-size: clamp(3.25rem, 4.45vw, 5rem); }
 #passion .section-heading p { display: none; }
@@ -846,11 +840,9 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   .favorite-item-4 { left: 73%; width: 13%; }
 }
 
-/* V11: lift the Passion Projects heading, leaving the folder and drop area in place. */
 #passion .section-heading {
   transform: translateY(-42px) rotate(-1.4deg);
 }
-/* Faint existing watercolor stickers around the composition; never intercept drag input. */
 #passion .stk.passion-decor {
   opacity: .78;
   pointer-events: none;
@@ -864,8 +856,7 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   #passion .stk.passion-leaves { display: none; }
 }
 
-
-/* V12: photobooth strip, replacing the single portrait card. */
+/* Photo strip */
 .photostrip-wrap {
   position: relative;
   flex: 0 0 auto;
@@ -914,7 +905,6 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
   line-height: 1;
 }
 .photostrip-heart { font-size: 1.25rem; }
-/* The email icon aligns with the existing LinkedIn/GitHub pictograms. */
 .social-links .social-icon-link img[src$='mail.svg'] { width: 29px; height: 29px; }
 .social-links .social-icon-link:hover { text-decoration: none; }
 @media (max-height: 710px) and (min-width: 721px) {
@@ -932,207 +922,13 @@ body.recruiter #recruiter-view { display: block; position: fixed; inset: 0;
 @media (prefers-reduced-motion: reduce) {
   .photostrip-wrap { transition: none; }
 }
-/* Keep the photostrip's handwritten caption on a single line. */
 .photostrip-footer .hand { white-space: nowrap; }
 @media (max-width: 720px) {
   .photostrip-footer { font-size: 1.08rem; }
   .photostrip-heart { font-size: 1.06rem; }
 }
 
-/* v13 — proposal and presentation links inside project write-ups */
-.writeup-resources { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 22px; }
-.writeup-resource { display: inline-flex; align-items: center; justify-content: center;
-  padding: 7px 15px; background: rgba(254,249,239,.8); color: var(--rust);
-  border: 1px dashed var(--rust); text-decoration: none; font-size: 1.35rem;
-  line-height: 1.25; transition: background .15s ease, transform .15s ease; }
-a.writeup-resource:hover { background: #f3e3d7; transform: translateY(-2px); }
-a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
-.writeup-resource.unavailable { opacity: .55; border-color: #b9a399; cursor: default; }
-
-/* v14 — photo-and-description community/leadership popups */
-.lead-popup-trigger, .recruiter-popup-trigger {
-  display: inline; border: 0; padding: 0; margin: 0; background: transparent;
-  color: inherit; font: inherit; text-align: left; cursor: pointer;
-  text-decoration: underline; text-decoration-color: rgba(159,76,57,.42);
-  text-decoration-thickness: 1px; text-underline-offset: 3px;
-}
-.lead-popup-trigger:hover, .recruiter-popup-trigger:hover { color: var(--rust); text-decoration-color: currentColor; }
-.lead-popup-trigger:focus-visible, .recruiter-popup-trigger:focus-visible {
-  outline: 2px solid var(--rust); outline-offset: 3px;
-}
-#leadership-dialog { width: min(92vw, 790px); }
-#leadership-dialog .leadership-eyebrow { margin: 2px 0 7px; color: var(--muted); font-size: 1.5rem; }
-#leadership-dialog h2 { margin-bottom: 3px; }
-#leadership-dialog .leadership-organization { color: var(--muted); font-size: 1.65rem; margin-bottom: 18px; }
-.leadership-photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(9px, 1.6vw, 18px); margin: 18px 0 22px; }
-#leadership-dialog .leadership-photo { min-width: 0; margin: 0; padding: 7px 7px 10px;
-  background: #fffaf3; border: 1px solid rgba(115,74,48,.15);
-  box-shadow: 0 8px 22px rgba(72,41,31,.11); }
-#leadership-dialog .leadership-photo:nth-child(2) { transform: rotate(1.7deg); }
-#leadership-dialog .leadership-photo:nth-child(3) { transform: rotate(-1.2deg); }
-#leadership-dialog .leadership-photo > img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 1px; }
-.leadership-photo-empty { width: 100%; aspect-ratio: 4/5; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 6px; background: #f1dfd5; }
-.leadership-photo-empty img { width: min(62%, 120px); height: 65%; object-fit: contain; opacity: .83; }
-.leadership-photo-empty span { color: var(--muted); font-size: 1.25rem; text-align: center; }
-#leadership-dialog .leadership-photo figcaption { margin: 5px 0 0; line-height: 1.15; font-size: 1.34rem; text-align: center; }
-.leadership-description h3 { margin-top: 8px; }
-.leadership-visit { display: inline-block; margin-top: 22px; padding: 5px 14px;
-  border: 1px dashed var(--rust); color: var(--rust); background: #fffaf2;
-  text-decoration: none; font-size: 1.42rem; }
-.leadership-visit:hover { background: #f8e6db; }
-@media (max-width: 520px) {
-  #leadership-dialog { padding: 18px; }
-  .leadership-photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .leadership-photo-grid .leadership-photo:nth-child(3) { grid-column: span 2; max-width: 55%; justify-self: center; }
-}
-
-/* v15 — paged case-study scrapbook; only the content area scrolls. */
-#writeup.case-dialog {
-  width: min(96vw, 1060px);
-  height: min(91dvh, 820px);
-  max-height: 91dvh;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid rgba(142, 91, 65, .17);
-  border-radius: 8px;
-  background: var(--grain), #fffaf2;
-}
-.case-shell { display: flex; flex-direction: column; height: 100%; min-height: 0; }
-.case-header { flex: 0 0 auto; padding: 22px clamp(20px, 3.6vw, 42px) 10px; }
-.case-topline { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-.case-eyebrow { color: var(--rust); font-size: 1.43rem; line-height: 1; }
-.case-close { color: var(--rust); padding: 3px 12px; border: 1px dashed rgba(159,76,57,.7);
-  background: #fff9ef; cursor: pointer; font-size: 1.42rem; line-height: 1.1; }
-.case-close:hover { background: #f7e7dc; }
-#writeup .case-title { font-size: clamp(2.35rem, 4.5vw, 4.15rem); line-height: .97;
-  font-weight: 500; margin: 8px 0 8px; letter-spacing: -.035em; }
-.case-header-bottom { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
-.case-meta { color: var(--muted); font-size: 1.43rem; }
-#writeup .writeup-resources { margin: 0; gap: 8px; }
-#writeup .writeup-resource { padding: 5px 11px; font-size: 1.22rem; white-space: nowrap; }
-.case-tabs { display: flex; flex: 0 0 auto; gap: 9px; overflow-x: auto; padding: 12px clamp(20px, 3.6vw, 42px) 11px;
-  border-bottom: 1px solid rgba(159,76,57,.18); scrollbar-width: thin; }
-.case-tab { display: inline-flex; gap: 6px; align-items: baseline; flex: 1 0 auto; justify-content: center;
-  color: #866e62; min-width: 91px; font-size: 1.38rem; padding: 6px 11px;
-  border: 1px solid transparent; background: transparent; cursor: pointer; border-radius: 3px; white-space: nowrap; }
-.case-tab:hover { color: var(--rust); background: rgba(232,196,181,.18); }
-.case-tab[aria-selected="true"] { color: var(--rust); background: #f7e6d9;
-  border-color: rgba(159,76,57,.28); }
-.case-tab-number { font-family: 'DM Sans', system-ui, sans-serif; font-size: .64rem; letter-spacing: .07em; }
-.case-main { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
-  padding: clamp(18px, 2.6vw, 30px) clamp(20px, 3.6vw, 42px) 18px; }
-.case-panel[hidden] { display: none !important; }
-.case-panel { animation: case-fade .18s ease-out; }
-@keyframes case-fade { from { opacity: .65; transform: translateY(4px) } to { opacity: 1; transform: none } }
-.case-layout { display: grid; grid-template-columns: 1fr; gap: clamp(16px, 2.7vw, 32px); align-items: start; }
-.case-layout.has-media { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-.case-overline { color: var(--rust); font-size: 1.47rem; line-height: 1.1; }
-#writeup .case-section-title { color: var(--rust); font-size: clamp(2.75rem, 4.1vw, 4rem);
-  font-weight: 500; margin: 0 0 10px; line-height: 1; }
-.case-copy { min-width: 0; }
-#writeup .case-paragraph { font: 400 .93rem/1.62 'DM Sans', system-ui, sans-serif;
-  white-space: pre-line; color: #473b34; max-width: 65ch; margin: 0 0 13px; }
-.case-copy .case-paragraph:first-of-type { font-weight: 500; }
-.case-visual-column { min-width: 0; display: flex; flex-direction: column; gap: 16px; }
-.case-gallery { display: grid; grid-template-columns: 1fr; align-content: start; min-width: 0; gap: 13px; }
-.case-gallery.multiple { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-#writeup .case-figure { min-width: 0; margin: 0; padding: 10px 10px 8px; background: #fffefa;
-  border: 1px solid rgba(139,94,68,.13); box-shadow: 0 9px 22px rgba(89,62,47,.13); }
-#writeup .case-figure:nth-child(2) { transform: rotate(1deg); }
-#writeup .case-figure img { display: block; width: 100%; max-height: 324px; height: auto; object-fit: contain;
-  border-radius: 1px; }
-#writeup .case-gallery.multiple .case-figure img { max-height: 270px; }
-#writeup .case-figure figcaption { color: var(--muted); font-size: 1.22rem; line-height: 1.12;
-  text-align: center; margin-top: 6px; }
-.case-image-empty { display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px; aspect-ratio: 4/3; background: #f5e6df; }
-.case-image-empty img { width: 28%; max-height: 95px; object-fit: contain; }
-.case-image-empty span { color: var(--muted); font-size: 1.2rem; }
-.case-highlights { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 0; }
-.case-highlight { display: flex; flex-direction: column; gap: 0; padding: 10px 14px; min-width: 110px;
-  background: #f5e9db; border-left: 2px solid var(--coral); }
-.case-highlight strong { color: var(--rust); font-size: 2.2rem; font-weight: 600; line-height: 1; }
-.case-highlight span { max-width: 158px; font-size: .69rem; line-height: 1.35; color: var(--muted); }
-.case-footer { flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;
-  gap: 18px; padding: 14px clamp(20px, 3.6vw, 42px) 17px;
-  background: #f9f0e6; border-top: 1px solid rgba(159,76,57,.17); }
-.case-step-button { cursor: pointer; border: 1px dashed rgba(159,76,57,.7); color: var(--rust);
-  background: #fffaf2; min-width: 116px; font-size: 1.38rem; line-height: 1.15; padding: 7px 13px; }
-.case-step-button:hover:not(:disabled) { background: #f5dfd2; }
-.case-step-button:disabled { opacity: .35; cursor: default; }
-.case-next { background: #eecfbf; }
-.case-progress { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 125px; }
-.case-counter { color: var(--muted); font-size: .72rem; letter-spacing: .13em; }
-.case-progress-track { position: relative; display: block; background: #e6d8cd; height: 3px;
-  width: 100%; border-radius: 12px; overflow: hidden; }
-.case-progress-fill { display: block; height: 100%; background: var(--rust); transition: width .2s ease; }
-@media (max-width: 740px) {
-  #writeup.case-dialog { width: 96vw; height: 91dvh; }
-  .case-header { padding: 16px 20px 9px; }
-  #writeup .case-title { font-size: clamp(2.35rem, 8.5vw, 3.2rem); }
-  .case-tabs { padding: 9px 16px; justify-content: flex-start; gap: 3px; }
-  .case-tab { min-width: auto; font-size: 1.26rem; padding: 6px 9px; }
-  .case-main { padding: 18px 20px; }
-  .case-layout.has-media { grid-template-columns: 1fr; }
-  .case-gallery.multiple { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  #writeup .case-figure img { max-height: 260px; }
-  .case-footer { padding: 12px 17px; }
-  .case-step-button { min-width: 95px; padding: 7px 9px; font-size: 1.25rem; }
-  .case-progress { min-width: 60px; max-width: 80px; }
-}
-@media (max-width: 420px) {
-  #writeup .case-title { font-size: 2.38rem; }
-  .case-meta { font-size: 1.15rem; }
-  #writeup .writeup-resource { font-size: 1.06rem; }
-  .case-tabs { padding: 8px 12px; }
-  .case-header { padding: 12px 15px 7px; }
-  .case-main { padding: 15px; }
-  #writeup .case-paragraph { font-size: .88rem; }
-  .case-footer { gap: 8px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .case-panel { animation: none; }
-  .case-progress-fill { transition: none; }
-}
-/* All chapters fit on a narrow phone, rather than hiding the last tabs offscreen. */
-@media (max-width: 520px) {
-  .case-tabs { gap: 2px; padding-inline: 9px; overflow-x: visible; }
-  .case-tab { flex: 1 1 0; min-width: 0; padding: 7px 2px; font-size: 1.03rem; }
-  .case-tab-number { display: none; }
-}
-
-
-/* v17: The tab labels already name each chapter. Do not repeat the label
-   as a second oversized heading inside the case study body. */
-#writeup .case-copy { padding-top: 5px; }
-#writeup .case-copy .case-paragraph:first-child { color: #5b4236; font-size: 1rem; }
-#writeup .case-copy .case-paragraph { white-space: pre-line; }
-
-/* Community platform — distinct editorial diagrams instead of an unused photo area. */
-.community-visual { border: 1px solid rgba(154, 94, 65, .17); padding: 19px;
-  background: linear-gradient(155deg, #f9ede3, #fffbf4 65%);
-  box-shadow: 0 10px 22px rgba(93, 55, 38, .09); }
-.community-visual-heading { margin: 0 0 12px; color: var(--rust); font-size: 1.7rem; }
-.community-visual-list { display: grid; gap: 8px; }
-.community-visual-item { display: grid; grid-template-columns: 30px 1fr; gap: 10px;
-  align-items: start; padding: 10px; background: #fffaf1;
-  border: 1px solid #e8d8cb; }
-.community-visual-item strong { display: block; color: #91543f; font: 600 .86rem/1.2 'DM Sans', sans-serif; }
-.community-visual-item p { margin: 4px 0 0; color: #786458; font: .75rem/1.35 'DM Sans', sans-serif; }
-.community-visual-number { color: #a77a61; font: .72rem/1.8 'DM Sans', sans-serif; }
-.community-visual--regions .community-visual-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.community-visual--regions .community-visual-item { display: block; min-height: 107px; }
-.community-visual--regions .community-visual-number { display: block; margin-bottom: 6px; }
-.community-visual--regions .community-visual-item:nth-child(2) { background: #f2dfd8; transform: rotate(1deg); }
-.community-visual--regions .community-visual-item:nth-child(3) { background: #f3e9d5; transform: rotate(-1deg); }
-.community-visual--regions .community-visual-item:nth-child(4) { background: #e8ebdf; }
-.community-visual--journey .community-visual-list { gap: 0; }
-.community-visual--journey .community-visual-item { position: relative; border: 0; border-left: 2px solid #caa393; background: transparent; padding-left: 16px; }
-.community-visual--roles .community-visual-item { border-left: 3px solid #ba8b72; }
-.community-visual-note { font-size: 1.1rem; line-height: 1.15; color: #9a7667; margin: 12px 0 0; }
-
-/* Passion Projects: two separate, data-driven scrapbook formats. */
+/* Scrapbook layouts */
 .workspace-project--gallery .workspace-grid { grid-template-columns: 165px minmax(0, 1fr); }
 .workspace-project--journal .workspace-grid { grid-template-columns: 145px minmax(0, 1fr); }
 .scrap-art-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1182,26 +978,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
  .workspace-project--journal .workspace-grid { grid-template-columns: 115px minmax(0, 1fr); }
 }
 
-/* v17 mobile fix: long bespoke chapter labels need a horizontal tab rail,
-   rather than being forced into five overlapping columns. */
-@media (max-width: 520px) {
-  #writeup .case-tabs {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    gap: 6px;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    padding: 8px 12px 11px;
-  }
-  #writeup .case-tab { flex: 0 0 auto; min-width: auto; padding: 6px 11px;
-    font-size: 1.16rem; white-space: nowrap; }
-  #writeup .case-tab-number { display: inline-block; font-size: .6rem; }
-}
-
-/* v18 — Four accessible Polaroids, arranged in a compact fan inside the folder. */
 .passion-thumb {
   left: calc(12px + var(--folder-index) * var(--folder-step, 91px));
   top: calc(12px + var(--folder-index) * 8px);
@@ -1211,7 +987,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   transform: translateY(-14px) rotate(0deg);
 }
 
-/* Education: the label is plain text; only the university name is a link. */
 .school-name-link, .school-name-link:hover, .school-name-link:focus-visible {
   text-decoration: none !important;
   text-underline-offset: 0;
@@ -1227,7 +1002,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
 .recruiter-achievements { margin-top: 10px; }
 .recruiter-achievements li { font-size: .71rem; line-height: 1.36; }
 
-/* Each passion project has its own scrapbook voice and visual structure. */
 .workspace-project--community .workspace-project-title,
 .workspace-project--advocacy .workspace-project-title,
 .workspace-project--game .workspace-project-title,
@@ -1293,7 +1067,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .workspace-project--game .workspace-cover { height: 145px; }
 }
 
-/* Four-project folder: enough of each Polaroid stays exposed to be clickable. */
 .passion-folder { width: 350px; flex-basis: 350px; }
 .passion-thumb { left: calc(6px + var(--folder-index) * var(--folder-step, 91px)); }
 .passion-thumb-caption { font-size: 1.01rem; }
@@ -1304,7 +1077,7 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .passion-folder { width: 340px; flex-basis: 340px; }
 }
 
-/* v19: compact, bespoke in-scrapbook storytelling (no second modal). */
+/* Scrapbook story tabs */
 .workspace-project--story { gap: 9px; }
 .workspace-project--story .workspace-title { display: flex; align-items: baseline; justify-content: space-between;
   flex-wrap: wrap; gap: 1px 8px; }
@@ -1353,7 +1126,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   text-decoration: none; border-bottom: 1px dashed #c49782; font-size: 1.1rem; line-height: 1.05; }
 .story-source-link:hover { color: #713d30; }
 
-/* Six favorite watercolor cutouts: a tactile, uneven two-by-three collage. */
 .favorite-board { height: clamp(330px, 43vh, 418px); }
 .favorite-overline { z-index: 2; }
 .favorite-gallery { position: absolute; inset: 40px 15px 12px; display: grid;
@@ -1370,7 +1142,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
 .favorite-gallery .favorite-item img { object-fit: contain; }
 .achievement-list li::before { content: '•'; font-size: 1.05rem; left: -9px; top: -.19em; }
 
-/* Recruiter mode: three aligned columns, with works and skills grouped together. */
 .recruiter-sheet { max-width: 1410px; }
 .recruiter-grid { grid-template-columns: minmax(0,1.12fr) minmax(0,.93fr) minmax(0,1.05fr);
   align-items: start; gap: clamp(12px,1.4vw,20px); }
@@ -1418,8 +1189,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .story-opening-copy p:last-child { font-size: .69rem; line-height: 1.3; }
 }
 
-
-/* v20 — More breathing room for the watercolor favorites; no giant overlapping cutouts. */
 .favorite-board { height: clamp(278px, 34vh, 338px); }
 .favorite-gallery {
   inset: 49px 24px 21px;
@@ -1459,7 +1228,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .favorite-gallery .favorite-item img { height: clamp(62px, 10vh, 90px); }
 }
 
-/* v20 — Egress photographs are wide contact prints, not elongated/cropped posters. */
 .story-photo-grid,
 .story-photo-grid:has(figure:nth-child(3):last-child) {
   height: 100%;
@@ -1488,7 +1256,7 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .story-photo-grid--game .story-photo img { height: clamp(92px, 17vw, 145px); }
 }
 
-/* v20 — A separate, editable book popup for the Graphic Design Portfolio. */
+/* Graphic design journal */
 #design-journal {
   position: fixed; width: min(1120px, 95vw); height: min(735px, 91dvh);
   max-width: none; max-height: none; margin: auto; padding: 17px 26px 19px;
@@ -1607,7 +1375,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   #design-journal .journal-book-navigation { height: 46px; }
   #design-journal .journal-book-arrow { font-size: 1.12rem; padding: 3px 8px; }
 }
-/* Landscape contact prints: keep the whole Egress screenshot visible at its natural proportions. */
 .story-photo-grid--game .story-photo img {
   height: auto;
   aspect-ratio: 1.7 / 1;
@@ -1618,8 +1385,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   .story-photo-grid--game .story-photo img { height: auto; aspect-ratio: 1.7 / 1; }
 }
 
-
-/* v21 — Larger, balanced 2x2 photostrips in Passion Projects. */
 .story-photo-grid--game,
 .story-photo-grid--events,
 .story-photo-grid--game:has(figure:nth-child(3):last-child) {
@@ -1648,7 +1413,7 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
 .story-photo-grid .story-photo figcaption { flex: 0 0 auto; }
 .community-external-links { display: flex; flex-wrap: wrap; gap: 7px 18px; }
 
-/* Recruiter-only project scrapbook. Same story tabs and images, no route change. */
+/* Recruiter project dialog */
 #recruiter-passion-dialog {
   width: min(1060px, 94vw);
   height: min(750px, 91dvh);
@@ -1707,8 +1472,7 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
   flex: 0 0 auto !important; object-fit: contain !important; background: none !important; }
 .story-photo-placeholder span { font-size: 1rem; color: #a07967; }
 
-
-/* v22 — Milkymon shares one three-tab story between the scrapbook and Recruiter Mode. */
+/* Milkymon story */
 .milkymon-spread { gap: 8px; min-height: 0; }
 .milkymon-columns { display: grid; grid-template-columns: minmax(125px, .7fr) minmax(0, 1.95fr);
   gap: 15px; flex: 1 1 auto; min-height: 0; }
@@ -1748,7 +1512,6 @@ a.writeup-resource:focus-visible { outline: 2px solid var(--rust); outline-offse
 .milkymon-link { color: var(--rust); font-size: 1.03rem; line-height: 1.08;
   text-decoration: none; border-bottom: 1px dashed rgba(156,80,58,.55); }
 .milkymon-link:hover, .milkymon-link:focus-visible { color: #733c2e; border-bottom-style: solid; }
-/* Recruiter Mode: normalize paragraph and metadata typography, leave headings distinct. */
 body.recruiter .recruiter-section p,
 body.recruiter .recruiter-section .meta,
 body.recruiter .recruiter-section .recruiter-lead-org,
@@ -1756,7 +1519,6 @@ body.recruiter .recruiter-section .recruiter-lead strong,
 body.recruiter .recruiter-achievements li,
 body.recruiter .recruiter-project .meta { font-size: .84rem; line-height: 1.46; }
 body.recruiter .recruiter-project p { font-size: .84rem; line-height: 1.46; }
-/* The recruiter popup uses exactly the same Milkymon content, with more generous text sizes. */
 #recruiter-passion-dialog .milkymon-spread { height: 100%; }
 #recruiter-passion-dialog .milkymon-columns { grid-template-columns: minmax(190px,.72fr) minmax(0,1.7fr); gap: 22px; }
 #recruiter-passion-dialog .milkymon-logo-print img { height: clamp(170px,25vh,240px); }
@@ -1785,16 +1547,13 @@ body.recruiter .recruiter-project p { font-size: .84rem; line-height: 1.46; }
   #recruiter-passion-dialog .milkymon-path strong { font-size: 1rem; }
 }
 
-/* Keep the shared story's source links separate from its text, even with custom fonts. */
 .milkymon-links { padding-top: 5px; border-top: 1px dashed rgba(168,108,83,.22); }
 .milkymon-identity { min-height: 0; }
 #recruiter-passion-dialog .milkymon-description { font-size: .94rem; line-height: 1.45; }
 @media (max-width: 720px) {
-  #recruiter-passion-dialog .case-close { white-space: nowrap; }
   #recruiter-passion-dialog .milkymon-description { font-size: .75rem; line-height: 1.3; }
 }
 
-/* v23 — the Milkymon introduction belongs inside its first tab, not beneath the logo. */
 .milkymon-identity { justify-content: flex-start; }
 .milkymon-logo-print { width: 100%; }
 .story-links { display: flex; flex-wrap: wrap; flex: 0 0 auto; align-items: center;
@@ -1803,10 +1562,6 @@ body.recruiter .recruiter-project p { font-size: .84rem; line-height: 1.46; }
   .milkymon-identity { display: flex; justify-content: center; align-items: center; }
   .milkymon-logo-print { width: min(135px, 100%); }
 }
-
-
-
-/* Recruiter Mode — contact icons */
 
 .recruiter-social-icons {
   display: flex;
@@ -1848,7 +1603,6 @@ body.recruiter .recruiter-project p { font-size: .84rem; line-height: 1.46; }
   }
 }
 
-/* V24: recruiter actions sit beside the resume, above the divider and artwork. */
 body.recruiter .recruiter-top {
   position: relative;
   z-index: 10;
@@ -1896,8 +1650,7 @@ body.recruiter .recruiter-sheet > .stk {
   body.recruiter .recruiter-top-right { justify-content: flex-start; }
 }
 
-
-/* V25: Keep the contact icons LEFT of Download Resume, entirely ABOVE the divider. */
+/* Recruiter contact actions */
 body.recruiter .recruiter-top {
   position: relative;
   z-index: 15;
