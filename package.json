@@ -1,0 +1,24 @@
+{
+  "name": "khloe-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "node scripts/build-worker.mjs",
+    "preview": "vite preview --host 0.0.0.0 --outDir dist/client",
+    "build:pages": "vite build --mode pages --base=./ --outDir dist/client"
+  },
+  "dependencies": {
+    "@animate-ui/react": "^2.4.6",
+    "@base-ui/react": "^1.9.0",
+    "@fontsource/ibm-plex-mono": "^5.2.0",
+    "motion": "^14.14.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "suncalc": "^1.9.0"
+  },
+  "devDependencies": {
+    "vite": "^7.2.0"
+  }
+}

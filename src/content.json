@@ -1,0 +1,54 @@
+{
+  "name": "khloe sakai",
+  "year": "2026",
+  "greeting": "welcome to my\nportfolio!",
+  "greetingAside": "٩(^ᗜ^ )و ´-",
+  "education": "student at rensselaer polytechnic institute, studying",
+  "programs": [
+    {
+      "label": "itws",
+      "name": "b.s. information technology and web science",
+      "url": "https://lally.rpi.edu/programs/undergraduate-programs/bs-information-technology-and-web-science-stem-designated"
+    },
+    {
+      "label": "cmd",
+      "name": "b.s. communications, media, and design",
+      "url": "https://hass.rpi.edu/communication-and-media/communication-media-and-design"
+    }
+  ],
+  "focus": "product thinking, & design for people.",
+  "now": "building this portfolio",
+  "location": {
+    "label": "troy, ny",
+    "latitude": 42.73,
+    "longitude": -73.69,
+    "timeZone": "America/New_York"
+  },
+  "sections": [
+    {
+      "id": "works",
+      "label": "works & projects"
+    },
+    {
+      "id": "community",
+      "label": "community & leadership",
+      "entries": [
+        {
+          "title": "allies for neurodiversity",
+          "role": "founding officer, marketing & outreach lead",
+          "year": "2022-2025"
+        },
+        {
+          "title": "digital creator & community platform",
+          "role": "co-founder, community operations",
+          "year": "2025-2026"
+        },
+        {
+          "title": "alpha gamma delta",
+          "role": "work party manager",
+          "year": "2026"
+        }
+      ]
+    }
+  ]
+}

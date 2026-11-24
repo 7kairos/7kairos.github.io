@@ -1,0 +1,14 @@
+{
+  "name": "khloe-portfolio",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-11-24",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "khloe-portfolio-visits",
+      "database_id": "PASTE_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "drizzle",
+      "migrations_pattern": "drizzle/*.sql"
+    }
+  ]
+}

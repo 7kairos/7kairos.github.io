@@ -1,0 +1,4 @@
+CREATE TABLE visit_sessions (
+  id INTEGER PRIMARY KEY,
+  token TEXT NOT NULL UNIQUE
+);
