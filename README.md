@@ -1,6 +1,6 @@
 # Khloe Sakai’s portfolio
 
-A React portfolio with live Troy weather, case studies, community and leadership roles, and a matcha mug that opens a printable About receipt.
+a website portfolio.
 
 ## Run locally
 
