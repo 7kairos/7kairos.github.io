@@ -5,10 +5,36 @@ import '@fontsource/ibm-plex-mono/latin-400.css'
 import '@fontsource/ibm-plex-mono/latin-500.css'
 import content from './content.json'
 import projects from './projects.json'
+import CaseStudyCarousel from './CaseStudyCarousel'
 import { getVisitNumber } from './visits'
 import './style.css'
 
 const worksUrl = '../../?view=works'
+const imagesUrl = '../../images/'
+
+function CaseStudySection({ heading, blocks, highlights = [], resource }) {
+  const phrases = highlights.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  const pattern = phrases.length ? new RegExp('(' + phrases.join('|') + ')', 'g') : null
+  const renderText = (text) => pattern
+    ? text.split(pattern).map((part, index) => index % 2 ? <mark key={index}>{part}</mark> : part)
+    : text
+
+  return (
+    <section className="case-study-section">
+      <h2>{heading}</h2>
+      {blocks.map((block) => Array.isArray(block) ? (
+        <ul key={block[0]}>
+          {block.map((item) => <li key={item}>{renderText(item)}</li>)}
+        </ul>
+      ) : <p key={block}>{renderText(block)}</p>)}
+      {resource && (
+        <p>
+          <a href={imagesUrl + resource.file} className="case-study-nav">{resource.label}</a>
+        </p>
+      )}
+    </section>
+  )
+}
 
 function CaseStudy({ project }) {
   return (
@@ -27,15 +53,9 @@ function CaseStudy({ project }) {
               <a href={worksUrl} className="case-study-nav">back to works</a>
             </div>
           </header>
-          {project.sections.map(({ heading, blocks }) => (
-            <section className="case-study-section" key={heading}>
-              <h2>{heading}</h2>
-              {blocks.map((block) => Array.isArray(block) ? (
-                <ul key={block[0]}>
-                  {block.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              ) : <p key={block}>{block}</p>)}
-            </section>
+          {project.figures?.length > 0 && <CaseStudyCarousel figures={project.figures} imagesUrl={imagesUrl} />}
+          {project.sections.map((section) => (
+            <CaseStudySection key={section.heading} {...section} />
           ))}
           <footer className="case-study-footer">
             <a href={worksUrl} className="case-study-nav">back to works</a>

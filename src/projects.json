@@ -4,6 +4,43 @@
     "title": "Scam Awareness Campaign Website",
     "role": "Project Manager & UI/UX Lead",
     "year": "2025",
+    "figures": [
+      {
+        "image": "scam-interface-desktop.webp",
+        "alt": "Desktop campaign homepage with links to scam categories, a video walkthrough, and contact information for victims.",
+        "caption": "Campaign homepage on desktop.",
+        "width": 1210,
+        "height": 674
+      },
+      {
+        "image": "scam-interface-mobile.webp",
+        "alt": "Three mobile screens showing the romance scams guide, campaign homepage, and victim testimonies page.",
+        "caption": "Campaign site on mobile.",
+        "width": 1208,
+        "height": 830
+      },
+      {
+        "image": "scam-research-charts.webp",
+        "alt": "Two pie charts. Concern about scams: 55% very concerned, 25% not as concerned, 10% unaware of scams, and 10% concerned for others. Awareness of scam resources: 15% aware and 85% not aware.",
+        "caption": "Interview findings on scam concern and resource awareness.",
+        "width": 1054,
+        "height": 574
+      },
+      {
+        "image": "scam-prototype-explorations.webp",
+        "alt": "Four early concepts: Khloe’s landing page, Luke’s scam quiz, Bhavya’s victim testimonies, and Parth’s scam updates.",
+        "caption": "Early prototypes from the team.",
+        "width": 1166,
+        "height": 834
+      },
+      {
+        "image": "scda-commendation.webp",
+        "alt": "Certificate of achievement from the Santa Clara District Attorney’s Office and a certificate of commendation from the County of Santa Clara, both dated May 22, 2025.",
+        "caption": "Recognition from the District Attorney’s Office and Santa Clara County.",
+        "width": 1290,
+        "height": 1696
+      }
+    ],
     "sections": [
       {
         "heading": "Overview",
@@ -11,6 +48,10 @@
           "How can we make online scam prevention resources more accessible for people of all ages and levels of technological literacy?",
           "In today's digital age, online scams are becoming increasingly sophisticated. Yet trustworthy information isn't always easy to find, especially for those with lower levels of digital literacy. This is the issue that Deputy District Attorney Phong Banh initially presented to us.",
           "As Project Lead on a four-person team, I coordinated our research and development process, organized interview findings and our written proposal, and headed the design of the website interface. We worked in collaboration with the Santa Clara County District Attorney's Office to explore an accessible, easy-to-navigate scam awareness resource for local residents. Our overarching goal was to make scam prevention and recieving aid feel less overwhelming and more approachable."
+        ],
+        "highlights": [
+          "I coordinated our research and development process",
+          "headed the design of the website interface"
         ]
       },
       {
@@ -20,6 +61,9 @@
           "We interviewed community stakeholders, ages ranging from 12-98, and identified three recurring challenges: high concern but low awareness of resources, scattered or unreliable information, and accessibility barriers for people with lower technology literacy and non-native English speakers.",
           "Only 15% of participants in our initial research sample were aware of existing scam-related resources. While younger interviewees weren’t concerned for themselves, they were mainly concerned about older relatives who struggle with technology and don’t speak English fluently.",
           "Rather than simply building another informational website, we needed to design something that users could understand, trust, and navigate confidently."
+        ],
+        "highlights": [
+          "Only 15% of participants in our initial research sample were aware of existing scam-related resources."
         ]
       },
       {
@@ -28,6 +72,10 @@
           "We conducted over 40 interviews across community stakeholders, spoke with online fraud professionals, and regularly met with a community prosecutor who specialized in crime prevention.",
           "I helped organize our interview data and proposal, so that the team could find patterns and turn research into design decisions. We used an ideation exercise called “Worst Idea Ever” to explore unexpected directions before narrowing our ideas. I headed the website’s initial interface design, starting with a landing page prototype that made the website’s purpose and scam information easy to find. My teammates explored features such as quizzes, victim testimonies, and a news article segment that focused on scams.",
           "After creating these early designs, we developed a functional Wix website prototype and returned to the community for feedback."
+        ],
+        "highlights": [
+          "over 40 interviews",
+          "I headed the website’s initial interface design"
         ]
       },
       {
@@ -35,6 +83,10 @@
         "blocks": [
           "Our prototype brought information about four scam categories into one approachable resource. Each category used a consistent format to explain the scam: defining the warning signs, sharing protection tips, and pointing victims towards “next steps” and relevant resources. We also included a victim testimonies page to show that scams can affect anyone, regardless of technological skill.",
           "For the homepage, I focused on introducing the resource clearly and making navigation feel intuitive. Using the data from stakeholder interviews, we ended up implementing features such as included a walkthrough video, larger text, shorter descriptions, translations, and text-to-speech support. The main objective was for people with varying levels of tech literacy to find help and information without getting lost and feeling overwhelmed."
+        ],
+        "highlights": [
+          "four scam categories",
+          "larger text, shorter descriptions, translations, and text-to-speech support"
         ]
       },
       {
@@ -42,6 +94,9 @@
         "blocks": [
           "After returning once more to stakeholder interviews, 65% of interviewed participants indicated that a resource like ours would be useful to them or someone they knew.",
           "We presented our research, design decisions, and proposed implementation plan to representatives of the Santa Clara County District Attorney’s Office and the San Jose Police Department. This project taught me the importance of thoughtfully organized research, clear and established team communications, and turning qualitative feedback into design decisions. But most importantly, I learned that thoughtful design doesn't have to be complex. Sometimes, making information “easier” is what helps people feel confident enough to use it."
+        ],
+        "highlights": [
+          "65% of interviewed participants indicated that a resource like ours would be useful to them or someone they knew."
         ]
       }
     ]
@@ -51,12 +106,45 @@
     "title": "RPI Lost & Found",
     "role": "Student Developer · Frontend Development",
     "year": "2026",
+    "figures": [
+      {
+        "image": "rpilnf-items.webp",
+        "alt": "Item browse page with All, Lost, and Found filters and cards for a backpack, water bottle, and hoodie.",
+        "caption": "Item listings and filters.",
+        "width": 2048,
+        "height": 1099
+      },
+      {
+        "image": "rpilnf-contact.webp",
+        "alt": "Contact page with phone numbers, email addresses, and locations for RPI Public Safety and Union Lost & Found.",
+        "caption": "Public Safety and Union Lost & Found contacts.",
+        "width": 2047,
+        "height": 1106
+      },
+      {
+        "image": "rpilnf-login.webp",
+        "alt": "Demo login screen with username and password fields and a note about the authentication status.",
+        "caption": "Login prototype.",
+        "width": 2048,
+        "height": 1099
+      },
+      {
+        "image": "rpilnf-frontend-planning.webp",
+        "alt": "Planning board with references for the RPI-inspired red, white, and black palette and a card layout circled.",
+        "caption": "Frontend planning for the color palette and item grid.",
+        "width": 1553,
+        "height": 1742
+      }
+    ],
     "sections": [
       {
         "heading": "Overview",
         "blocks": [
           "What if finding something you lost on campus was as simple as just checking a website? Losing something is already frustrating enough. Having to walk between different buildings, ask around, and hope someone was kind enough to turn it in makes the process even more stressful. And though RPI already has existing lost-and-found services in place, they are often hard to find or unreliable.",
           "For my Web Systems Development course, my team of 5 is building a RPI Lost & Found, a website designed to centralize the campus lost-and-found. Our main idea is to give students a way to browse “lost” items, see where an item was found, and make it easier to retrieve lost items."
+        ],
+        "highlights": [
+          "centralize the campus lost-and-found"
         ]
       },
       {
@@ -70,6 +158,14 @@
             "Making lost-item information public could also make it easier for someone to falsely claim an item. We needed to consider how to make information accessible without making the retrieval process less secure."
           ],
           "Our end-goal isn’t to replace RPI’s existing lost-and-found service, but rather create a digital system that makes the lost-and-found easier for the public to navigate."
+        ],
+        "resource": {
+          "file": "RPI_Campus_Map.pdf",
+          "label": "RPI campus map (PDF)"
+        },
+        "highlights": [
+          "78 buildings",
+          "Students don't have a centralized way to see reported items"
         ]
       },
       {
@@ -80,6 +176,10 @@
           "We began in Figma with frontend mockups and lost-and-found listings, before moving towards a React application. The interface includes reusable components for item cards, filters, forms, and navigation. Breaking the website into smaller components helped maintain consistency as different teammates worked on different parts of the application.",
           "We've also been planning how users will create, update, and manage listings through the API, as well as how permissions should work for ordinary users and administrators. One of our main considerations was balancing convenience with security. We discussed possible verification requirements and ways to avoid exposing information that could allow someone to claim an item that wasn't theirs.",
           "The backend was developed using Laravel and MySQL. Our architecture separates the application into three main parts: the React frontend, the Laravel API, and the MySQL database. Docker helps us run these services together in a consistent development environment. Because we're working as a team, we've been using GitHub to organize changes and keep different parts of the project moving forward."
+        ],
+        "highlights": [
+          "reusable components for item cards, filters, forms, and navigation",
+          "the React frontend, the Laravel API, and the MySQL database"
         ]
       },
       {
@@ -88,6 +188,10 @@
           "The main/browsing page displays reported belongings with photographs, item descriptions, location found, dates, and item statuses. Students can see what's been reported without having to visit multiple campus offices.",
           "Users can filter between tags “All”, “Lost”, and “Found” to narrow down displayed items. Colored labels help users easily distinguish the lost from found belongings. There is also a dedicated contact page that provides information for RPI Public Safety and the Union Lost & Found, and a login page. Our planned authentication system will allow registered users to manage listings, with additional permissions for administrators.",
           "The frontend currently uses sample item data for parts of the browsing experience while we continue working on backend integration and database functionality."
+        ],
+        "highlights": [
+          "“All”, “Lost”, and “Found”",
+          "RPI Public Safety and the Union Lost & Found"
         ]
       },
       {
@@ -95,6 +199,9 @@
         "blocks": [
           "Still in progress!",
           "One thing this project has shown me is how much planning goes into something that initially sounds pretty simple. A lost-and-found website might seem like it just needs a list of items and a search function, but once we started thinking about how people would actually use it, we had to consider permissions, item ownership, information organization, and how the frontend would communicate with the database."
+        ],
+        "highlights": [
+          "Still in progress!"
         ]
       }
     ]

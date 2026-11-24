@@ -424,6 +424,126 @@ a.entry-row:hover .entry-title, a.entry-row:focus-visible .entry-title { color: 
 .case-study-section ul { padding-inline-start: 1.4rem; }
 .case-study-section li + li { margin-top: 0.35rem; }
 
+.case-study-section mark {
+  background: #e1e8d5;
+  color: inherit;
+  border-radius: 0.12em;
+  padding-inline: 0.08em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.case-gallery { margin-block-start: 1.4rem; }
+
+.case-gallery-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: clamp(9.25rem, 42vw, 20.25rem);
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+}
+
+.case-gallery-card,
+.case-gallery-open {
+  position: absolute;
+  inset-block: 0.45rem;
+  inset-inline: 12%;
+  border-radius: 0.45rem;
+}
+
+.case-gallery-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #eeeee8;
+  opacity: clamp(0, calc(1 - 0.34 * var(--distance)), 1);
+  transform: translateX(calc(82% * var(--offset))) perspective(850px)
+    rotateY(clamp(-62deg, calc(-50deg * var(--offset)), 62deg)) scale(calc(1 - 0.1 * var(--distance)));
+  transition: transform 440ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease;
+  pointer-events: none;
+}
+
+.case-gallery-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-gallery-card[data-current] { z-index: 1; }
+.case-gallery-card[data-current] img { object-fit: contain; }
+
+.case-gallery-open {
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0.55rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.case-gallery-open span {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.35rem;
+  background: #f8f7f2;
+}
+
+.case-gallery-caption {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+}
+
+.case-gallery-caption p {
+  grid-column: 2;
+  margin: 0;
+  color: var(--quiet);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.case-gallery button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  color: var(--accent);
+  background: transparent;
+}
+
+.case-gallery-caption button { width: 2.5rem; height: 2.5rem; font-size: 1.2rem; }
+.case-gallery button:hover { background: #e9ecdf; }
+
+.case-gallery-dots {
+  display: flex;
+  justify-content: center;
+}
+
+.case-gallery-dots button { width: 1.75rem; height: 1.75rem; }
+
+.case-gallery-dots button::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.case-gallery-dots button[aria-current='true']::before { background: currentColor; }
+
+@media (prefers-reduced-motion: reduce) {
+  .case-gallery-card { transition: none; }
+}
+
 .case-study-footer {
   margin-top: 2rem;
   padding-top: 1rem;
