@@ -42,7 +42,7 @@ function Receipt({ printedAt, orderNumber }) {
     <article className="receipt-paper">
       <header className="receipt-heading">
         <h1>ABOUT KHLOE SAKAI</h1>
-        <p>bay area, california &amp; upstate new york.</p>
+        <p>bay area, ca &amp; upstate new york.</p>
         <p className="receipt-meta">
           <span>order #{orderNumber ?? '—'}</span>
           <time dateTime={printedAt.toISOString()}>{timeFormat.format(printedAt).toLowerCase()}</time>
@@ -57,7 +57,7 @@ function Receipt({ printedAt, orderNumber }) {
         </ul>
       </section>
       <section className="receipt-group">
-        <h2>when i’m not designing:</h2>
+        <h2>when i’m not designing..</h2>
         <ul>
           <li><a href="https://open.spotify.com/user/9n7o35e91l272fnouizjp1wyy?si=28c47c7d962a4ae6">listening to music</a></li>
           <li>making a matcha latte</li>
@@ -71,7 +71,7 @@ function Receipt({ printedAt, orderNumber }) {
       </dl>
       <Barcode date={receiptDate(printedAt)} />
       <footer className="receipt-footer">
-        <a href="mailto:sakaik@rpi.edu">come say hi.</a>
+        <a href="mailto:sakaik@rpi.edu">ready to say hi?</a>
       </footer>
     </article>
   )
