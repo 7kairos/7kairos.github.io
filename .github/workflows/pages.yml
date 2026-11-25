@@ -1,6 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,11 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -27,8 +26,22 @@ jobs:
       - run: npm ci
       - run: npm run build:pages
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
+      - name: Check site build output
+        run: test -s dist/client/index.html
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
+          name: github-pages
           path: dist/client
+          retention-days: 7
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages

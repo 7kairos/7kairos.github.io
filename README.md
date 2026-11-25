@@ -39,7 +39,7 @@ Copy the extracted files into the root of your repository, including `.github` a
 1. Open **Settings → Pages** and set **Source** to **GitHub Actions**.
 2. Open **Actions → Deploy to GitHub Pages** and choose **Run workflow**.
 
-The workflow runs on demand and publishes `dist/client`. It works for both a user site such as `7kairos.github.io` and a project site under a repository path. GitHub Pages serves static files, so this build displays `order #—` on the receipt. [GitHub Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
+The workflow runs on pushes to `main` or on demand and publishes `dist/client`. It works for both a user site such as `7kairos.github.io` and a project site under a repository path. GitHub Pages serves static files, so this build displays `order #—` on the receipt. [GitHub Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
 
 ### Cloudflare Worker with the shared visit counter
 
