@@ -18,10 +18,12 @@ Open the local URL printed in the terminal. The local visit counter resets when 
 | File | Content |
 | --- | --- |
 | `src/content.json` | Introduction, majors, activity, weather location, and leadership roles |
-| `src/projects.json` | Project titles, roles, dates, and case-study text |
+| `src/case-studies.json` | Case-study writing and carousel images |
+| `src/main.jsx` | Home page sections and their interactions |
 | `src/receipt.jsx` | About receipt text and social links |
 | `src/ReceiptCollage.jsx` | Sketches and photo placeholders |
-| `src/style.css` | Shared styles and home layout |
+| `src/sounds.js` | Click and printer sound effects |
+| `src/style.css` | Shared styles, home layout, and section animation |
 | `src/receipt.css` | Printer, paper feed, and collage |
 | `public/matcha-mug.png` and `src/assets/receipt/` | Mug and sketch artwork |
 | `server/worker.js` and `drizzle/` | Shared visit counter and its database schema |
