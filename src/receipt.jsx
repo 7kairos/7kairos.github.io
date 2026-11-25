@@ -6,6 +6,7 @@ import '@fontsource/ibm-plex-mono/latin-500.css'
 import content from './content.json'
 import ReceiptCollage from './ReceiptCollage'
 import { getVisitNumber } from './visits'
+import { installClickSounds, playPrintSound } from './sounds'
 import './style.css'
 import './receipt.css'
 
@@ -41,7 +42,7 @@ function Receipt({ printedAt, orderNumber }) {
   return (
     <article className="receipt-paper">
       <header className="receipt-heading">
-        <h1>ABOUT KHLOE SAKAI</h1>
+        <h1>about khloe sakai</h1>
         <p>bay area, ca &amp; upstate new york.</p>
         <p className="receipt-meta">
           <span>order #{orderNumber ?? '—'}</span>
@@ -85,6 +86,7 @@ function PrinterPage() {
   const [orderNumber, setOrderNumber] = useState(null)
 
   function printReceipt() {
+    playPrintSound()
     setPrintedAt(new Date())
     setCopies((previous) => previous + 1)
     visit.then(async (number) => setOrderNumber(number ?? await getVisitNumber()))
@@ -97,7 +99,7 @@ function PrinterPage() {
         <a className="home-link" href="../">back home</a>
         <span className="year">{content.year}</span>
       </header>
-      <main className="printer-page" aria-label="About receipt">
+      <main className="printer-page" aria-label="about receipt">
         <div className="receipt-machine">
           <div className="receipt-printer">
             <button type="button" onClick={printReceipt} aria-expanded={Boolean(printedAt)} aria-controls="paper-feed">
@@ -105,7 +107,7 @@ function PrinterPage() {
             </button>
             <div className="printer-slot" aria-hidden="true" />
           </div>
-          <div id="paper-feed">
+          <div className="receipt-output" id="paper-feed">
             {printedAt && (
               <div className="receipt-feed" key={copies}>
                 <div className="receipt-clip">
@@ -123,3 +125,4 @@ function PrinterPage() {
 }
 
 createRoot(document.getElementById('root')).render(<PrinterPage />)
+installClickSounds()

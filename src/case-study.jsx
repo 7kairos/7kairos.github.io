@@ -4,12 +4,13 @@ import { Click } from '@animate-ui/react/primitives/effects/click'
 import '@fontsource/ibm-plex-mono/latin-400.css'
 import '@fontsource/ibm-plex-mono/latin-500.css'
 import content from './content.json'
-import projects from './projects.json'
+import caseStudies from './case-studies.json'
 import CaseStudyCarousel from './CaseStudyCarousel'
 import { getVisitNumber } from './visits'
+import { installClickSounds } from './sounds'
 import './style.css'
 
-const worksUrl = '../../?view=works'
+const caseStudiesUrl = '../../?view=case-studies'
 const imagesUrl = '../../images/'
 
 function CaseStudySection({ heading, blocks, highlights = [], resource }) {
@@ -50,7 +51,7 @@ function CaseStudy({ project }) {
             <h1>{project.title}</h1>
             <div className="case-study-meta">
               <p>{project.role}<span className="separator"> · </span><time dateTime={project.year}>{project.year}</time></p>
-              <a href={worksUrl} className="case-study-nav">back to works</a>
+              <a href={caseStudiesUrl} className="case-study-nav">back to case studies</a>
             </div>
           </header>
           {project.figures?.length > 0 && <CaseStudyCarousel figures={project.figures} imagesUrl={imagesUrl} />}
@@ -58,7 +59,7 @@ function CaseStudy({ project }) {
             <CaseStudySection key={section.heading} {...section} />
           ))}
           <footer className="case-study-footer">
-            <a href={worksUrl} className="case-study-nav">back to works</a>
+            <a href={caseStudiesUrl} className="case-study-nav">back to case studies</a>
           </footer>
         </article>
       </main>
@@ -67,6 +68,7 @@ function CaseStudy({ project }) {
 }
 
 const root = document.getElementById('root')
-const project = projects.find(({ slug }) => slug === root.dataset.project)
+const project = caseStudies.find(({ slug }) => slug === root.dataset.project)
 getVisitNumber()
+installClickSounds()
 createRoot(root).render(<CaseStudy project={project} />)

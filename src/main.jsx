@@ -6,14 +6,20 @@ import '@fontsource/ibm-plex-mono/latin-500.css'
 import content from './content.json'
 import Education from './Education'
 import EntryList from './EntryList'
-import projects from './projects.json'
+import caseStudies from './case-studies.json'
 import { drawSky, getSky } from './sky'
 import { loadWeather } from './weather'
 import { getVisitNumber } from './visits'
+import { installClickSounds } from './sounds'
 import './style.css'
 
 const { location } = content
-const workEntries = projects.map(({ slug, title, role, year }) => ({ title, role, year, href: `./works/${slug}/` }))
+const caseStudyEntries = caseStudies.map(({ slug, title, role, year }) => ({
+  title: title.toLowerCase(),
+  role: role.toLowerCase(),
+  year,
+  href: `./works/${slug}/`,
+}))
 const localClock = new Intl.DateTimeFormat('en-US', {
   timeZone: location.timeZone,
   hour: 'numeric',
@@ -144,15 +150,15 @@ function Weather() {
           </span>
           <div className="weather-reading">
             {weather ? (
-              <a href={weather.sourceUrl} className="weather-link" title="Weather data from Open-Meteo">
-                {[`${weather.temperature}°F`, weather.condition].filter(Boolean).join(' · ')}
+              <a href={weather.sourceUrl} className="weather-link" title="weather data from open-meteo">
+                {[`${weather.temperature}°f`, weather.condition].filter(Boolean).join(' · ')}
               </a>
             ) : loaded && <span>weather unavailable</span>}
           </div>
         </div>
         <div className="weather-activity">
           <span><span className="now-label">now</span><span className="separator"> · </span>{content.now}</span>
-          <a className="receipt-link" href="./receipt/" aria-label="Open the About receipt" title="Open the About receipt">
+          <a className="receipt-link" href="./receipt/" aria-label="open the about receipt" title="open the about receipt">
             <img src={`${import.meta.env.BASE_URL}matcha-mug.png`} width="26" height="26" alt="" />
             <span className="mug-steam" aria-hidden="true" />
           </a>
@@ -163,34 +169,44 @@ function Weather() {
 }
 
 function Sections() {
-  const [openSections, setOpenSections] = useState(() => ({
-    works: new URLSearchParams(window.location.search).get('view') === 'works',
-  }))
+  const [openSections, setOpenSections] = useState(() => {
+    const view = new URLSearchParams(window.location.search).get('view')
+    return { 'case-studies': view === 'case-studies' || view === 'works' }
+  })
 
   function toggleSection(id) {
     setOpenSections((previous) => ({ ...previous, [id]: !previous[id] }))
   }
 
   return (
-    <div className="sections" role="group" aria-label="Portfolio sections">
+    <section className="sections" aria-label="portfolio sections">
       {content.sections.map(({ id, label, entries }) => (
         <div className="section" key={id}>
-          <button
-            className="section-toggle"
-            type="button"
-            aria-expanded={Boolean(openSections[id])}
-            aria-controls={id}
-            onClick={() => toggleSection(id)}
+          <h2 className="section-heading">
+            <button
+              className="section-toggle"
+              type="button"
+              aria-expanded={Boolean(openSections[id])}
+              aria-controls={id}
+              onClick={() => toggleSection(id)}
+            >
+              {label}
+              <span className="toggle-icon" aria-hidden="true" />
+            </button>
+          </h2>
+          <div
+            className={`section-preview${openSections[id] ? ' is-open' : ''}`}
+            id={id}
+            aria-hidden={!openSections[id]}
+            inert={!openSections[id]}
           >
-            {label}
-            <span className="toggle-icon" aria-hidden="true" />
-          </button>
-          <div className="section-preview" id={id} hidden={!openSections[id]}>
-            <EntryList entries={id === 'works' ? workEntries : entries} />
+            <div className="section-preview-inner">
+              <EntryList entries={id === 'case-studies' ? caseStudyEntries : entries} />
+            </div>
           </div>
         </div>
       ))}
-    </div>
+    </section>
   )
 }
 
@@ -205,7 +221,7 @@ function App() {
         <span className="year">{content.year}</span>
       </header>
       <main className="layout">
-        <section className="intro" aria-label="Introduction">
+        <section className="intro" aria-label="introduction">
           <React.Fragment key={replay}>
             <Typewriter greeting={content.greeting} aside={content.greetingAside} />
             <div className="bio">
@@ -216,8 +232,8 @@ function App() {
           <button
             className="replay"
             type="button"
-            aria-label="Replay text animations"
-            title="Replay text animations"
+            aria-label="replay text animations"
+            title="replay text animations"
             onClick={() => setReplay((count) => count + 1)}
           >
             <span aria-hidden="true">↻</span>
@@ -231,4 +247,5 @@ function App() {
 }
 
 getVisitNumber()
+installClickSounds()
 createRoot(document.getElementById('root')).render(<App />)

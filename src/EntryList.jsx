@@ -9,8 +9,8 @@ export default function EntryList({ entries }) {
           <li key={title}>
             <Row className="entry-row" href={href}>
               <span className="entry-title">{title}</span>
-              <span className="entry-year">{year}</span>
-              <span className="entry-role">{role}</span>
+              {year && <span className="entry-year">{year}</span>}
+              {role && <span className="entry-role">{role}</span>}
             </Row>
           </li>
         )

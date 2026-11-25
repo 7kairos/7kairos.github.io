@@ -34,6 +34,5 @@ function collectAssets(directory, prefix = '') {
 
 collectAssets('dist/client')
 mkdirSync('dist/server', { recursive: true })
-// Bundle the static files into the Worker that serves them.
 const worker = readFileSync('server/worker.js', 'utf8')
 writeFileSync('dist/server/index.js', `${worker}\nconst siteAssets = ${JSON.stringify(assets)}\n`)

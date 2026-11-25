@@ -26,8 +26,20 @@
   },
   "sections": [
     {
-      "id": "works",
-      "label": "works & projects"
+      "id": "case-studies",
+      "label": "case studies"
+    },
+    {
+      "id": "projects",
+      "label": "projects",
+      "entries": [
+        { "title": "learn guitar with me!" },
+        {
+          "title": "online school portal",
+          "href": "https://st-augustine-portal.sacrilege.workers.dev/"
+        },
+        { "title": "my barista book" }
+      ]
     },
     {
       "id": "community",

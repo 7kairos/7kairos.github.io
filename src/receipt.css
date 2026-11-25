@@ -10,9 +10,14 @@
 }
 
 .receipt-machine {
+  position: relative;
   grid-area: printer;
   width: min(100%, 26rem);
   justify-self: center;
+}
+
+.receipt-output {
+  position: relative;
 }
 
 .receipt-printer {
@@ -51,9 +56,11 @@
 
 .receipt-feed {
   --print-duration: 3.5s;
+  position: absolute;
+  z-index: 2;
+  inset: -0.9rem 0 auto;
   display: grid;
   grid-template-rows: 1fr;
-  margin-top: -0.9rem;
   animation: feed-paper var(--print-duration) step-end both;
 }
 
@@ -272,6 +279,8 @@
     row-gap: 0.75rem;
   }
 
+  .receipt-output { min-height: 36rem; }
+
   .receipt-collage-left { margin-top: 0.25rem; }
   .receipt-collage-right { margin-top: 1.15rem; }
 }
@@ -290,6 +299,7 @@
     box-shadow: none;
     animation: none;
   }
+  .receipt-output { min-height: 0; }
   .receipt-paper {
     width: 100%;
     background: white;
