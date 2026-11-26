@@ -36,6 +36,7 @@
         { "title": "learn guitar with me!" },
         {
           "title": "online school portal",
+          "year": "2026",
           "href": "https://st-augustine-portal.sacrilege.workers.dev/"
         },
         { "title": "my barista book" }
@@ -49,7 +50,7 @@
           "title": "allies for neurodiversity",
           "role": "founding officer, marketing & outreach lead",
           "year": "2022-2025",
-          "description": "raised $2,500 through fundraising and sponsorships. coordinated outreach events for 180 students over age 10, organized fundraisers and workshops, and promoted them to a student body of 1,500. led a committee of six and partnered with school faculty, administrators, and three local nonprofits."
+          "description": "raised $2,500 through fundraising and sponsorships. coordinated outreach events for 180 students under age 10, organized fundraisers and workshops, and promoted to a student body of 1,500. led a committee of 8 and partnered with school faculty, administrators, and 3 local nonprofits."
         },
         {
           "title": "digital creator & community platform",
@@ -61,7 +62,7 @@
           "title": "alpha gamma delta",
           "role": "work party manager",
           "year": "2026",
-          "description": "coordinated and tracked facility care duties for 32 members so everyone knew what they were responsible for."
+          "description": "coordinated and tracked member responsibilities for 32, maintained organization for facility care and accountability."
         }
       ]
     }

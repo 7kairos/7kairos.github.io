@@ -40,7 +40,6 @@
   border-radius: 0.4rem;
   background: #e2ebd3;
   color: #28372a;
-  cursor: pointer;
 }
 
 .receipt-printer button:hover { background: #f1f6e8; }
