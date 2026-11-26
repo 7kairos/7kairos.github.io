@@ -79,6 +79,7 @@ export function getSky(now, location, cloudCover = 32) {
     daylight,
     diskX: daylight ? lerp(0.26, 0.78, dayProgress) : 0.71,
     diskY: daylight ? 0.61 - 0.38 * Math.sin(dayProgress * Math.PI) : 0.27,
+    diskRadius: daylight ? 0.048 : 0.041,
     moonPhase: moon.fraction,
     waxing: moon.phase < 0.5,
   }
@@ -108,7 +109,7 @@ export function drawSky(canvas, sky) {
 
   const width = canvas.width
   const height = canvas.height
-  const { colors, cloud, daylight, diskX, diskY, moonPhase, waxing } = sky
+  const { colors, cloud, daylight, diskX, diskY, diskRadius, moonPhase, waxing } = sky
   const image = context.createImageData(width, height)
   const pixels = image.data
 
@@ -144,7 +145,6 @@ export function drawSky(canvas, sky) {
       const cloudColor = mix(shadedCloud, brightCloud, smooth(clamp((billow - 0.33) * 2)))
       color = mix(color, cloudColor, cloudInk * (0.6 - haze * 0.25))
 
-      const diskRadius = daylight ? 0.048 : 0.041
       if (distance < diskRadius + 0.01) {
         const diskEdge = clamp((diskRadius - distance) / 0.004 + 0.5)
         const limb = Math.sqrt(Math.max(0, diskRadius ** 2 - dy ** 2))

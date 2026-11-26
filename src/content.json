@@ -48,17 +48,20 @@
         {
           "title": "allies for neurodiversity",
           "role": "founding officer, marketing & outreach lead",
-          "year": "2022-2025"
+          "year": "2022-2025",
+          "description": "raised $2,500 through fundraising and sponsorships. coordinated outreach events for 180 students over age 10, organized fundraisers and workshops, and promoted them to a student body of 1,500. led a committee of six and partnered with school faculty, administrators, and three local nonprofits."
         },
         {
           "title": "digital creator & community platform",
           "role": "co-founder, community operations",
-          "year": "2025-2026"
+          "year": "2025-2026",
+          "description": "led recruitment and onboarding, screening 600+ applications. organized teams across programming, marketing, and events to support 70+ creators."
         },
         {
           "title": "alpha gamma delta",
           "role": "work party manager",
-          "year": "2026"
+          "year": "2026",
+          "description": "coordinated and tracked facility care duties for 32 members so everyone knew what they were responsible for."
         }
       ]
     }

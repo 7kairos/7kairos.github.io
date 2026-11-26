@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Click } from '@animate-ui/react/primitives/effects/click'
 import '@fontsource/ibm-plex-mono/latin-400.css'
@@ -6,8 +6,9 @@ import '@fontsource/ibm-plex-mono/latin-500.css'
 import content from './content.json'
 import Education from './Education'
 import EntryList from './EntryList'
+import LinkPreview from './LinkPreview'
 import caseStudies from './case-studies.json'
-import { drawSky, getSky } from './sky'
+import SkyScene from './SkyScene'
 import { loadWeather } from './weather'
 import { getVisitNumber } from './visits'
 import { installClickSounds } from './sounds'
@@ -89,7 +90,6 @@ function Weather() {
   const [now, setNow] = useState(() => new Date())
   const [weather, setWeather] = useState(null)
   const [loaded, setLoaded] = useState(false)
-  const canvas = useRef(null)
 
   useEffect(() => {
     const tick = () => setNow(new Date())
@@ -134,15 +134,9 @@ function Weather() {
     }
   }, [])
 
-  useEffect(() => {
-    drawSky(canvas.current, getSky(now, location, weather?.cloud))
-  }, [now, weather])
-
   return (
     <figure className="weather">
-      <div className="sky">
-        <canvas ref={canvas} width="720" height="464" aria-hidden="true" />
-      </div>
+      <SkyScene now={now} location={location} weather={weather} />
       <figcaption className="weather-caption">
         <div className="weather-details">
           <span>{location.label}<span className="separator"> · </span>
@@ -151,60 +145,66 @@ function Weather() {
           <div className="weather-reading">
             {weather ? (
               <a href={weather.sourceUrl} className="weather-link" title="weather data from open-meteo">
-                {[`${weather.temperature}°f`, weather.condition].filter(Boolean).join(' · ')}
+                {[`${Math.round(weather.temperature)}°f`, weather.condition].filter(Boolean).join(' · ')}
               </a>
             ) : loaded && <span>weather unavailable</span>}
           </div>
         </div>
         <div className="weather-activity">
           <span><span className="now-label">now</span><span className="separator"> · </span>{content.now}</span>
-          <a className="receipt-link" href="./receipt/" aria-label="open the about receipt" title="open the about receipt">
+          <LinkPreview className="receipt-link" href="./receipt/" aria-label="about me" preview="( ˘▽˘)っ about me!">
             <img src={`${import.meta.env.BASE_URL}matcha-mug.png`} width="26" height="26" alt="" />
             <span className="mug-steam" aria-hidden="true" />
-          </a>
+          </LinkPreview>
         </div>
       </figcaption>
     </figure>
   )
 }
 
-function Sections() {
-  const [openSections, setOpenSections] = useState(() => {
-    const view = new URLSearchParams(window.location.search).get('view')
-    return { 'case-studies': view === 'case-studies' || view === 'works' }
-  })
+function PortfolioSection({ id, label, entries, initiallyOpen }) {
+  const [open, setOpen] = useState(initiallyOpen)
+  const [openEntries, setOpenEntries] = useState({})
 
-  function toggleSection(id) {
-    setOpenSections((previous) => ({ ...previous, [id]: !previous[id] }))
+  function toggleSection() {
+    if (open) setOpenEntries({})
+    setOpen(!open)
   }
+
+  function toggleEntry(title) {
+    setOpenEntries((previous) => ({ ...previous, [title]: !previous[title] }))
+  }
+
+  return (
+    <div className="section">
+      <h2 className="section-heading">
+        <button className="section-toggle" type="button" aria-expanded={open} aria-controls={id} onClick={toggleSection}>
+          {label}
+          <span className="toggle-icon" aria-hidden="true" />
+        </button>
+      </h2>
+      <div className={`section-preview disclosure-panel${open ? ' is-open' : ''}`} id={id} inert={!open}>
+        <div className="disclosure-inner">
+          <EntryList entries={entries} openEntries={openEntries} onToggleEntry={toggleEntry} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Sections() {
+  const view = new URLSearchParams(window.location.search).get('view')
 
   return (
     <section className="sections" aria-label="portfolio sections">
       {content.sections.map(({ id, label, entries }) => (
-        <div className="section" key={id}>
-          <h2 className="section-heading">
-            <button
-              className="section-toggle"
-              type="button"
-              aria-expanded={Boolean(openSections[id])}
-              aria-controls={id}
-              onClick={() => toggleSection(id)}
-            >
-              {label}
-              <span className="toggle-icon" aria-hidden="true" />
-            </button>
-          </h2>
-          <div
-            className={`section-preview${openSections[id] ? ' is-open' : ''}`}
-            id={id}
-            aria-hidden={!openSections[id]}
-            inert={!openSections[id]}
-          >
-            <div className="section-preview-inner">
-              <EntryList entries={id === 'case-studies' ? caseStudyEntries : entries} />
-            </div>
-          </div>
-        </div>
+        <PortfolioSection
+          key={id}
+          id={id}
+          label={label}
+          entries={id === 'case-studies' ? caseStudyEntries : entries}
+          initiallyOpen={id === 'case-studies' && (view === 'case-studies' || view === 'works')}
+        />
       ))}
     </section>
   )

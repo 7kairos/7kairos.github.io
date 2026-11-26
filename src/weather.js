@@ -25,11 +25,13 @@ export async function loadWeather(location, signal) {
   if (!response.ok) throw new Error('Weather request failed')
   const { current } = await response.json()
   if (!Number.isFinite(current?.temperature_2m)) throw new Error('Weather is unavailable')
+  const code = current.weather_code
 
   return {
     sourceUrl: url.href,
-    temperature: Math.round(current.temperature_2m),
-    condition: conditions[current.weather_code],
+    temperature: current.temperature_2m,
+    condition: conditions[code],
+    rainy: (code >= 51 && code <= 67) || (code >= 80 && code <= 82),
     cloud: Number.isFinite(current.cloud_cover) ? current.cloud_cover : undefined,
   }
 }
